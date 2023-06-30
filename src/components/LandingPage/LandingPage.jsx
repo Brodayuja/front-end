@@ -1,15 +1,23 @@
 import { useState } from "react";
 import { Routes, Route, useParams } from "react-router-dom";
 import ReviewBookShelf from "../Reviews/ReviewBookShelf";
+import pageTurnerLogo from "../images/pageTurnersLogo.png"
+
+// commented out to keep from breaking
+// import SearchBar from "../Reviews/SearchBar";
 
 
 
-function LandingPage() {
 
+function LandingPage(props) {
+  const books = props.books;
 
 
   return (
     <>
+    <div>
+      <img className="Logo" src={pageTurnerLogo}/>
+    </div>
   
     <div>
       <h1>Page Turners</h1>
@@ -27,7 +35,12 @@ function LandingPage() {
     </article>
 
     <div>
-     <ReviewBookShelf/>
+     <ReviewBookShelf books={books}/>
+    </div>
+
+    <div>
+      {/* commented out to keep from breaking */}
+      {/* <SearchBar books={books}/> */}
     </div>
 
     <div>
