@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Routes, Route, useParams } from "react-router-dom";
 import ReviewBookShelf from "../Reviews/ReviewBookShelf";
 import pageTurnerLogo from "../images/pageTurnersLogo.png"
+import SearchBar from "../SearchBar/SearchBar";
 
 // commented out to keep from breaking
-// import SearchBar from "../Reviews/SearchBar";
 
 
 
@@ -40,7 +40,7 @@ function LandingPage(props) {
 
     <div>
       {/* commented out to keep from breaking */}
-      {/* <SearchBar books={books}/> */}
+      <SearchBar books={books}/>
     </div>
 
     <div>

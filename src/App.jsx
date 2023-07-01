@@ -3,6 +3,7 @@ import "./App.css";
 import { Routes, Route, useParams } from "react-router-dom";
 import LandingPage from "./components/LandingPage/LandingPage";
 import { fetchAllBooks } from "./components/api-handlers";
+import SearchResults from "./components/SearchBar/SearchResults";
 
 
 
@@ -29,8 +30,8 @@ function App() {
     <Routes>
       <Route path='/' element={<LandingPage books={books}/>}></Route>
       {/* <Route path='/login' element={<Login/>}></Route>
-      <Route path='/register' element={<Register/>}></Route>
-      <Route path='/search-results' element={<SearchResults/>}></Route> */}
+      <Route path='/register' element={<Register/>}></Route>*/}
+      <Route path="/search-results" element={<SearchResults books={books} />} />
     </Routes>
       
     
