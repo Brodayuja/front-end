@@ -8,6 +8,7 @@ import SingleBookDetail from "./components/SingleBook/SingleBook";
 import Login from "./components/Login/Login";
 import Registration from "./components/Registration/Registration";
 import Profile from "./components/Profile/Profile";
+import AddBook from "./components/NewBook/NewBook";
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -63,6 +64,7 @@ function App() {
         <Route path="/childbooks" />
         <Route path="/fiction" />
         <Route path="/graphicnovels" />
+        <Route path="/add-books" element={<AddBook />}></Route>
 
       </Routes>
     </>
