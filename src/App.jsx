@@ -34,6 +34,8 @@ function App() {
       <Route path='/register' element={<Register/>}></Route>*/}
       <Route path="/search-results" element={<SearchResults books={books} />} />
       <Route path="/books/:isbn" element={<SingleBookDetail books={books}/> } />
+      <Route path="/mybooks"/>
+      <Route path="/profile"/>
     </Routes>
       
     
