@@ -6,6 +6,8 @@ const Register = (props) => {
   const setIsLoggedIn = props.setIsLoggedIn;
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const setMyUsername = props.setMyUsername;
 
@@ -13,7 +15,7 @@ const Register = (props) => {
     e.preventDefault();
 
     try {
-      const result = await registerUser(username, password);
+      const result = await registerUser(username, password, email, name);
       console.log(result);
 
       localStorage.setItem("token", result.token);
@@ -29,6 +31,26 @@ const Register = (props) => {
     <div>
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
+        <label>
+          Email:
+          <input
+            type="text"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+        </label>
+        <label>
+          Name:
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);
+            }}
+          />
+        </label>
         <label>
           Username:
           <input

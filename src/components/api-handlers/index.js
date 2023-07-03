@@ -52,7 +52,7 @@ export const loginUser = async (username, password) => {
     const response = await fetch(`${BASE_URL}/users/login`, {
       method: "POST",
       headers: {
-        "Content-type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         user: {
@@ -63,14 +63,14 @@ export const loginUser = async (username, password) => {
     });
     const result = await response.json();
     console.log(result);
-    return result.data;
+    return result;
   } catch (error) {
     console.log(error);
   }
 };
 
 // User Registration
-export const registerUser = async (username, password) => {
+export const registerUser = async (username, password, email, name) => {
   try {
     const response = await fetch(`${BASE_URL}/users/register`, {
       method: "POST",
@@ -81,6 +81,8 @@ export const registerUser = async (username, password) => {
         user: {
           username: username,
           password: password,
+          email: email,
+          name: name,
         },
       }),
     });
@@ -96,50 +98,50 @@ export const registerUser = async (username, password) => {
 // Nonfiction Books
 export const fetchNFBooks = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/nonfiction-books`)
-    const data = await response.json()
-    return data
+    const response = await fetch(`${BASE_URL}/nonfiction-books`);
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 // Fiction Books
 export const fetchFictionBooks = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/fiction-books`)
-    const data = await response.json()
-    return data
+    const response = await fetch(`${BASE_URL}/fiction-books`);
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 // Book Club Picks
 export const fetchBookClubPicks = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/book-club-picks`)
-    const data = await response.json()
-    return data
+    const response = await fetch(`${BASE_URL}/book-club-picks`);
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 // Children's Books
 export const fetchChildrenBooks = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/childrens-books`)
-    const data = await response.json()
-    return data
+    const response = await fetch(`${BASE_URL}/childrens-books`);
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 // Graphic Novels and Manga
 export const fetchGraphicNovels = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/graphic-books`)
-    const data = await response.json()
-    return data
+    const response = await fetch(`${BASE_URL}/graphic-books`);
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
