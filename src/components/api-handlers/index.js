@@ -92,3 +92,54 @@ export const registerUser = async (username, password) => {
     console.log(error);
   }
 };
+
+// Nonfiction Books
+export const fetchNFBooks = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/nonfiction-books`)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+// Fiction Books
+export const fetchFictionBooks = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/fiction-books`)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+// Book Club Picks
+export const fetchBookClubPicks = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/book-club-picks`)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+// Children's Books
+export const fetchChildrenBooks = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/childrens-books`)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
+// Graphic Novels and Manga
+export const fetchGraphicNovels = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/graphic-books`)
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.log(error)
+  }
+}
