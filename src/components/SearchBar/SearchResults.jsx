@@ -28,8 +28,13 @@ const SearchResults = ({ books }) => {
       {searchResults.length ? (
         searchResults.map((book) => (
           <div key={book.ISBN}>
-            <h4>{book.title}</h4>
+
+          <a href={`/books/${book.isbn}`}>
             <img src={book.bookCover} alt="Image of Book cover" />
+            <h4>{book.title}</h4>
+            <p>{book.author}</p>
+            <p>{book.isbn}</p>
+          </a>
           </div>
         ))
       ) : (

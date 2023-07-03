@@ -3,7 +3,8 @@ export default {
   content: [
     "./src/components/App.jsx",
     "./src/components/LandingPage/LandingPage.jsx",
-    "./src/components/Reviews/ReviewBookShelf.jsx"
+    "./src/components/Reviews/RecentReviewsShelf.jsx",
+    "./src/components/SingleBook/SingleBook.jsx"
   ],
   theme: {
     extend: {

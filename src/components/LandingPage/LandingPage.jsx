@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Routes, Route, useParams } from "react-router-dom";
-import ReviewBookShelf from "../Reviews/ReviewBookShelf";
 import pageTurnerLogo from "../images/pageTurnersLogo.png"
 import SearchBar from "../SearchBar/SearchBar";
+import RecentReviewsShelf from "../Reviews/RecentReviewsShelf";
 
 // commented out to keep from breaking
 
@@ -35,7 +35,7 @@ function LandingPage(props) {
     </article>
 
     <div>
-     <ReviewBookShelf books={books}/>
+     <RecentReviewsShelf books={books}/>
     </div>
 
     <div>
