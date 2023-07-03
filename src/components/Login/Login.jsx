@@ -9,7 +9,7 @@ const Login = (props) => {
   const navigate = useNavigate();
   const setMyUsername = props.setMyUsername;
 
-  const handeSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -29,7 +29,7 @@ const Login = (props) => {
   return (
     <div>
       <h1>Login</h1>
-      <form onSubmit={handeSubmit}>
+      <form onSubmit={handleSubmit}>
         <label>
           Username:
           <input
@@ -56,3 +56,5 @@ const Login = (props) => {
     </div>
   );
 };
+
+export default Login;

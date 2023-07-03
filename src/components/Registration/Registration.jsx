@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { registerUser } from "../api-adapters";
+import { registerUser } from "../api-handlers/index";
 import { useNavigate } from "react-router-dom";
 
 const Register = (props) => {
