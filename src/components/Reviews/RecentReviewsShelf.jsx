@@ -1,6 +1,3 @@
-import { useState, useEffect } from "react";
-import { fetchAllBooks } from "../api-handlers";
-
 function RecentReviewsShelf (props) {
     const books = props.books;
     

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route, useParams, Link } from "react-router-dom";
 import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import SearchBar from "../SearchBar/SearchBar";
 import RecentReviewsShelf from "../Reviews/RecentReviewsShelf";
@@ -44,14 +44,14 @@ function LandingPage(props) {
       </div>
 
       <div>
-        {/* commented out to keep from breaking */}
         <SearchBar books={books} />
       </div>
 
       <div>
-        {/* Global Search Companent */}
-
-        {/* Links to Categories */}
+            {/* <Link to="/nonfiction">Non-Fiction</Link>
+            <Link to="/childbooks">Children's Books</Link>
+            <Link to="/fiction">Fiction</Link>
+            <Link to="/graphicnovels">Graphic Novels</Link> */}
       </div>
     </>
   );
