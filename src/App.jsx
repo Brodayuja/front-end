@@ -7,6 +7,7 @@ import SearchResults from "./components/SearchBar/SearchResults";
 import SingleBookDetail from "./components/SingleBook/SingleBook";
 import Login from "./components/Login/Login";
 import Registration from "./components/Registration/Registration";
+import Profile from "./components/Profile/Profile";
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -57,7 +58,12 @@ function App() {
           element={<SingleBookDetail books={books} />}
         />
         <Route path="/mybooks" />
-        <Route path="/profile" />
+        <Route path="/profile" element={<Profile username={myUsername}/>} />
+        <Route path="/nonfiction" />
+        <Route path="/childbooks" />
+        <Route path="/fiction" />
+        <Route path="/graphicnovels" />
+
       </Routes>
     </>
   );
