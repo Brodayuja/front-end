@@ -31,7 +31,7 @@ function FictionShelf() {
 
                 {firstFiveBooks.map((book) => (
                     <div key={book.isbn} className="w-1/4 px-2 bg-columbiaBlue">
-                        <a href={`/fiction-books/${book.isbn}`}>
+                        <a href={`/books/${book.isbn}`}>
                             <img src={book.bookCover} alt="Image of Book cover" />
                         </a>
                     </div>

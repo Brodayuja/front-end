@@ -31,7 +31,7 @@ function ChildrensBooks() {
             <h1>Children's Books</h1>
             {childrensBooks.map(book => (
                 <div key={book.isbn}>
-                    <a href={`/child-books/${book.isbn}`}>
+                    <a href={`/books/${book.isbn}`}>
                         <img src={book.bookCover} alt="Image of Book cover" />
                         <h3>{book.title}</h3>
                         <p>{book.author}</p>

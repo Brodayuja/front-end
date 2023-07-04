@@ -31,7 +31,7 @@ function NFBooks() {
             <h1>Non-Fiction Books</h1>
             {NFBooks.map(book => (
                 <div key={book.isbn}>
-                    <a href={`/nonfiction-books/${book.isbn}`}>
+                    <a href={`/books/${book.isbn}`}>
                         <img src={book.bookCover} alt="Image of Book cover" />
                         <h3>{book.title}</h3>
                         <p>{book.author}</p>

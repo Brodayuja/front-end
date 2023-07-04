@@ -31,7 +31,7 @@ function GraphicNovels() {
             <h1>Grapic Novels / Manga</h1>
             {graphicNovels.map(book => (
                 <div key={book.isbn}>
-                    <a href={`/graphic-books/${book.isbn}`}>
+                    <a href={`/books/${book.isbn}`}>
                         <img src={book.bookCover} alt="Image of Book cover" />
                         <h3>{book.title}</h3>
                         <p>{book.author}</p>
