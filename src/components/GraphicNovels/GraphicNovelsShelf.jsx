@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../api-handlers";
-import pageTurnerLogo from "../images/pageTurnersLogo.png";
-import NavBar from "../NavBar/NavBar";
+import { Link } from "react-router-dom";
 
-function GraphicNovels() {
+function GraphicNovelsShelf() {
     const [graphicNovels, setgraphicNovels] = useState([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         async function fetchgraphicNovels() {
             try {
                 const response = await fetch(`${BASE_URL}/graphic-books`);
                 const data = await response.json();
-                
+          
                 setgraphicNovels(data);
             } catch (error) {
                 console.log(error);
@@ -20,27 +19,26 @@ function GraphicNovels() {
         fetchgraphicNovels();
     }, []);
 
-    return (
-        <>
-        <div>
-            <img className="Logo" src={pageTurnerLogo} alt="Page Turner Logo" />
-            <NavBar/>
-        </div>
+    const firstFiveBooks = graphicNovels.slice(0, 5);
 
+    return (
         <div>
-            <h1>Grapic Novels / Manga</h1>
-            {graphicNovels.map(book => (
-                <div key={book.isbn}>
-                    <a href={`/graphic-books/${book.isbn}`}>
+            <div className="flex justify-between">
+                <h2>Graphic Novels</h2>
+                <Link to="/graphicNovels">View All</Link>
+            </div>
+        <div className="flex flex-row justify-between">
+
+            {firstFiveBooks.map((book) => (
+                <div key={book.isbn} className="w-1/4 px-2 bg-columbiaBlue">
+                    <a href={`/graphicNovels/${book.isbn}`}>
                         <img src={book.bookCover} alt="Image of Book cover" />
-                        <h3>{book.title}</h3>
-                        <p>{book.author}</p>
-                    </a>
+                       </a>
                 </div>
             ))}
         </div>
-        </>
+        </div>
     );
 }
 
-export default GraphicNovels;
+export default GraphicNovelsShelf;

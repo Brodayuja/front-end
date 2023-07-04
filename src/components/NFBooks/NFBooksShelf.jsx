@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { BASE_URL } from "../api-handlers";
-import pageTurnerLogo from "../images/pageTurnersLogo.png";
-import NavBar from "../NavBar/NavBar";
+import { Link } from "react-router-dom";
 
-function NFBooks() {
+function NFBooksShelf() {
     const [NFBooks, setNFBooks] = useState([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         async function fetchNFBooks() {
             try {
                 const response = await fetch(`${BASE_URL}/nonfiction-books`);
                 const data = await response.json();
-                
+          
                 setNFBooks(data);
             } catch (error) {
                 console.log(error);
@@ -20,27 +19,26 @@ function NFBooks() {
         fetchNFBooks();
     }, []);
 
+    const firstFiveBooks = NFBooks.slice(0, 5);
+
     return (
-        <>
         <div>
-            <img className="Logo" src={pageTurnerLogo} alt="Page Turner Logo" />
-            <NavBar/>
-        </div>
-        
-        <div>
-            <h1>Non-Fiction Books</h1>
-            {NFBooks.map(book => (
-                <div key={book.isbn}>
+            <div className="flex justify-between">
+                <h2>Non-Fiction</h2>
+                <Link to="/nonfiction">View All</Link>
+            </div>
+        <div className="flex flex-row justify-between">
+
+            {firstFiveBooks.map((book) => (
+                <div key={book.isbn} className="w-1/4 px-2 bg-columbiaBlue">
                     <a href={`/nonfiction-books/${book.isbn}`}>
                         <img src={book.bookCover} alt="Image of Book cover" />
-                        <h3>{book.title}</h3>
-                        <p>{book.author}</p>
-                    </a>
+                       </a>
                 </div>
             ))}
         </div>
-        </>
+        </div>
     );
 }
 
-export default NFBooks;
+export default NFBooksShelf;

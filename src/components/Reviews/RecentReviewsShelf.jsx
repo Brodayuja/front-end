@@ -4,7 +4,10 @@ function RecentReviewsShelf (props) {
     return(
 
         <div>
-        <h2 className="text-left">New Releases</h2>
+          <div className="flex justify-between">
+            <h2>New Releases</h2>
+          </div>
+
         <div className="flex flex-row justify-between">
           {books.length ? (
             books.filter((element)=>{
