@@ -4,7 +4,9 @@ export default {
     "./src/components/App.jsx",
     "./src/components/LandingPage/LandingPage.jsx",
     "./src/components/Reviews/RecentReviewsShelf.jsx",
-    "./src/components/SingleBook/SingleBook.jsx"
+    "./src/components/SingleBook/SingleBook.jsx",
+    "./src/components/NavBar/NavBar.jsx"
+
   ],
   theme: {
     extend: {

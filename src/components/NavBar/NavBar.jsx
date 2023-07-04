@@ -7,13 +7,16 @@ const NavBar = (props) => {
     const navigate = useNavigate();
 
     return(
-
-        <div>
-            <Link to="/browse">Home</Link>
-            <Link to="/mybooks">My Books</Link>
-            <Link to="/profile">Profile</Link>
-            <SearchBar books={books}/>
-        </div>
+        <>
+            <div className="flex">
+                <Link to="/browse" className="mx-8">Home</Link>
+                <Link to="/mybooks" className="mx-8">My Books</Link>
+                <Link to="/profile" className="mx-8">Profile</Link>
+            </div>
+            <div>
+                <SearchBar books={books} />
+            </div>
+            </>
     )
 }
 
