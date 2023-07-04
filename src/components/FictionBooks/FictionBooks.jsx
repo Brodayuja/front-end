@@ -31,7 +31,7 @@ function FictionPage() {
             <h1>Fiction Books</h1>
             {fictionBooks.map(book => (
                 <div key={book.isbn}>
-                    <a href={`/fiction-books/${book.isbn}`}>
+                    <a href={`/books/${book.isbn}`}>
                         <img src={book.bookCover} alt="Image of Book cover" />
                         <h3>{book.title}</h3>
                         <p>{book.author}</p>
