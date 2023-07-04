@@ -9,7 +9,7 @@ const NavBar = (props) => {
     return(
 
         <div>
-            <Link to="/">Home</Link>
+            <Link to="/browse">Home</Link>
             <Link to="/mybooks">My Books</Link>
             <Link to="/profile">Profile</Link>
             <SearchBar books={books}/>

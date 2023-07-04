@@ -9,6 +9,11 @@ import Login from "./components/Login/Login";
 import Registration from "./components/Registration/Registration";
 import Profile from "./components/Profile/Profile";
 import AddBook from "./components/NewBook/NewBook";
+import Browse from "./components/BrowsePage/BrowsePage";
+import FictionPage from "./components/FictionBooks/FictionBooks";
+import NFBooks from "./components/NFBooks/NFBooks";
+import GraphicNovels from "./components/GraphicNovels/GraphicNovels";
+import ChildrensBooks from "./components/ChildrensBooks/ChildrensBooks";
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -58,12 +63,13 @@ function App() {
           path="/books/:isbn"
           element={<SingleBookDetail books={books} />}
         />
+        <Route path="/browse" element={<Browse books={books}/>} />
         <Route path="/mybooks" />
         <Route path="/profile" element={<Profile username={myUsername}/>} />
-        <Route path="/nonfiction" />
-        <Route path="/childbooks" />
-        <Route path="/fiction" />
-        <Route path="/graphicnovels" />
+        <Route path="/nonfiction" element={<NFBooks/>}/>
+        <Route path="/childbooks" element={<ChildrensBooks/>}/>
+        <Route path="/fiction" element={<FictionPage/>}/>
+        <Route path="/graphicnovels" element={<GraphicNovels/>}/>
         <Route path="/add-books" element={<AddBook />}></Route>
 
       </Routes>
