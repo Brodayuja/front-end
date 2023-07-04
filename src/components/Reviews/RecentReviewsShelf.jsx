@@ -7,12 +7,15 @@ function RecentReviewsShelf (props) {
         <h2 className="text-left">New Releases</h2>
         <div className="flex flex-row justify-between">
           {books.length ? (
-            books.map((element) => (
+            books.filter((element)=>{
+              const publicationYear = element.yearPublished;
+              const currentYear = new Date().getFullYear();
+              return publicationYear === currentYear;
+            })
+            .slice(0,5).map((element) => (
               <div key={element.isbn} className="w-1/4 px-2 bg-columbiaBlue">
                 <a href={`/books/${element.isbn}`}>
                   <img src={element.bookCover} alt="Image of Book cover" />
-                  {/* <h4>{element.title}</h4> */}
-                  {/* Need to be able to render Score Here*/}
                 </a>
               </div>
             ))

@@ -5,8 +5,6 @@ import SearchBar from "../SearchBar/SearchBar";
 import RecentReviewsShelf from "../Reviews/RecentReviewsShelf";
 import Login from "../Login/Login";
 
-// commented out to keep from breaking
-
 function LandingPage(props) {
   const books = props.books;
 
@@ -48,10 +46,10 @@ function LandingPage(props) {
       </div>
 
       <div>
-            {/* <Link to="/nonfiction">Non-Fiction</Link>
+            <Link to="/nonfiction">Non-Fiction</Link>
             <Link to="/childbooks">Children's Books</Link>
             <Link to="/fiction">Fiction</Link>
-            <Link to="/graphicnovels">Graphic Novels</Link> */}
+            <Link to="/graphicnovels">Graphic Novels</Link>
       </div>
     </>
   );
