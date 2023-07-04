@@ -12,9 +12,6 @@ function Profile({ username }) {
         const data = await response.json();
         console.log(data);
         
-        // Find the user that matches the username
-        const foundUser = data?.users.find((user) => user.username === username);
-        setUser(foundUser);
       } catch (error) {
         console.log(error);
       }

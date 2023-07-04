@@ -22,7 +22,7 @@ function NFBooks() {
 
     return (
         <>
-        <div>
+        <div className="flex justify-between">
             <img className="Logo" src={pageTurnerLogo} alt="Page Turner Logo" />
             <NavBar/>
         </div>
