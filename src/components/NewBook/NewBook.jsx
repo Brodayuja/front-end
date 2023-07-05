@@ -1,302 +1,111 @@
 import { useState, useEffect } from "react"
 import { fetchNFBooks, fetchFictionBooks, fetchBookClubPicks, fetchChildrenBooks, fetchGraphicNovels, BASE_URL } from "../api-handlers/index"
+import AddNonfictionBook from "./AddNFBook"
+import AddFictionBook from "./AddFictionBook"
+import AddGraphicNovel from "./AddGraphicNovel"
+import AddBookClubPick from "./AddBookClubPick"
+import AddChildrensBook from "./AddChildrensBook"
 
 const AddBook = () => {
-    const [nfBooks, setNFBooks] = useState([])
-    const [ficBooks, setFicBooks] = useState([])
-    const [clubBooks, setClubBooks] = useState([])
-    const [childBooks, setChildBooks] = useState([])
-    const [gnBooks, setGNBooks] = useState([])
-    const [newTitle, setNewTitle] = useState("")
-    const [newAuthor, setNewAuthor] = useState("")
-    const [newISBN, setNewISBN] = useState("")
-    const [newSummary, setNewSummary] = useState("")
-    const [newGenre, setNewGenre] = useState("")
-    const [newPublisher, setNewPublisher] = useState("")
-    const [newYearPublished, setNewYearPublished] = useState("")
-    const [newPhysicalDescription, setNewPhysicalDescription] = useState("")
-    const [newBookCover, setNewBookCover] = useState("")
-        const currentToken = localStorage.getItem("token")
-
-    useEffect( () => {
-        const getCategoryBooksData = async () => {
-            try {
-                const nfResponse = await fetchNFBooks()
-                setNFBooks(nfResponse) 
-
-                const ficResponse = await fetchFictionBooks()
-                setFicBooks(ficResponse)
-
-                const clubResponse = await fetchBookClubPicks()
-                setClubBooks(clubResponse)
-
-                const childResponse = await fetchChildrenBooks()
-                setChildBooks(childResponse)
-
-                const gnResponse = await fetchGraphicNovels()
-                setGNBooks(gnResponse)
-
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        getCategoryBooksData()
-    }, [])
-  
-
-    const sendNewBookRequest = async (event) => {
-        event.preventDefault()
-        try {
-            const response = await fetch(`${BASE_URL}/nonfiction-books`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    // "Authorization": `Bearer ${currentToken}`
-                }, 
-                body: JSON.stringify({
-                     post: {
-                        title: newTitle,
-                        author: newAuthor,
-                        isbn: newISBN,
-                        summary: newSummary,
-                        publisher: newPublisher,
-                        yearPublished: newYearPublished,
-                        bookCover: newBookCover,
-                        genre: newGenre,
-                        physicalDescription: newPhysicalDescription
-                    }
-                })
-            });
-            const data = await response.json();
-            setNFBooks([...nfBooks, data])
-            } catch (error) {
-                console.log (error)
-        }
-    }
+    const currentToken = localStorage.getItem("token")
+    const [category, setCategory] = useState("")
 
     return (
       <>
-        <form onSubmit={sendNewBookRequest}>
-          <label htmlFor="title">Title:</label>
-          <br />
-          <input
-            name="title"
-            type="text"
-            placeholder="Title of Book"
-            value={newTitle}
-            onChange={(event) => {
-              setNewTitle(event.target.value);
-            }}
-          ></input> <br />
-
-          <label htmlFor="author">Author:</label>
-          <br />
-          <input
-            name="author"
-            type="text"
-            placeholder="Author of Book"
-            value={newAuthor}
-            onChange={(event) => {
-              setNewAuthor(event.target.value);
-            }}
-          ></input> <br />
-
-          <label htmlFor="isbn">Enter Book ISBN:</label>
-          <br />
-          <input
-            name="ISBN"
-            type="text"
-            placeholder="Enter 13 digit ISBN with no special characters"
-            value={newISBN}
-            onChange={(event) => {
-              setNewISBN(event.target.value);
-            }}
-          ></input> <br />
-
-          <label htmlFor="">Enter Book Summary Below:</label>
-          <br />
-          <input
-            name="summary"
-            type="text"
-            placeholder="New Book Summary Goes Here"
-            value={newSummary}
-            onChange={(event) => {
-              setNewSummary(event.target.value);
-            }}
-          ></input> <br />
-
-
-          <label htmlFor="bookCover">Enter Book Cover URL:</label>
-          <br />
-          <input
-            name="bookCover"
-            type="url"
-            placeholder="Copy Book Cover URL from worldcat.org"
-            value={newBookCover}
-            onChange={(event) => {
-              setNewBookCover(event.target.value);
-            }}
-          ></input> <br />
-
+        <form>
           <fieldset>
-              <legend>Book Genres:</legend>
+              <legend>Select the category for the book being added:</legend>
+
               <div>
-                <label htmlFor="genre">Contemporary Fiction</label>
+                <label htmlFor="category">Fiction Book</label>
                 <input 
                   type="radio" 
-                  id="genre" 
-                  name="genre" 
-                  value={newGenre}
+                  id="category" 
+                  name="category" 
+                  value="Fiction Book"
                   onChange={(event)=> {
-                    setNewGenre(event.target.value)
+                    setCategory(event.target.value)
+                    console.log(category)
                   }
                   }>
                   </input> 
               </div>
               <div>
-                <label htmlFor="genre">Fantasy</label>
+                <label htmlFor="category">Nonfiction Book</label>
                 <input 
                   type="radio" 
-                  id="genre" 
-                  name="genre" 
-                  value={newGenre}
+                  id="category" 
+                  name="category" 
+                  value="Nonfiction Book"
                   onChange={(event)=> {
-                    setNewGenre(event.target.value)
+                    setCategory(event.target.value)
+                    console.log(event.target.value)
                   }
                   }>
                   </input> 
               </div>
               <div>
-                <label htmlFor="genre">Historical Fiction</label>
+                <label htmlFor="category">Graphic Novel/Manga</label>
                 <input 
                   type="radio" 
-                  id="genre" 
-                  name="genre" 
-                  value={newGenre}
+                  id="category" 
+                  name="category" 
+                  value="Graphic Novel/Manga"
                   onChange={(event)=> {
-                    setNewGenre(event.target.value)
+                    setCategory(event.target.value)
+                    console.log(category)
                   }
                   }>
                   </input> 
               </div>
               <div>
-                <label htmlFor="genre">Horror</label>
+                <label htmlFor="category">Book Club Pick</label>
                 <input 
                   type="radio" 
-                  id="genre" 
-                  name="genre" 
-                  value={newGenre}
+                  id="category" 
+                  name="category" 
+                  value="Book Club Pick"
                   onChange={(event)=> {
-                    setNewGenre(event.target.value)
+                    setCategory(event.target.value)
+                    console.log(category)
                   }
                   }>
                   </input> 
               </div>
               <div>
-                <label htmlFor="genre">LGBTQ+</label>
+                <label htmlFor="category">Children's Book</label>
                 <input 
                   type="radio" 
-                  id="genre" 
-                  name="genre" 
-                  value={newGenre}
+                  id="category" 
+                  name="category" 
+                  value="Children's Book"
                   onChange={(event)=> {
-                    setNewGenre(event.target.value)
+                    setCategory(event.target.value)
+                    console.log(category)
                   }
                   }>
                   </input> 
               </div>
-              <div>
-                <label htmlFor="genre">Mystery</label>
-                <input 
-                  type="radio" 
-                  id="genre" 
-                  name="genre" 
-                  value={newGenre}
-                  onChange={(event)=> {
-                    setNewGenre(event.target.value)
-                  }
-                  }>
-                  </input> 
-              </div>
-              <div>
-                <label htmlFor="genre">Romance</label>
-                <input 
-                  type="radio" 
-                  id="genre" 
-                  name="genre" 
-                  value={newGenre}
-                  onChange={(event)=> {
-                    setNewGenre(event.target.value)
-                  }
-                  }>
-                  </input> 
-              </div>
-              <div>
-                <label htmlFor="genre">Science Fiction</label>
-                <input 
-                  type="radio" 
-                  id="genre" 
-                  name="genre" 
-                  value={newGenre}
-                  onChange={(event)=> {
-                    setNewGenre(event.target.value)
-                  }
-                  }>
-                  </input> 
-              </div>
-              <div>
-                <label htmlFor="genre">Short Story </label>
-                <input 
-                  type="radio" 
-                  id="genre" 
-                  name="genre" 
-                  value={newGenre}
-                  onChange={(event)=> {
-                    setNewGenre(event.target.value)
-                  }
-                  }>
-                  </input> 
-              </div>
+   
           </fieldset>
-
-          <label htmlFor="publisher">Enter Book Publisher:</label>
-          <br />
-          <input
-            name="publisher"
-            type="text"
-            placeholder="example: Random House"
-            value={newPublisher}
-            onChange={(event) => {
-              setNewPublisher(event.target.value);
-            }}
-          ></input> <br />
-
-          <label htmlFor="yearPublished">Enter Year of Publication:</label>
-          <br />
-          <input
-            name="yearPublished"
-            type="text"
-            placeholder="ex. 2023"
-            value={newYearPublished}
-            onChange={(event) => {
-              setNewYearPublished(event.target.value);
-            }}
-          ></input> <br />
-          <label htmlFor="physicalDescription">Enter Number of Pages:</label>
-          <br />
-          <input
-            name="physcialDescription"
-            type="text"
-            placeholder="ex. 388 p."
-            value={newPhysicalDescription}
-            onChange={(event) => {
-              setNewPhysicalDescription(event.target.value);
-            }}
-          ></input> <br />
-
-          <button type="submit">Submit!</button>
         </form>
+        {
+          category == "Nonfiction Book" ? <AddNonfictionBook /> : null  
+        }
+        {
+          category == "Fiction Book" ? <AddFictionBook /> : null
+        }
+        {
+            category == "Graphic Novel/Manga" ? <AddGraphicNovel /> : null
+        }
+        {
+            category == "Book Club Pick" ? <AddBookClubPick /> : null
+        }
+        {
+            category == "Children's Book" ? <AddChildrensBook /> : null
+        }
       </>
+    
     );
 }
 export default AddBook
