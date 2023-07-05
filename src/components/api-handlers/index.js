@@ -145,3 +145,26 @@ export const fetchGraphicNovels = async () => {
     console.log(error);
   }
 };
+
+// Get User by Id
+export const fetchUserById = async (userId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/${userId}`)
+    const translatedData = await response.json();
+    console.log(translatedData)
+    return translatedData;
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// Get all User Data
+export const fetchAllUserData = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/users`)
+    const translatedData = await response.json();
+    return translatedData;
+  } catch (error) {
+    console.log(error)
+  }
+}
