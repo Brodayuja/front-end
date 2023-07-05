@@ -19,6 +19,7 @@ function App() {
   const [books, setBooks] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [myUsername, setMyUsername] = useState("");
+  const [myUserId, setMyUserId] = useState(null)
 
   useEffect(() => {
     const getBooks = async () => {
@@ -33,16 +34,33 @@ function App() {
     getBooks();
   }, []);
 
+  useEffect(()=> {
+    try {
+      const myToken = localStorage.getItem("token")
+      const token_id = localStorage.getItem("userId")
+      console.log(token_id)
+      if (myToken && token_id){
+        setMyUserId(token_id)
+        setIsLoggedIn(true)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  },[])
+
+ console.log(myUserId, "Hello")
   return (
     <>
       <Routes>
-        <Route path="/" element={<LandingPage books={books} />}></Route>
+        <Route path="/" element={<LandingPage books={books} setMyUserId={setMyUserId} setIsLoggedIn={setIsLoggedIn}
+              setMyUsername={setMyUsername} />}></Route>
         <Route
           path="/login"
           element={
             <Login
               setIsLoggedIn={setIsLoggedIn}
               setMyUsername={setMyUsername}
+              setMyUserId={setMyUserId}
             />
           }
         ></Route>
@@ -63,9 +81,9 @@ function App() {
           path="/books/:isbn"
           element={<SingleBookDetail books={books} />}
         />
-        <Route path="/browse" element={<Browse books={books}/>} />
+        <Route path="/browse" element={<Browse books={books} username={myUsername}/>} />
         <Route path="/mybooks" />
-        <Route path="/profile" element={<Profile username={myUsername}/>} />
+        <Route path="/profile" element={<Profile username={myUsername} myUserId={myUserId}/>} />
         <Route path="/nonfiction" element={<NFBooks/>}/>
         <Route path="/childbooks" element={<ChildrensBooks/>}/>
         <Route path="/fiction" element={<FictionPage/>}/>

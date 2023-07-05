@@ -11,7 +11,7 @@ const NavBar = (props) => {
             <div className="flex">
                 <Link to="/browse" className="mx-8">Home</Link>
                 <Link to="/mybooks" className="mx-8">My Books</Link>
-                <Link to="/profile" className="mx-8">Profile</Link>
+                <Link to="/profile/" className="mx-8">Profile</Link>
             </div>
             <div>
                 <SearchBar books={books} />

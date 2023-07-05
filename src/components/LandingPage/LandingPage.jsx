@@ -7,6 +7,9 @@ import Login from "../Login/Login";
 
 function LandingPage(props) {
   const books = props.books;
+  const setMyUserId = props.setMyUserId;
+  const setIsLoggedIn = props.setIsLoggedIn;
+  const setMyUsername = props.setMyUsername;
 
   return (
     <>
@@ -20,7 +23,9 @@ function LandingPage(props) {
       </div>
 
       <div>
-        <Login />
+        <Login setIsLoggedIn={setIsLoggedIn}
+              setMyUsername={setMyUsername}
+              setMyUserId={setMyUserId}/>
       </div>
 
       <article>

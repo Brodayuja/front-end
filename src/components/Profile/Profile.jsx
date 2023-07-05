@@ -1,16 +1,28 @@
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import pageTurnerLogo from "../images/pageTurnersLogo.png";
+import { fetchUserById } from "../api-handlers";
 
-function Profile({ username }) {
+function Profile({ username, myUserId }) {
   const [user, setUser] = useState(null);
+  // const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/users");
-        const data = await response.json();
-        console.log(data);
+        if(myUserId){
+
+          const data = await fetchUserById(myUserId);
+          
+          if(data){
+            setUser(data)
+          }else{
+            setUser(null)
+          }
+          console.log(data);
+          return data;
+        }
         
       } catch (error) {
         console.log(error);
@@ -18,7 +30,8 @@ function Profile({ username }) {
     };
 
     fetchData();
-  }, [username]);
+  }, [myUserId]);
+
 
   return (
     <div>
