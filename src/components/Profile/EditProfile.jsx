@@ -137,19 +137,21 @@ function EditProfile({ myUserId }) {
                   className="border rounded px-3 py-2 w-full"
                 />
               </div>
-              
-              <div className="flex justify-between">
-                <button
-                  type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded"
-                >Save
-                </button>
+
+              <div className="flex justify-end">
                 <button
                   type="button"
                   onClick={handleCancel}
                   className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold px-4 py-2 rounded ml-4"
                 >Cancel
                 </button>
-              </div>
+                <button
+                  type="submit"
+                  className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded ml-4"
+                >Save
+                </button>
+              </div>        
+              
             </form>
           </div>
         )}

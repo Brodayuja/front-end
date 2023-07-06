@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import React, { useState } from "react";
 
 const Login = (props) => {
-  // const setIsLoggedIn = props.setIsLoggedIn;
+  const setIsLoggedIn = props.setIsLoggedIn;
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -35,7 +35,7 @@ const Login = (props) => {
           })
         }
 
-      navigate("/");
+      navigate("/browse");
     } catch (error) {
       console.log(error);
     }

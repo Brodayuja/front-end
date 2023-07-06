@@ -173,7 +173,6 @@ export const fetchUserById = async (userId) => {
     console.log(error)
   }
 }
-
 // User Update
 export const updateUser = async (userId, updatedData) => {
   try {
@@ -190,6 +189,11 @@ export const updateUser = async (userId, updatedData) => {
     console.log(error);
   }
 };
+
+
+
+
+
 
 // Get all User Data
 export const fetchAllUserData = async () => {
