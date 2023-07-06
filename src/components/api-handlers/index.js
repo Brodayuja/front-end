@@ -1,22 +1,28 @@
 export const BASE_URL = "http://localhost:3000/api";
 
+
 // Fetch All Books
 export const fetchAllBooks = async () => {
   try {
     const nfResponse = await fetch(`${BASE_URL}/nonfiction-books`);
     const nfData = await nfResponse.json();
 
+
     const ficResponse = await fetch(`${BASE_URL}/fiction-books`);
     const ficData = await ficResponse.json();
+
 
     const gnResponse = await fetch(`${BASE_URL}/graphic-books`);
     const gnData = await gnResponse.json();
 
+
     const clubResponse = await fetch(`${BASE_URL}/book-club-picks`);
     const clubData = await clubResponse.json();
 
+
     const childResponse = await fetch(`${BASE_URL}/childrens-books`);
     const childData = await childResponse.json();
+
 
     const allBooks = [].concat(
       ...nfData,
@@ -26,13 +32,16 @@ export const fetchAllBooks = async () => {
       ...childData
     );
 
+
     return allBooks;
   } catch (error) {
     console.log(error);
   }
 };
 
+
 fetchAllBooks();
+
 
 // Fetch Reviews
 export const fetchReviews = async () => {
@@ -40,11 +49,13 @@ export const fetchReviews = async () => {
     const response = await fetch(`${BASE_URL}/reviews`);
     const data = await response.json();
 
+
     return data;
   } catch (error) {
     console.log(error);
   }
 };
+
 
 // User login
 export const loginUser = async (username, password) => {
@@ -69,6 +80,7 @@ export const loginUser = async (username, password) => {
   }
 };
 
+
 // User Registration
 export const registerUser = async (username, password, email, name) => {
   try {
@@ -87,13 +99,16 @@ export const registerUser = async (username, password, email, name) => {
       }),
     });
 
+
     const result = await response.json();
+
 
     return result.data;
   } catch (error) {
     console.log(error);
   }
 };
+
 
 // Nonfiction Books
 export const fetchNFBooks = async () => {
@@ -146,17 +161,35 @@ export const fetchGraphicNovels = async () => {
   }
 };
 
+
 // Get User by Id
 export const fetchUserById = async (userId) => {
   try {
     const response = await fetch(`${BASE_URL}/users/${userId}`)
     const translatedData = await response.json();
-    console.log(translatedData)
+   
     return translatedData;
   } catch (error) {
     console.log(error)
   }
 }
+
+// User Update
+export const updateUser = async (userId, updatedData) => {
+  try {
+    const response = await fetch(`${BASE_URL}/users/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedData),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // Get all User Data
 export const fetchAllUserData = async () => {
@@ -168,3 +201,4 @@ export const fetchAllUserData = async () => {
     console.log(error)
   }
 }
+
