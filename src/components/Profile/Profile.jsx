@@ -41,13 +41,30 @@ function Profile({ username, myUserId }) {
 
       <NavBar />
       <div>
-        <h2>This is the Profile Page</h2>
         {user && (
           <div>
-            <h3>User Details:</h3>
-            <p>Name: {user.name}</p>
-            <p>Email: {user.email}</p>
+
+            <div>
+              <h2>{user.username}</h2>
+              <p>edit profile</p>
+            </div>
+              <br/>
+            <div>
+              <p>Name: {user.name}</p>
+              <p>Email: {user.email}</p>
+              <p>Location: {user.location}</p>
+            </div>
+              <br/>
+            <div>
+              <p>About me: {user.aboutMe}</p>
+            </div>
+
+              <br/>
+
+            <h2>My Books/ My Fave</h2>
+
           </div>
+          
         )}
       </div>
     </div>
