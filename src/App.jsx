@@ -14,12 +14,15 @@ import FictionPage from "./components/FictionBooks/FictionBooks";
 import NFBooks from "./components/NFBooks/NFBooks";
 import GraphicNovels from "./components/GraphicNovels/GraphicNovels";
 import ChildrensBooks from "./components/ChildrensBooks/ChildrensBooks";
+import EditProfile from "./components/Profile/EditProfile";
+
 
 function App() {
   const [books, setBooks] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [myUsername, setMyUsername] = useState("");
   const [myUserId, setMyUserId] = useState(null)
+
 
   useEffect(() => {
     const getBooks = async () => {
@@ -34,11 +37,12 @@ function App() {
     getBooks();
   }, []);
 
+
   useEffect(()=> {
     try {
       const myToken = localStorage.getItem("token")
       const token_id = localStorage.getItem("userId")
-      console.log(token_id)
+     
       if (myToken && token_id){
         setMyUserId(token_id)
         setIsLoggedIn(true)
@@ -48,7 +52,11 @@ function App() {
     }
   },[])
 
- console.log(myUserId, "Hello")
+
+
+
+
+
   return (
     <>
       <Routes>
@@ -89,10 +97,13 @@ function App() {
         <Route path="/fiction" element={<FictionPage/>}/>
         <Route path="/graphicnovels" element={<GraphicNovels/>}/>
         <Route path="/add-books" element={<AddBook />}></Route>
+        <Route path="/profile-edit" element={<EditProfile myUserId={myUserId}/>}/>
+
 
       </Routes>
     </>
   );
 }
+
 
 export default App;

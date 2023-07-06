@@ -1,52 +1,60 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import { fetchUserById } from "../api-handlers";
 
-function Profile({ username, myUserId }) {
+
+function Profile({ myUserId }) {
   const [user, setUser] = useState(null);
-  // const { id } = useParams();
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if(myUserId){
 
+
           const data = await fetchUserById(myUserId);
-          
+         
           if(data){
             setUser(data)
           }else{
             setUser(null)
           }
-          console.log(data);
+         
           return data;
         }
-        
+       
       } catch (error) {
         console.log(error);
       }
     };
 
+
     fetchData();
   }, [myUserId]);
 
 
+
+
   return (
     <div>
-      <div>
-        <img className="Logo" src={pageTurnerLogo} alt="Page Turner Logo" />
-      </div>
+        <div className="flex justify-between">
+            <img className="Logo" src={pageTurnerLogo} alt="Page Turner Logo" />
+            <NavBar/>
+        </div>
 
-      <NavBar />
+
+     
       <div>
         {user && (
           <div>
 
+
             <div>
-              <h2>{user.username}</h2>
-              <p>edit profile</p>
+              <h2>username: {user.username}</h2>
+              <Link to="/profile-edit">edit profile</Link>
             </div>
               <br/>
             <div>
@@ -59,16 +67,23 @@ function Profile({ username, myUserId }) {
               <p>About me: {user.aboutMe}</p>
             </div>
 
+
               <br/>
 
-            <h2>My Books/ My Fave</h2>
+
+            <h2>My Books Shelf Render Here</h2>
+
 
           </div>
-          
+         
         )}
       </div>
     </div>
   );
 }
 
+
 export default Profile;
+
+
+
