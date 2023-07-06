@@ -1,5 +1,8 @@
 import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import pageTurnerLogo from "../images/pageTurnersLogo.png";
+import NavBar from "../NavBar/NavBar";
+
 
 const SearchResults = ({ books }) => {
   const location = useLocation();
@@ -25,6 +28,10 @@ const SearchResults = ({ books }) => {
 
   return (
     <>
+      <div className="flex justify-between">
+            <img className="Logo" src={pageTurnerLogo} alt="Page Turner Logo" />
+            <NavBar/>
+        </div>
       {searchResults.length ? (
         searchResults.map((book) => (
           <div key={book.isbn}>
