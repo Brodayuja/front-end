@@ -2,6 +2,8 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import NavBar from "../NavBar/NavBar";
+import GetAllReviewsByISBN from "../Reviews/ReviewsByIsbn"
+import AddReview from "../Reviews/AddReview";
 
 function SingleBookDetail (props) {
     const navigate = useNavigate();
@@ -45,7 +47,9 @@ function SingleBookDetail (props) {
             ): (
                 <p>Loading . . .</p>
             )}
-
+                <GetAllReviewsByISBN />
+                <AddReview /> 
+                {/* wrap add review in a button */}
                 <button onClick={handleGoBack}>Go Back</button>
             
             
