@@ -5,7 +5,7 @@ import { fetchReviews, BASE_URL } from "../api-handlers/index"
 const AddReview = () => {
     const [allReviews, setAllReviews] = useState([])
     const [newContent, setNewContent] = useState("")
-    const [newScore, setNewScore] = useState("")
+    const [newScore, setNewScore] = useState(0)
     const [isbn_nf, setIsbn_nf] = useState("")
     const [isbn_fic, setIsbn_fic] = useState("")
     const [isbn_club, setIsbn_club] = useState("")
@@ -18,17 +18,18 @@ const AddReview = () => {
             try {
                 const allReviews = await fetchReviews()
                 setAllReviews(allReviews)
-                console.log(allReviews, "###")
                 allReviews.find((review) =>{
                     if (review.nfBook_isbn == isbn) {
                         setIsbn_nf(Number(isbn))
                     } if (review.nfBook_isbn != isbn) {
                         setIsbn_nf(null)
+                        console.log(isbn_nf)
                     } 
                       if (review.fictionBook_isbn == isbn) {
                     setIsbn_fic(Number(isbn))
                     } if (review.ficBook_isbn != isbn) {
                         setIsbn_fic(null)
+                        console.log(isbn_fic)
                     } 
                     if (review.graphicBook_isbn == isbn) {
                         setIsbn_gn(Number(isbn))
@@ -59,6 +60,7 @@ const AddReview = () => {
     }, [])
 
     const currentToken = localStorage.getItem("token")
+    const currentUserId = localStorage.getItem("userId")
 
     const sendNewReview = async (event) => {
         event.preventDefault()
@@ -69,20 +71,18 @@ const AddReview = () => {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${currentToken}`
                 }, 
-                body: JSON.stringify({
-                     post: {
-                        content: newContent,
-                        score: newScore,
-                        user_id: 999,
-                        nfBook_isbn: isbn_nf,
-                        fictionBook_isbn: isbn_fic,
-                        graphicBook_isbn: isbn_gn,
-                        bookClubBook_isbn: isbn_club,
-                        childrensBook_isbn: isbn_childrens,
-                        isInappropriate: false,
-                        isNotAccurate: false,
-                        comment: null
-                    }
+                body: JSON.stringify({ 
+                    content: newContent,
+                    score: newScore,
+                    user_id: currentUserId,
+                    nfBookISBN: isbn_nf,
+                    fictionBookISBN: isbn_fic,
+                    graphicBookISBN: isbn_gn,
+                    bookClubBookISBN: isbn_club,
+                    childrensBookISBN: isbn_childrens,
+                    isInappropriate: false,
+                    isNotAccurate: false,
+                    comment: null
                 })
             });
             const data = await response.json();
