@@ -22,7 +22,7 @@ const AddGraphicNovel = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    // "Authorization": `Bearer ${currentToken}`
+                    "Authorization": `Bearer ${currentToken}`
                 }, 
                 body: JSON.stringify({
                      post: {
