@@ -91,7 +91,7 @@ function App() {
         />
         <Route
           path="/books/:isbn"
-          element={<SingleBookDetail books={books} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}
+          element={<SingleBookDetail books={books} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} myUsername={myUsername} myUserId={myUserId} />}
         />
         <Route path="/browse" element={<Browse books={books} username={myUsername}/>} />
         <Route path="/mybooks" />

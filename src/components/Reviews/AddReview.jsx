@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { fetchReviews, BASE_URL, fetchAllBooksTable, fetchAllBooks } from "../api-handlers/index"
+import { BASE_URL, fetchAllBooksTable, fetchReviews } from "../api-handlers/index"
 
-const AddReview = () => {
+const AddReview = ({myUserId}) => {
+  
     const [newContent, setNewContent] = useState("")
     const [newScore, setNewScore] = useState(0)
     const [isbn_nf, setIsbn_nf] = useState(null)
@@ -12,7 +13,7 @@ const AddReview = () => {
     const [isbn_childrens, setIsbn_childrens] = useState(null)
     const { isbn } = useParams();
 
-    useEffect(()=> {
+       useEffect(()=> {
         const settingISBN = async () => {
             try {
                 const result = await fetchAllBooksTable();
@@ -43,10 +44,8 @@ const AddReview = () => {
         }
         settingISBN();
     },[])
-
     
     const currentToken = localStorage.getItem("token")
-    const currentUserId = localStorage.getItem("userId")
   
     const sendNewReview = async (event) => {
         // event.preventDefault()
@@ -61,7 +60,7 @@ const AddReview = () => {
                 body: JSON.stringify({ 
                     content: newContent,
                     score: newScore,
-                    user_id: currentUserId,
+                    userId: myUserId,
                     nfBookISBN: isbn_nf,
                     fictionBookISBN: isbn_fic,
                     graphicBookISBN: isbn_gn,
@@ -73,6 +72,7 @@ const AddReview = () => {
                 })
             });
             const data = await response.json();
+            console.log(data)
             } catch (error) {
                 console.log (error)
         }

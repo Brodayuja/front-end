@@ -39,16 +39,11 @@ export const fetchAllBooks = async () => {
   }
 };
 
-
-fetchAllBooks();
-
-
 // Fetch Reviews
 export const fetchReviews = async () => {
   try {
     const response = await fetch(`${BASE_URL}/reviews`);
     const data = await response.json();
-
 
     return data;
   } catch (error) {
