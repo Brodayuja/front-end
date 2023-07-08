@@ -27,13 +27,14 @@ const GetAllReviewsByISBN = () => {
             console.log(error)
         }
     }, [])
+    
 
     return (
         <>
         {reviewsByIsbn.map((review) => (
             <div key={review.id}>
-                <p>Review from user#: {review.user_id}</p>
-                <p>Review: {review.content}</p>
+                <div>Review from user#: {review.user_id}</div>
+                <div>Review: {review.content}</div>
             </div>
           ))}
         </>

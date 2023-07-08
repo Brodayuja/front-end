@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { Routes, Route, useParams } from "react-router-dom";
+import { Routes, Route, useParams, useNavigate } from "react-router-dom";
 import LandingPage from "./components/LandingPage/LandingPage";
 import { fetchAllBooks } from "./components/api-handlers";
 import SearchResults from "./components/SearchBar/SearchResults";
@@ -15,6 +15,7 @@ import NFBooks from "./components/NFBooks/NFBooks";
 import GraphicNovels from "./components/GraphicNovels/GraphicNovels";
 import ChildrensBooks from "./components/ChildrensBooks/ChildrensBooks";
 import EditProfile from "./components/Profile/EditProfile";
+import NavBar from "./components/NavBar/NavBar";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [myUsername, setMyUsername] = useState("");
   const [myUserId, setMyUserId] = useState(null)
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -47,15 +49,17 @@ function App() {
         setMyUserId(token_id)
         setIsLoggedIn(true)
       }
+
     } catch (error) {
       console.log(error)
     }
   },[])
 
-
-
-
-
+  useEffect(()=>{
+    if (isLoggedIn && location.pathname === "/"){
+      navigate("/browse")
+    }
+  },[isLoggedIn, location.pathname])
 
   return (
     <>
@@ -87,7 +91,7 @@ function App() {
         />
         <Route
           path="/books/:isbn"
-          element={<SingleBookDetail books={books} />}
+          element={<SingleBookDetail books={books} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />}
         />
         <Route path="/browse" element={<Browse books={books} username={myUsername}/>} />
         <Route path="/mybooks" />
@@ -98,6 +102,7 @@ function App() {
         <Route path="/graphicnovels" element={<GraphicNovels/>}/>
         <Route path="/add-books" element={<AddBook />}></Route>
         <Route path="/profile-edit" element={<EditProfile myUserId={myUserId}/>}/>
+        <Route path="/navBar" element={<NavBar myUserId={myUserId} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>}/>
 
 
       </Routes>
