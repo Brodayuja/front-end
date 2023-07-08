@@ -103,7 +103,7 @@ export const registerUser = async (username, password, email, name) => {
     const result = await response.json();
 
 
-    return result.data;
+    return result;
   } catch (error) {
     console.log(error);
   }
@@ -191,7 +191,16 @@ export const updateUser = async (userId, updatedData) => {
 };
 
 
-
+// Get all User Data
+export const fetchAllBooksTable = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/allbooks`)
+    const translatedData = await response.json();
+    return translatedData;
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 
 

@@ -23,7 +23,7 @@ const Register = (props) => {
       setIsLoggedIn(true);
       setMyUsername(username);
 
-      navigate("/");
+      navigate("/browse");
     } catch (error) {
       console.log(error);
     }

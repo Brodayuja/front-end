@@ -1,69 +1,56 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
-import { fetchReviews, BASE_URL } from "../api-handlers/index"
+import { fetchReviews, BASE_URL, fetchAllBooksTable, fetchAllBooks } from "../api-handlers/index"
 
 const AddReview = () => {
-    const [allReviews, setAllReviews] = useState([])
     const [newContent, setNewContent] = useState("")
     const [newScore, setNewScore] = useState(0)
-    const [isbn_nf, setIsbn_nf] = useState("")
-    const [isbn_fic, setIsbn_fic] = useState("")
-    const [isbn_club, setIsbn_club] = useState("")
-    const [isbn_gn, setIsbn_gn] = useState("")
-    const [isbn_childrens, setIsbn_childrens] = useState("")
+    const [isbn_nf, setIsbn_nf] = useState(null)
+    const [isbn_fic, setIsbn_fic] = useState(null)
+    const [isbn_club, setIsbn_club] = useState(null)
+    const [isbn_gn, setIsbn_gn] = useState(null)
+    const [isbn_childrens, setIsbn_childrens] = useState(null)
     const { isbn } = useParams();
 
-    useEffect( () => {
+    useEffect(()=> {
         const settingISBN = async () => {
             try {
-                const allReviews = await fetchReviews()
-                setAllReviews(allReviews)
-                allReviews.find((review) =>{
-                    if (review.nfBook_isbn == isbn) {
-                        setIsbn_nf(Number(isbn))
-                    } if (review.nfBook_isbn != isbn) {
-                        setIsbn_nf(null)
-                        console.log(isbn_nf)
-                    } 
-                      if (review.fictionBook_isbn == isbn) {
-                    setIsbn_fic(Number(isbn))
-                    } if (review.ficBook_isbn != isbn) {
-                        setIsbn_fic(null)
-                        console.log(isbn_fic)
-                    } 
-                    if (review.graphicBook_isbn == isbn) {
-                        setIsbn_gn(Number(isbn))
-                    } if (review.gnBook_isbn != isbn) {
-                            setIsbn_gn(null)
-                            console.log(isbn_gn)
-                    } if (review.bookClubBook_isbn == isbn) {
-                        setIsbn_club(Number(isbn))
-                    } if (review.clubBook_isbn != isbn) {
-                        setIsbn_club(null)
-                        console.log(isbn_club)
-                    } if (review.childrensBook_isbn == isbn) {
-                        setIsbn_childrens(Number(isbn))
-                    } if (review.childrensBook_isbn != isbn) {
-                        setIsbn_childrens(null)
-                        console.log(isbn_childrens)
-                    } 
+                const result = await fetchAllBooksTable();
+                const currentBook = result.find(book => book.isbn === isbn)
+                  
+                if (currentBook.booktype == "bookClubPicksBooks" && currentBook.booktype !== "childrensBooks" && currentBook.booktype !== "fictionBooks" && currentBook.booktype !== "graphicNovelsAndMangaBooks" && currentBook.booktype !== "nfBooks" ) {
+                    setIsbn_club(currentBook.isbn)
+
+                } else if (currentBook.booktype !== "bookClubPicksBooks" && currentBook.booktype == "childrensBooks" && currentBook.booktype !== "fictionBooks" && currentBook.booktype !== "graphicNovelsAndMangaBooks" && currentBook.booktype !== "nfBooks" ) {
+                    setIsbn_childrens(currentBook.isbn)
+                    
+                } else if (currentBook.booktype !== "bookClubPicksBooks" && currentBook.booktype !== "childrensBooks" && currentBook.booktype == "fictionBooks" && currentBook.booktype !== "graphicNovelsAndMangaBooks" && currentBook.booktype !== "nfBooks" ) {
+                    setIsbn_fic(currentBook.isbn)
+                    
+                } else if (currentBook.booktype !== "bookClubPicksBooks" && currentBook.booktype !== "childrensBooks" && currentBook.booktype !== "fictionBooks" && currentBook.booktype == "graphicNovelsAndMangaBooks" && currentBook.booktype !== "nfBooks" ) {
+                    setIsbn_gn(currentBook.isbn)
+
+                } else if (currentBook.booktype !== "bookClubPicksBooks" && currentBook.booktype !== "childrensBooks" && currentBook.booktype !== "fictionBooks" && currentBook.booktype !== "graphicNovelsAndMangaBooks" && currentBook.booktype == "nfBooks" ) {
+                    setIsbn_nf(currentBook.isbn)
+                } else {
+                    console.log("ISBN not found")
                 }
-                )
-                
-            } catch (error) {
+                    
+                }
+                catch (error) {
                 console.log(error)
             }
         }
-        settingISBN()
+        settingISBN();
+    },[])
 
-
-    }, [])
-
+    
     const currentToken = localStorage.getItem("token")
     const currentUserId = localStorage.getItem("userId")
-
+  
     const sendNewReview = async (event) => {
-        event.preventDefault()
+        // event.preventDefault()
+
         try {
             const response = await fetch(`${BASE_URL}/reviews`, {
                 method: "POST",
@@ -86,8 +73,6 @@ const AddReview = () => {
                 })
             });
             const data = await response.json();
-            console.log(data, "I AM DATA!")
-            setAllReviews([...allReviews, data])
             } catch (error) {
                 console.log (error)
         }
