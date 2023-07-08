@@ -1,21 +1,43 @@
-import React, { useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import NavBar from "../NavBar/NavBar";
 import GetAllReviewsByISBN from "../Reviews/ReviewsByIsbn";
 import AddReview from "../Reviews/AddReview";
+import { fetchReviews } from "../api-handlers";
 
-function SingleBookDetail({ books, isLoggedIn }) {
-  const navigate = useNavigate();
+function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
+  
   const { isbn } = useParams();
-
   const [showAddReview, setShowAddReview] = useState(false);
+  const [reviewsByIsbn, setReviewsByIsbn] = useState([]);
 
   const bookDetail = books.filter((singleBook) => {
     if (singleBook.isbn == Number(isbn)) {
       return singleBook;
     }
   });
+
+  useEffect(() => {
+    try {
+      const getFetchedReviews = async () => {
+        const fetchedReviews = await fetchReviews();
+        const filteredReviews = fetchedReviews.filter((review) => {
+          return (
+            review.nfBook_isbn === isbn ||
+            review.fictionBook_isbn === isbn ||
+            review.graphicBook_isbn === isbn ||
+            review.bookClubBook_isbn === isbn ||
+            review.childrensBook_isbn === isbn
+          );
+        });
+        setReviewsByIsbn(filteredReviews);
+      };
+      getFetchedReviews();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
 
   const handleAddReview = () => {
     setShowAddReview(true);
@@ -59,17 +81,18 @@ function SingleBookDetail({ books, isLoggedIn }) {
             <>
               {showAddReview ? (
                 <div>
-                  <AddReview />
+                  <AddReview myUserId={myUserId} />
                   <button onClick={handleCancelReview}>Cancel</button>
                 </div>
               ) : (
                 <>
+                  
                   <button onClick={handleAddReview}>Add Review</button>
-                  <GetAllReviewsByISBN />
                 </>
               )}
             </>
           )}
+          <GetAllReviewsByISBN />
         </div>
       </div>
     </>
