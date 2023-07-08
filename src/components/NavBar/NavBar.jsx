@@ -1,57 +1,45 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
 
-
-const NavBar = (props) => {
-  const books = props.books;
- 
-  const [showSignOut, setShowSignOut] = useState(false);
-
+const NavBar = ({ books, setIsLoggedIn }) => {
+  const navigate = useNavigate();
 
   const handleSignOut = () => {
     localStorage.clear();
-    window.location.href = "/";
+    setIsLoggedIn(false);
+    navigate("/");
   };
 
+  const myToken = localStorage.getItem("token");
 
   return (
-    <>
-      <div className="flex">
+    <div className="flex justify-between">
+      <div>
         <Link to="/browse" className="mx-8">
           Home
         </Link>
         <Link to="/mybooks" className="mx-8">
           My Books
         </Link>
-        <Link
-          to="/profile/"
-          className="mx-8"
-          onMouseEnter={() => setShowSignOut(true)}
-          onMouseLeave={() => setShowSignOut(false)}
-        >
-          Profile
-          {showSignOut && (
-            <div className="absolute bg-white rounded shadow mt-2">
-              <button
-                className="px-4 py-2 hover:bg-gray-200"
-                onClick={handleSignOut}
-              >
-                Sign Out
-              </button>
-            </div>
-          )}
-        </Link>
       </div>
+      {myToken ? (
+        <div>
+          <Link to="/profile" className="mx-8">Profile</Link>
+          <Link to="/" className="mx-8" onClick={handleSignOut}>
+            Sign Out
+          </Link>
+        </div>
+      ) : (
+        <Link to="/login" className="mx-8">
+          Log in
+        </Link>
+      )}
       <div>
         <SearchBar books={books} />
       </div>
-    </>
+    </div>
   );
 };
 
-
 export default NavBar;
-
-
-
