@@ -7,8 +7,8 @@ const GetAllReviewsByISBN = () => {
   const [reviewsByIsbn, setReviewsByIsbn] = useState([]);
 
   useEffect(() => {
-    try {
-      const getFetchedReviews = async () => {
+    const fetchReviewsAndUsernames = async () => {
+      try {
         const fetchedReviews = await fetchReviews();
         const filteredReviews = fetchedReviews.filter((review) => {
           return (
@@ -19,31 +19,22 @@ const GetAllReviewsByISBN = () => {
             review.childrensBook_isbn === isbn
           );
         });
-        setReviewsByIsbn(filteredReviews);
-      };
-      getFetchedReviews();
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
 
-  useEffect(() => {
-    const fetchUsernames = async () => {
-      try {
         const updatedReviews = await Promise.all(
-          reviewsByIsbn.map(async (review) => {
+          filteredReviews.map(async (review) => {
             const user = await fetchUserById(review.user_id);
             return { ...review, username: user.username };
           })
         );
+
         setReviewsByIsbn(updatedReviews);
       } catch (error) {
         console.log(error);
       }
     };
 
-    fetchUsernames();
-  }, [reviewsByIsbn]);
+    fetchReviewsAndUsernames();
+  }, []);
 
   return (
     <>

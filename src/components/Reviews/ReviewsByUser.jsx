@@ -4,7 +4,7 @@ import { fetchAllBooks, fetchReviews } from "../api-handlers/index"
 const GetAllReviewsByUser = async () => {
     const currentUserId = localStorage.getItem("userId")
     try {
-        const allReviews = fetchReviews()
+        const allReviews = await fetchReviews()
         allReviews.map((review) => {
             if (currentUserId == review.user_id) {
                 return review
@@ -16,7 +16,7 @@ const GetAllReviewsByUser = async () => {
     }
 
     const bookReviewed = async () => {
-        const books = fetchAllBooks()
+        const books = await fetchAllBooks()
           if (review.nfBook_isbn == books.isbn || 
                 review.fictionBook_isbn == books.isbn ||
                 review.graphicBook_isbn == books.isbn ||

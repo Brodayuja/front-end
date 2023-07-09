@@ -7,7 +7,6 @@ import AddReview from "../Reviews/AddReview";
 import { fetchReviews } from "../api-handlers";
 
 function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
-  
   const { isbn } = useParams();
   const [showAddReview, setShowAddReview] = useState(false);
   const [reviewsByIsbn, setReviewsByIsbn] = useState([]);
@@ -46,6 +45,9 @@ function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
   const handleCancelReview = () => {
     setShowAddReview(false);
   };
+
+  const userIds = reviewsByIsbn.map((review) => review.user_id);
+
 
   return (
     <>
@@ -86,8 +88,11 @@ function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
                 </div>
               ) : (
                 <>
-                  
-                  <button onClick={handleAddReview}>Add Review</button>
+                  {!userIds.includes(Number(myUserId)) ? (
+                    <button onClick={handleAddReview}>Add Review</button>
+                  ) : (
+                    <p>You have already reviewed this book.</p>
+                  )}
                 </>
               )}
             </>
@@ -100,3 +105,4 @@ function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
 }
 
 export default SingleBookDetail;
+
