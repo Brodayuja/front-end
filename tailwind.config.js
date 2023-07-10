@@ -4,6 +4,7 @@ export default {
     "./src/components/App.jsx",
     "./src/components/LandingPage/LandingPage.jsx",
     "./src/components/Reviews/RecentReviewsShelf.jsx",
+    "./src/components/Reviews/ReviewsByIsbn.jsx",
     "./src/components/SingleBook/SingleBook.jsx",
     "./src/components/NavBar/NavBar.jsx",
     "./src/components/Profile/Profile.jsx",
