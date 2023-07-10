@@ -38,14 +38,18 @@ const GetAllReviewsByISBN = () => {
 
   return (
     <>
-      <div>
-        {reviewsByIsbn.map((review) => (
-          <div key={review.id}>
-            <p>Username: {review.username}</p>
-            <div>Review: {review.content}</div>
-          </div>
-        ))}
-      </div>
+     <div>
+  {reviewsByIsbn.map((review) => (
+    <div key={review.id} className="border rounded-md p-4 mb-4">
+      <p className="font-bold">Username: {review.username}</p>
+      <div className="mt-2">Review: {review.content}</div>
+      
+      <button>View All Comments</button>
+
+    </div>
+  ))}
+</div>
+
     </>
   );
 };

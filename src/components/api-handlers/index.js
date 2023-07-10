@@ -51,6 +51,22 @@ export const fetchReviews = async () => {
   }
 };
 
+export const patchComment = async (reviewId, newComment) => {
+  try {
+    const response = await fetch(`${BASE_URL}/reviews/${reviewId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({newComment}),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 // User login
 export const loginUser = async (username, password) => {
@@ -168,6 +184,7 @@ export const fetchUserById = async (userId) => {
     console.log(error)
   }
 }
+
 // User Update
 export const updateUser = async (userId, updatedData) => {
   try {
