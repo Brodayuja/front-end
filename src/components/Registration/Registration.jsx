@@ -20,6 +20,7 @@ const Register = (props) => {
 
       localStorage.setItem("token", result.token);
       localStorage.setItem("userId", result.id)
+      localStorage.setItem("username", username)
       setIsLoggedIn(true);
       setMyUsername(username);
 
