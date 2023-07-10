@@ -6,6 +6,7 @@ import GetAllReviewsByISBN from "../Reviews/ReviewsByIsbn";
 import AddReview from "../Reviews/AddReview";
 import { fetchReviews } from "../api-handlers";
 
+
 function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
   const { isbn } = useParams();
   const [showAddReview, setShowAddReview] = useState(false);
@@ -16,6 +17,7 @@ function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
       return singleBook;
     }
   });
+
 
   useEffect(() => {
     try {
@@ -38,15 +40,20 @@ function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
     }
   }, []);
 
+
   const handleAddReview = () => {
     setShowAddReview(true);
   };
+
 
   const handleCancelReview = () => {
     setShowAddReview(false);
   };
 
+
   const userIds = reviewsByIsbn.map((review) => review.user_id);
+
+
 
 
   return (
@@ -55,6 +62,7 @@ function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
         <img className="Logo" src={pageTurnerLogo} alt="Page Turner Logo" />
         <NavBar />
       </div>
+
 
       <div>
         {books.length ? (
@@ -97,12 +105,17 @@ function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
               )}
             </>
           )}
-          <GetAllReviewsByISBN />
+          <GetAllReviewsByISBN myUserId={myUserId} myUsername={myUsername}/>
         </div>
       </div>
     </>
   );
 }
 
+
 export default SingleBookDetail;
+
+
+
+
 

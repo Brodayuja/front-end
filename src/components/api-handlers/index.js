@@ -1,6 +1,8 @@
 export const BASE_URL = "http://localhost:3000/api";
 
 
+
+
 // Fetch All Books
 export const fetchAllBooks = async () => {
   try {
@@ -8,20 +10,30 @@ export const fetchAllBooks = async () => {
     const nfData = await nfResponse.json();
 
 
+
+
     const ficResponse = await fetch(`${BASE_URL}/fiction-books`);
     const ficData = await ficResponse.json();
+
+
 
 
     const gnResponse = await fetch(`${BASE_URL}/graphic-books`);
     const gnData = await gnResponse.json();
 
 
+
+
     const clubResponse = await fetch(`${BASE_URL}/book-club-picks`);
     const clubData = await clubResponse.json();
 
 
+
+
     const childResponse = await fetch(`${BASE_URL}/childrens-books`);
     const childData = await childResponse.json();
+
+
 
 
     const allBooks = [].concat(
@@ -33,11 +45,14 @@ export const fetchAllBooks = async () => {
     );
 
 
+
+
     return allBooks;
   } catch (error) {
     console.log(error);
   }
 };
+
 
 // Fetch Reviews
 export const fetchReviews = async () => {
@@ -45,21 +60,25 @@ export const fetchReviews = async () => {
     const response = await fetch(`${BASE_URL}/reviews`);
     const data = await response.json();
 
+
     return data;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const patchComment = async (reviewId, newComment) => {
+
+export const postComment = async ( userid, content, username, reviewid) => {
   try {
-    const response = await fetch(`${BASE_URL}/reviews/${reviewId}`, {
+    const response = await fetch(`${BASE_URL}/comments/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({newComment}),
+      body: JSON.stringify({userid, content, username, reviewid }),
     });
+
+
     const data = await response.json();
     return data;
   } catch (error) {
@@ -67,6 +86,17 @@ export const patchComment = async (reviewId, newComment) => {
   }
 };
 
+
+// Fetches All Comments
+export const fetchAllComments = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/comments`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // User login
 export const loginUser = async (username, password) => {
@@ -92,6 +122,7 @@ export const loginUser = async (username, password) => {
 };
 
 
+
 // User Registration
 export const registerUser = async (username, password, email, name) => {
   try {
@@ -111,7 +142,11 @@ export const registerUser = async (username, password, email, name) => {
     });
 
 
+
+
     const result = await response.json();
+
+
 
 
     return result;
@@ -119,6 +154,8 @@ export const registerUser = async (username, password, email, name) => {
     console.log(error);
   }
 };
+
+
 
 
 // Nonfiction Books
@@ -172,7 +209,6 @@ export const fetchGraphicNovels = async () => {
   }
 };
 
-
 // Get User by Id
 export const fetchUserById = async (userId) => {
   try {
@@ -184,6 +220,7 @@ export const fetchUserById = async (userId) => {
     console.log(error)
   }
 }
+
 
 // User Update
 export const updateUser = async (userId, updatedData) => {
@@ -203,6 +240,8 @@ export const updateUser = async (userId, updatedData) => {
 };
 
 
+
+
 // Get all User Data
 export const fetchAllBooksTable = async () => {
   try {
@@ -215,7 +254,6 @@ export const fetchAllBooksTable = async () => {
 }
 
 
-
 // Get all User Data
 export const fetchAllUserData = async () => {
   try {
@@ -226,4 +264,8 @@ export const fetchAllUserData = async () => {
     console.log(error)
   }
 }
+
+
+
+
 

@@ -7,6 +7,7 @@ import GraphicNovelsShelf from "../GraphicNovels/GraphicNovelsShelf";
 import ChildrensBooksShelf from "../ChildrensBooks/ChildrensBooksShelf";
 
 function Browse ({books}) {
+    
     return (
         <>
         <div className="flex justify-between">
@@ -18,15 +19,15 @@ function Browse ({books}) {
         <div>
             <p>This is Browse</p>
 
-            <RecentReviewsShelf books={books}/>
+            <RecentReviewsShelf books={books} />
 
-            <FictionShelf/>
+            <FictionShelf />
 
-            <NFBooksShelf/>
+            <NFBooksShelf />
 
-            <GraphicNovelsShelf/>
+            <GraphicNovelsShelf />
 
-            <ChildrensBooksShelf/>
+            <ChildrensBooksShelf />
 
             
 
