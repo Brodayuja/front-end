@@ -92,11 +92,11 @@ function App() {
         />
         <Route
           path="/books/:isbn"
-          element={<SingleBookDetail books={books} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} myUserId={myUserId} />}
+          element={<SingleBookDetail books={books} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} myUserId={myUserId} setBooks={setBooks}/>}
         />
         <Route path="/browse" element={<Browse books={books}/>} />
         <Route path="/mybooks" />
-        <Route path="/profile" element={<Profile  myUserId={myUserId}/>} />
+        <Route path="/profile" element={<Profile  myUserId={myUserId} books={books}/>} />
         <Route path="/nonfiction" element={<NFBooks/>}/>
         <Route path="/childbooks" element={<ChildrensBooks/>}/>
         <Route path="/fiction" element={<FictionPage/>}/>

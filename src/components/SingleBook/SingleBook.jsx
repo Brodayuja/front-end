@@ -7,9 +7,10 @@ import GetAllReviewsByISBN from "../Reviews/ReviewsByIsbn";
 import AddReview from "../Reviews/AddReview";
 import { fetchReviews } from "../api-handlers";
 import UpdateFictionBook from "../FictionBooks/UpdateFictionBooks";
+import AverageReviewScore from "../AverageReviewScore/AverageReviewScore";
 
 
-function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
+function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId, setBooks}) {
   const { isbn } = useParams();
   const [showAddReview, setShowAddReview] = useState(false);
   const [reviewsByIsbn, setReviewsByIsbn] = useState([]);
@@ -89,6 +90,9 @@ function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
           <p>Loading . . .</p>
         )}
         <div>
+      <AverageReviewScore reviews={reviewsByIsbn} />
+        </div>
+        <div>
           {isLoggedIn && (
             <>
               {showAddReview ? (
@@ -107,7 +111,7 @@ function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
               )}
             </>
           )}
-          <UpdateFictionBook bookDetail={bookDetail}/>
+          <UpdateFictionBook books={books} bookDetail={bookDetail} setBooks={setBooks}/>
           <GetAllReviewsByISBN myUserId={myUserId} myUsername={myUsername}/>
         </div>
       </div>
