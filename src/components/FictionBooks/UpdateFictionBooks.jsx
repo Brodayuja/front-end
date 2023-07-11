@@ -2,12 +2,11 @@ import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { BASE_URL } from "../api-handlers/index"
 
-const UpdateFictionBook = ({bookDetail}) => {
-    const [currentBookDetail, setCurrentBookDetail] = useState({})
+const UpdateFictionBook = ({bookDetail, books, setBooks}) => {
+
     console.log(bookDetail, "TITLE OF book detail!")
     const [newTitle, setNewTitle] = useState("")
     const [newAuthor, setNewAuthor] = useState("")
-    const [newISBN, setNewISBN] = useState(9780000000000)
     const [newSummary, setNewSummary] = useState("")
     const [newGenre, setNewGenre] = useState([])
     const [newPublisher, setNewPublisher] = useState("")
@@ -19,6 +18,33 @@ const UpdateFictionBook = ({bookDetail}) => {
 
     const sendBookUpdates = async (event) => {
         event.preventDefault()
+        const updatedBook = {}
+
+        if (newTitle) {
+            updatedBook.title = newTitle
+        }
+        if (newAuthor) {
+            updatedBook.author = newAuthor
+        }
+        if (newSummary) {
+            updatedBook.summary = newSummary
+        }
+        if (newGenre.length) {
+            updatedBook.genre = newGenre
+        }
+        if (newPublisher) {
+            updatedBook.publisher = newPublisher
+        }
+        if (newYearPublished) {
+            updatedBook.yearPublished = newYearPublished
+        }
+        if (newBookCover) {
+            updatedBook.bookCover = newBookCover
+        }
+        if (newPhysicalDescription) {
+            updatedBook.physicalDescription = newPhysicalDescription
+        }
+
         try {
             const response = await fetch(`${BASE_URL}/fiction-books/${isbn}`, {
                 method: "PUT",
@@ -26,20 +52,10 @@ const UpdateFictionBook = ({bookDetail}) => {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${currentToken}`
                 }, 
-                body: JSON.stringify({
-                        title: newTitle ,
-                        author: newAuthor,
-                        isbn: newISBN,
-                        summary: newSummary,
-                        publisher: newPublisher,
-                        yearPublished: newYearPublished,
-                        bookCover: newBookCover,
-                        genre: newGenre,
-                        physicalDescription: newPhysicalDescription
-                })
+                body: JSON.stringify(updatedBook)
             });
             const data = await response.json();
-            setCurrentBookDetail(data)
+            console.log(data, "I AM DATA")
             } catch (error) {
                 console.log (error)
         }
@@ -70,18 +86,6 @@ const UpdateFictionBook = ({bookDetail}) => {
             value={newAuthor}
             onChange={(event) => {
               setNewAuthor(event.target.value);
-            }}
-          ></input> <br />
-
-          <label htmlFor="isbn">Enter 13-digit ISBN:</label>
-          <br />
-          <input
-            name="ISBN"
-            type="text"
-            placeholder="Enter 13 digit ISBN with no special characters"
-            value={newISBN}
-            onChange={(event) => {
-              setNewISBN(Number(event.target.value));
             }}
           ></input> <br />
 
