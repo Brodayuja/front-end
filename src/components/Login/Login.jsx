@@ -8,6 +8,7 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const setMyNewUserId = props.setMyUserId;
+  const setMyUsername = props.setMyUsername
 
 
   const handleSubmit = async (e) => {
@@ -16,10 +17,12 @@ const Login = (props) => {
     try {
       const result = await loginUser(username, password);
       setIsLoggedIn(true);
+      setMyUsername(username);
       console.log(result)
 
      localStorage.setItem("token", result.token);
      localStorage.setItem("userId", result.id)
+     localStorage.setItem("username", username)
      const myToken = result.token;
       console.log(myToken)
       

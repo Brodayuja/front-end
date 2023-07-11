@@ -44,6 +44,7 @@ function App() {
     try {
       const myToken = localStorage.getItem("token")
       const token_id = localStorage.getItem("userId")
+      const username = localStorage.getItem("username")
      
       if (myToken && token_id){
         setMyUserId(token_id)
@@ -91,11 +92,11 @@ function App() {
         />
         <Route
           path="/books/:isbn"
-          element={<SingleBookDetail books={books} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} myUsername={myUsername} myUserId={myUserId} />}
+          element={<SingleBookDetail books={books} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} myUserId={myUserId} />}
         />
-        <Route path="/browse" element={<Browse books={books} username={myUsername}/>} />
+        <Route path="/browse" element={<Browse books={books}/>} />
         <Route path="/mybooks" />
-        <Route path="/profile" element={<Profile username={myUsername} myUserId={myUserId}/>} />
+        <Route path="/profile" element={<Profile  myUserId={myUserId}/>} />
         <Route path="/nonfiction" element={<NFBooks/>}/>
         <Route path="/childbooks" element={<ChildrensBooks/>}/>
         <Route path="/fiction" element={<FictionPage/>}/>

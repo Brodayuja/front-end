@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import { fetchUserById } from "../api-handlers";
+import MyReviews from "./MyReviews";
 
 
 function Profile({ myUserId }) {
@@ -69,6 +70,8 @@ function Profile({ myUserId }) {
 
 
               <br/>
+
+          {<MyReviews/>}
 
 
             <h2>My Books Shelf Render Here</h2>
