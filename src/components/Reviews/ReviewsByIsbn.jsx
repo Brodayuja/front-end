@@ -94,6 +94,16 @@ const GetAllReviewsByISBN = ({ myUserId }) => {
     }
   };
 
+  const handleDeleteComment = async (commentId) => {
+    try {
+      await deleteMyComment(commentId);
+      setComments((prevComments) => prevComments.filter((comment) => comment.id !== commentId));
+      console.log("Comment Deleted");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <div>
@@ -113,7 +123,7 @@ const GetAllReviewsByISBN = ({ myUserId }) => {
                         <p>From: {comment.username}</p>
                         <p>{comment.content}</p>
                         
-                        <ThreeDotsMenu comments={comments} />
+                        <ThreeDotsMenu comments={comments} handleDeleteComment={handleDeleteComment} />
                       </div>
                     ))}
                 </>
