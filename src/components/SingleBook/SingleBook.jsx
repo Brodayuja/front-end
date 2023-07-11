@@ -9,7 +9,7 @@ import { fetchReviews } from "../api-handlers";
 import UpdateFictionBook from "../FictionBooks/UpdateFictionBooks";
 
 
-function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
+function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId, setBooks}) {
   const { isbn } = useParams();
   const [showAddReview, setShowAddReview] = useState(false);
   const [reviewsByIsbn, setReviewsByIsbn] = useState([]);
@@ -107,7 +107,7 @@ function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
               )}
             </>
           )}
-          <UpdateFictionBook bookDetail={bookDetail}/>
+          <UpdateFictionBook books={books} bookDetail={bookDetail} setBooks={setBooks}/>
           <GetAllReviewsByISBN myUserId={myUserId} myUsername={myUsername}/>
         </div>
       </div>
