@@ -98,6 +98,17 @@ export const fetchAllComments = async () => {
   }
 };
 
+// Delete Comment by userid
+export const deleteMyComment = async (myUserId, id) => {
+  try {
+    const response = await fetch(`${BASE_URL}/comments/${id}`, {
+      method: "DELETE"
+    });
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 // User login
 export const loginUser = async (username, password) => {
   try {
