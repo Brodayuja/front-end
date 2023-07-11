@@ -1,11 +1,12 @@
 import { useState } from "react"
+import { useParams } from "react-router-dom"
 import { BASE_URL } from "../api-handlers/index"
 
-const AddChildrensBook = () => {
-    const [ficBooks, setFicBooks] = useState([])
+const UpdateFictionBook = ({bookDetail}) => {
+    const [currentBookDetail, setCurrentBookDetail] = useState({})
+    console.log(bookDetail, "TITLE OF book detail!")
     const [newTitle, setNewTitle] = useState("")
     const [newAuthor, setNewAuthor] = useState("")
-    const [newIllustrator, setNewIllustrator] = useState("")
     const [newISBN, setNewISBN] = useState(9780000000000)
     const [newSummary, setNewSummary] = useState("")
     const [newGenre, setNewGenre] = useState([])
@@ -13,34 +14,32 @@ const AddChildrensBook = () => {
     const [newYearPublished, setNewYearPublished] = useState("")
     const [newPhysicalDescription, setNewPhysicalDescription] = useState("")
     const [newBookCover, setNewBookCover] = useState("")
-    const [newAudience, setNewAudience] = useState("")
     const currentToken = localStorage.getItem("token")
+    const {isbn} = useParams()
 
-    const sendNewBookRequest = async (event) => {
+    const sendBookUpdates = async (event) => {
         event.preventDefault()
         try {
-            const response = await fetch(`${BASE_URL}/childrens-books`, {
-                method: "POST",
+            const response = await fetch(`${BASE_URL}/fiction-books/${isbn}`, {
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${currentToken}`
                 }, 
                 body: JSON.stringify({
-                        title: newTitle,
+                        title: newTitle ,
                         author: newAuthor,
-                        illustrator: newIllustrator,
                         isbn: newISBN,
                         summary: newSummary,
                         publisher: newPublisher,
                         yearPublished: newYearPublished,
                         bookCover: newBookCover,
                         genre: newGenre,
-                        audience: newAudience,
                         physicalDescription: newPhysicalDescription
                 })
             });
             const data = await response.json();
-            setFicBooks([...ficBooks, data])
+            setCurrentBookDetail(data)
             } catch (error) {
                 console.log (error)
         }
@@ -48,7 +47,8 @@ const AddChildrensBook = () => {
 
     return (
       <>
-        <form onSubmit={sendNewBookRequest}>
+        <h2><b>Update Book:</b></h2>
+        <form onSubmit={sendBookUpdates}>
           <label htmlFor="title">Title:</label>
           <br />
           <input
@@ -73,19 +73,7 @@ const AddChildrensBook = () => {
             }}
           ></input> <br />
 
-          <label htmlFor="illustrator">Illustrator:</label>
-          <br />
-          <input
-            name="illustrator"
-            type="text"
-            placeholder="Illustrator of Book"
-            value={newIllustrator}
-            onChange={(event) => {
-              setNewIllustrator(event.target.value);
-            }}
-          ></input> <br />
-
-          <label htmlFor="isbn">Enter Book ISBN:</label>
+          <label htmlFor="isbn">Enter 13-digit ISBN:</label>
           <br />
           <input
             name="ISBN"
@@ -109,7 +97,6 @@ const AddChildrensBook = () => {
             }}
           ></input> <br />
 
-
           <label htmlFor="bookCover">Enter Book Cover URL:</label>
           <br />
           <input
@@ -125,51 +112,12 @@ const AddChildrensBook = () => {
           <fieldset>
               <legend>Book Genres:</legend>
               <div>
-                <label htmlFor="genre">Biography/Autobiography</label>
+                <label htmlFor="genre">Contemporary Fiction</label>
                 <input 
                   type="checkbox" 
                   id="genre" 
                   name="genre" 
-                  value="Biography/Autobiography"
-                  onChange={(event)=> {
-                    setNewGenre([...newGenre, event.target.value])
-                  }
-                  }>
-                  </input> 
-              </div>
-              <div>
-                <label htmlFor="genre">Concepts: ABCs, 123s, Colors</label>
-                <input 
-                  type="checkbox" 
-                  id="genre" 
-                  name="genre" 
-                  value="Concepts: ABCs, 123s, Colors"
-                  onChange={(event)=> {
-                    setNewGenre([...newGenre, event.target.value])
-                  }
-                  }>
-                  </input> 
-              </div>
-              <div>
-                <label htmlFor="genre">Fairy Tale/Folktale</label>
-                <input 
-                  type="checkbox" 
-                  id="genre" 
-                  name="genre" 
-                  value="Fairy Tale/Folktale"
-                  onChange={(event)=> {
-                    setNewGenre([...newGenre, event.target.value])
-                  }
-                  }>
-                  </input> 
-              </div>
-              <div>
-                <label htmlFor="genre">Fiction</label>
-                <input 
-                  type="checkbox" 
-                  id="genre" 
-                  name="genre" 
-                  value="Fiction"
+                  value="Contemporary Fiction"
                   onChange={(event)=> {
                     setNewGenre([...newGenre, event.target.value])
                   }
@@ -190,12 +138,38 @@ const AddChildrensBook = () => {
                   </input> 
               </div>
               <div>
+                <label htmlFor="genre">Historical Fiction</label>
+                <input 
+                  type="checkbox" 
+                  id="genre" 
+                  name="genre" 
+                  value="Historical Fiction"
+                  onChange={(event)=> {
+                    setNewGenre([...newGenre, event.target.value])
+                  }
+                  }>
+                  </input> 
+              </div>
+              <div>
                 <label htmlFor="genre">Horror</label>
                 <input 
                   type="checkbox" 
                   id="genre" 
                   name="genre" 
                   value="Horror"
+                  onChange={(event)=> {
+                    setNewGenre([...newGenre, event.target.value])
+                  }
+                  }>
+                  </input> 
+              </div>
+              <div>
+                <label htmlFor="genre">LGBTQ+</label>
+                <input 
+                  type="checkbox" 
+                  id="genre" 
+                  name="genre" 
+                  value="LGBTQ+"
                   onChange={(event)=> {
                     setNewGenre([...newGenre, event.target.value])
                   }
@@ -215,34 +189,19 @@ const AddChildrensBook = () => {
                   }>
                   </input> 
               </div>
-
               <div>
-                <label htmlFor="genre">Nonfiction</label>
+                <label htmlFor="genre">Romance</label>
                 <input 
                   type="checkbox" 
                   id="genre" 
                   name="genre" 
-                  value="Nonfiction"
+                  value="Romance"
                   onChange={(event)=> {
                     setNewGenre([...newGenre, event.target.value])
                   }
                   }>
                   </input> 
               </div>
-              <div>
-                <label htmlFor="genre">Picture Book</label>
-                <input 
-                  type="checkbox" 
-                  id="genre" 
-                  name="genre" 
-                  value="Picture Book"
-                  onChange={(event)=> {
-                    setNewGenre([...newGenre, event.target.value])
-                  }
-                  }>
-                  </input> 
-              </div>
-
               <div>
                 <label htmlFor="genre">Science Fiction</label>
                 <input 
@@ -257,12 +216,12 @@ const AddChildrensBook = () => {
                   </input> 
               </div>
               <div>
-                <label htmlFor="genre">Self-Help</label>
+                <label htmlFor="genre">Short Story </label>
                 <input 
                   type="checkbox" 
                   id="genre" 
                   name="genre" 
-                  value="Self-Help"
+                  value="Short Story"
                   onChange={(event)=> {
                     setNewGenre([...newGenre, event.target.value])
                   }
@@ -294,81 +253,6 @@ const AddChildrensBook = () => {
               setNewYearPublished(event.target.value);
             }}
           ></input> <br />
-            <fieldset>
-              <legend>Select the audience for the book being added:</legend>
-
-              <div>
-                <label htmlFor="category">Ages 0-2</label>
-                <input 
-                  type="radio" 
-                  id="category" 
-                  name="category" 
-                  value="Ages 0-2"
-                  onChange={(event)=> {
-                    setNewAudience(event.target.value)
-                    console.log(category)
-                  }
-                  }>
-                  </input> 
-              </div>
-              <div>
-                <label htmlFor="category">Ages 2-5</label>
-                <input 
-                  type="radio" 
-                  id="category" 
-                  name="category" 
-                  value="Ages 2-5"
-                  onChange={(event)=> {
-                    setNewAudience(event.target.value)
-                    console.log(event.target.value)
-                  }
-                  }>
-                  </input> 
-              </div>
-              <div>
-                <label htmlFor="category">Ages 5-8</label>
-                <input 
-                  type="radio" 
-                  id="category" 
-                  name="category" 
-                  value="Ages 5-8"
-                  onChange={(event)=> {
-                    setNewAudience(event.target.value)
-                    console.log(category)
-                  }
-                  }>
-                  </input> 
-              </div>
-              <div>
-                <label htmlFor="category">Ages 9-12</label>
-                <input 
-                  type="radio" 
-                  id="category" 
-                  name="category" 
-                  value="Ages 9-12"
-                  onChange={(event)=> {
-                    setNewAudience(event.target.value)
-                    console.log(category)
-                  }
-                  }>
-                  </input> 
-              </div>
-              <div>
-                <label htmlFor="category">Ages 13-18+</label>
-                <input 
-                  type="radio" 
-                  id="category" 
-                  name="category" 
-                  value="Ages 13-18+"
-                  onChange={(event)=> {
-                    setNewAudience(event.target.value)
-                    console.log(category)
-                  }
-                  }>
-                  </input> 
-              </div>
-   
-          </fieldset>
           <label htmlFor="physicalDescription">Enter Number of Pages:</label>
           <br />
           <input
@@ -381,9 +265,9 @@ const AddChildrensBook = () => {
             }}
           ></input> <br />
 
-          <button type="submit">Submit!</button>
+          <button type="submit">Update Book Details!</button>
         </form>
       </>
     );
 }
-export default AddChildrensBook
+export default UpdateFictionBook

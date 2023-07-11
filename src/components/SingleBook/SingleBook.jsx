@@ -5,6 +5,7 @@ import NavBar from "../NavBar/NavBar";
 import GetAllReviewsByISBN from "../Reviews/ReviewsByIsbn";
 import AddReview from "../Reviews/AddReview";
 import { fetchReviews } from "../api-handlers";
+import UpdateFictionBook from "../FictionBooks/UpdateFictionBooks";
 
 function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
   const { isbn } = useParams();
@@ -97,6 +98,7 @@ function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
               )}
             </>
           )}
+          <UpdateFictionBook bookDetail={bookDetail}/>
           <GetAllReviewsByISBN />
         </div>
       </div>
