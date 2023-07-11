@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react"
-import { fetchNFBooks, fetchFictionBooks, fetchBookClubPicks, fetchChildrenBooks, fetchGraphicNovels, BASE_URL } from "../api-handlers/index"
+import { useState } from "react"
+import { BASE_URL } from "../api-handlers/index"
 
 const AddNonfictionBook = () => {
     const [nfBooks, setNFBooks] = useState([])
     const [newTitle, setNewTitle] = useState("")
     const [newAuthor, setNewAuthor] = useState("")
-    const [newISBN, setNewISBN] = useState("")
+    const [newISBN, setNewISBN] = useState(9780000000000)
     const [newSummary, setNewSummary] = useState("")
     const [newGenre, setNewGenre] = useState([])
     const [newPublisher, setNewPublisher] = useState("")
@@ -24,7 +24,6 @@ const AddNonfictionBook = () => {
                     "Authorization": `Bearer ${currentToken}`
                 }, 
                 body: JSON.stringify({
-                     post: {
                         title: newTitle,
                         author: newAuthor,
                         isbn: newISBN,
@@ -34,7 +33,6 @@ const AddNonfictionBook = () => {
                         bookCover: newBookCover,
                         genre: newGenre,
                         physicalDescription: newPhysicalDescription
-                    }
                 })
             });
             const data = await response.json();
@@ -79,7 +77,7 @@ const AddNonfictionBook = () => {
             placeholder="Enter 13 digit ISBN with no special characters"
             value={newISBN}
             onChange={(event) => {
-              setNewISBN(event.target.value);
+              setNewISBN(Number(event.target.value));
             }}
           ></input> <br />
 

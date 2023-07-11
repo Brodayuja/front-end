@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import NavBar from "../NavBar/NavBar";
 import GetAllReviewsByISBN from "../Reviews/ReviewsByIsbn";
 import AddReview from "../Reviews/AddReview";
 import { fetchReviews } from "../api-handlers";
+import UpdateFictionBook from "../FictionBooks/UpdateFictionBooks";
 
 
 function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
@@ -105,6 +107,7 @@ function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
               )}
             </>
           )}
+          <UpdateFictionBook bookDetail={bookDetail}/>
           <GetAllReviewsByISBN myUserId={myUserId} myUsername={myUsername}/>
         </div>
       </div>
