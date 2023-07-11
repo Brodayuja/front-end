@@ -99,7 +99,7 @@ function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId }) {
             </>
           )}
           <UpdateFictionBook bookDetail={bookDetail}/>
-          <GetAllReviewsByISBN />
+          <GetAllReviewsByISBN myUserId={myUserId} myUsername={myUsername}/>
         </div>
       </div>
     </>
