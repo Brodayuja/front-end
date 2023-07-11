@@ -7,6 +7,7 @@ import GetAllReviewsByISBN from "../Reviews/ReviewsByIsbn";
 import AddReview from "../Reviews/AddReview";
 import { fetchReviews } from "../api-handlers";
 import UpdateFictionBook from "../FictionBooks/UpdateFictionBooks";
+import AverageReviewScore from "../AverageReviewScore/AverageReviewScore";
 
 
 function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId, setBooks}) {
@@ -88,6 +89,9 @@ function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId, setBooks}) 
         ) : (
           <p>Loading . . .</p>
         )}
+        <div>
+      <AverageReviewScore reviews={reviewsByIsbn} />
+        </div>
         <div>
           {isLoggedIn && (
             <>
