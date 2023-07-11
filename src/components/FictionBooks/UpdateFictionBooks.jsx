@@ -1,10 +1,10 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { BASE_URL } from "../api-handlers/index"
 
-const UpdateFictionBook = ({bookDetail, books, setBooks}) => {
+const UpdateFictionBook = ({books, setBooks}) => {
 
-    console.log(bookDetail, "TITLE OF book detail!")
     const [newTitle, setNewTitle] = useState("")
     const [newAuthor, setNewAuthor] = useState("")
     const [newSummary, setNewSummary] = useState("")
@@ -20,12 +20,8 @@ const UpdateFictionBook = ({bookDetail, books, setBooks}) => {
         event.preventDefault()
         const updatedBook = {}
 
-        if (newTitle) {
-            updatedBook.title = newTitle
-        }
-        if (newAuthor) {
-            updatedBook.author = newAuthor
-        }
+
+
         if (newSummary) {
             updatedBook.summary = newSummary
         }
@@ -37,9 +33,6 @@ const UpdateFictionBook = ({bookDetail, books, setBooks}) => {
         }
         if (newYearPublished) {
             updatedBook.yearPublished = newYearPublished
-        }
-        if (newBookCover) {
-            updatedBook.bookCover = newBookCover
         }
         if (newPhysicalDescription) {
             updatedBook.physicalDescription = newPhysicalDescription
@@ -54,40 +47,23 @@ const UpdateFictionBook = ({bookDetail, books, setBooks}) => {
                 }, 
                 body: JSON.stringify(updatedBook)
             });
+            
             const data = await response.json();
-            console.log(data, "I AM DATA")
-            } catch (error) {
-                console.log (error)
+            const booksWithNoChange = books.filter((e) => { 
+              console.log(e.isbn, typeof e.isbn)
+              return (e.isbn !== isbn)
+            })
+            console.log( data, booksWithNoChange)
+            setBooks([...booksWithNoChange, data])
+          } catch (error) {
+            console.log (error)
+          }
         }
-    }
 
-    return (
+        return (
       <>
         <h2><b>Update Book:</b></h2>
         <form onSubmit={sendBookUpdates}>
-          <label htmlFor="title">Title:</label>
-          <br />
-          <input
-            name="title"
-            type="text"
-            placeholder="Title of Book"
-            value={newTitle}
-            onChange={(event) => {
-              setNewTitle(event.target.value);
-            }}
-          ></input> <br />
-
-          <label htmlFor="author">Author:</label>
-          <br />
-          <input
-            name="author"
-            type="text"
-            placeholder="Author of Book"
-            value={newAuthor}
-            onChange={(event) => {
-              setNewAuthor(event.target.value);
-            }}
-          ></input> <br />
 
           <label htmlFor="summary">Enter Book Summary Below:</label>
           <br />
@@ -98,18 +74,6 @@ const UpdateFictionBook = ({bookDetail, books, setBooks}) => {
             value={newSummary}
             onChange={(event) => {
               setNewSummary(event.target.value);
-            }}
-          ></input> <br />
-
-          <label htmlFor="bookCover">Enter Book Cover URL:</label>
-          <br />
-          <input
-            name="bookCover"
-            type="url"
-            placeholder="Copy Book Cover URL from worldcat.org"
-            value={newBookCover}
-            onChange={(event) => {
-              setNewBookCover(event.target.value);
             }}
           ></input> <br />
 
