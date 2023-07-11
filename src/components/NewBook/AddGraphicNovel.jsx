@@ -1,12 +1,12 @@
-import { useState, useEffect } from "react"
-import { fetchNFBooks, fetchFictionBooks, fetchBookClubPicks, fetchChildrenBooks, fetchGraphicNovels, BASE_URL } from "../api-handlers/index"
+import { useState } from "react"
+import { BASE_URL } from "../api-handlers/index"
 
 const AddGraphicNovel = () => {
     const [nfBooks, setNFBooks] = useState([])
     const [newTitle, setNewTitle] = useState("")
     const [newAuthor, setNewAuthor] = useState("")
     const [newArtist, setNewArtist] = useState("")
-    const [newISBN, setNewISBN] = useState("")
+    const [newISBN, setNewISBN] = useState(9780000000000)
     const [newSummary, setNewSummary] = useState("")
     const [newGenre, setNewGenre] = useState([])
     const [newPublisher, setNewPublisher] = useState("")
@@ -25,7 +25,6 @@ const AddGraphicNovel = () => {
                     "Authorization": `Bearer ${currentToken}`
                 }, 
                 body: JSON.stringify({
-                     post: {
                         title: newTitle,
                         author: newAuthor,
                         artist: newArtist,
@@ -36,7 +35,6 @@ const AddGraphicNovel = () => {
                         bookCover: newBookCover,
                         genre: newGenre,
                         physicalDescription: newPhysicalDescription
-                    }
                 })
             });
             const data = await response.json();
@@ -93,7 +91,7 @@ const AddGraphicNovel = () => {
             placeholder="Enter 13 digit ISBN with no special characters"
             value={newISBN}
             onChange={(event) => {
-              setNewISBN(event.target.value);
+              setNewISBN(Number(event.target.value));
             }}
           ></input> <br />
 
