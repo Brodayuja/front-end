@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-function ThreeDotsMenu({ comments, commentId, handleDeleteComment, handleEditComment, showEditForm, setShowEditForm }) {
+import { updateComment } from "../api-handlers";
+import { deleteMyComment } from "../api-handlers";
+
+function ThreeDotsMenu({ comments, setComments, activeReviewId, setActiveReviewId, commentId, showEditForm, setShowEditForm, commentToEdit }) {
   const [isCommentDeleted, setIsCommentDeleted] = useState(false);
   
   const storedUserId = localStorage.getItem("userId");
@@ -8,8 +11,8 @@ function ThreeDotsMenu({ comments, commentId, handleDeleteComment, handleEditCom
     if (isCommentDeleted) {
       setIsCommentDeleted(false);
     }
-  }, [comments]);
-  console.log(comments);
+  }, [comments.content]);
+  
   // Find the comment matching the commentId
   const comment = comments.find((c) => c.id === commentId);
 
@@ -18,18 +21,52 @@ function ThreeDotsMenu({ comments, commentId, handleDeleteComment, handleEditCom
     setShowEditForm(!showEditForm)
   }
 
+    // Handles the Delete Comment Button
+    const handleDeleteComment = async (userId, commentId) => {
+      try {
+        await deleteMyComment(userId, commentId);
+        setComments((prevComments) =>
+          prevComments.filter((comment) => comment.reviewid !== activeReviewId && comment.id === commentId)
+        );
+        console.log("Comment Deleted");
+        setActiveReviewId(null);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    // Posts Updated Comment
+    const postEditedComment = async () => {
+      try {
+        await updateComment(commentId, commentToEdit);
+        setShowEditForm(!showEditForm)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    
+
   return (
     <>
-     
       {comment && comment.userid == storedUserId && (
         <>
-         <button onClick={handleToggleEdit}>Edit</button>
+          {showEditForm ? (
+            <>
+            <button onClick={handleToggleEdit}>Cancel</button>
 
-        <button
-          onClick={() => handleDeleteComment(comment.userid, commentId)}
-        >Delete
-        </button>
-        
+            <button onClick={postEditedComment}>Update</button>
+            </>
+          ) : (
+            <>
+            <button onClick={handleToggleEdit}>Edit</button>
+            
+            <button onClick={() => handleDeleteComment(comment.userid, commentId)}>
+            Delete
+          </button>
+            
+            </>
+          )}
+
         </>
       )}
     </>

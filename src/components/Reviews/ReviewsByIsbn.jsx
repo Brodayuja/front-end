@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchReviews, fetchUserById, fetchAllComments, postComment, deleteMyComment, updateComment } from "../api-handlers/index";
-import ThreeDotsMenu from "../ThreeDotsMenu/ThreeDotsMenu";
+import { fetchReviews, fetchUserById, fetchAllComments, postComment, deleteMyComment } from "../api-handlers/index";
 import SingleComment from "./SingleComment";
 
 const GetAllReviewsByISBN = ({ myUserId }) => {
@@ -87,58 +86,33 @@ const GetAllReviewsByISBN = ({ myUserId }) => {
     setCommentText(updatedCommentText);
   };
 
-  // Handles the Post Comment Button
-  const handlePostComment = async (reviewId) => {
-    try {
-      const newComment = await postComment(
-        myUserId,
-        commentText[reviewId],
-        storedUsername,
-        reviewId
-      );
-
-
-      setComments((prevComments) => [...prevComments, newComment]);
-
-
-      setCommentText((prevCommentText) => {
-        const updatedCommentText = { ...prevCommentText };
-        delete updatedCommentText[reviewId];
-        return updatedCommentText;
-      });
-
-
-      setActiveReviewId(reviewId);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // Handles the Delete Comment Button
-  const handleDeleteComment = async (userId, commentId) => {
-    try {
-      await deleteMyComment(userId, commentId);
-      setComments((prevComments) =>
-        prevComments.filter((comment) => comment.reviewid !== activeReviewId && comment.id === commentId)
-      );
-      console.log("Comment Deleted");
-      setActiveReviewId(null);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  
-  // Handles Edit Button
-   const handleEditComment = async() => {
-    // event.preventDefault();
-    try {
-      const {content} = editComment;
-
-      await updateComment(comments.id, {content})
-    } catch (error) {
-      console.log(error)
-    }
+// Handles the Post Comment Button
+const handlePostComment = async (reviewId) => {
+  if (!commentText[reviewId] || commentText[reviewId].trim() === '') {
+    return; // Return early if comment is empty
   }
+
+  try {
+    const newComment = await postComment(
+      myUserId,
+      commentText[reviewId],
+      storedUsername,
+      reviewId
+    );
+
+    setComments((prevComments) => [...prevComments, newComment]);
+
+    setCommentText((prevCommentText) => {
+      const updatedCommentText = { ...prevCommentText };
+      delete updatedCommentText[reviewId];
+      return updatedCommentText;
+    });
+
+    setActiveReviewId(reviewId);
+  } catch (error) {
+    console.log(error);
+  }
+};
  
   return (
     <>
@@ -155,8 +129,15 @@ const GetAllReviewsByISBN = ({ myUserId }) => {
               <>
                 {comments.filter((comment) => comment.reviewid === review.id)
                   .map((comment) => (
-                    <SingleComment key={comment.id} comment={comment}
-                    comments={comments} handleDeleteComment={handleDeleteComment} handleEditComment={handleEditComment}/>
+
+                    <SingleComment key={comment.id} 
+                    comment={comment}
+                    comments={comments}
+                    setComments={setComments}
+                    activeReviewId={activeReviewId}
+                    setActiveReviewId={setActiveReviewId} 
+                    />
+                    
                   ))}
                 </>
               )}

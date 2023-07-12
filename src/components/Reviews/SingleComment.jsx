@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import ThreeDotsMenu from "../ThreeDotsMenu/ThreeDotsMenu";
 
-function SingleComment({comment, comments, handleDeleteComment, handleEditComment}){
+function SingleComment({comment, comments, setComments, activeReviewId, setActiveReviewId}){
     const [showEditForm, setShowEditForm] = useState(false)
-    const [editComment, setEditComment] = useState({})
     const [commentToEdit, setCommentToEdit] = useState("")
 
     useEffect(()=>{
@@ -32,11 +31,13 @@ function SingleComment({comment, comments, handleDeleteComment, handleEditCommen
 
         <ThreeDotsMenu
           comments={comments}
+          setComments={setComments}
           commentId={comment.id}
-          handleDeleteComment={handleDeleteComment}
-          handleEditComment={handleEditComment}
           showEditForm={showEditForm}
           setShowEditForm={setShowEditForm}
+          commentToEdit={commentToEdit}
+          activeReviewId={activeReviewId}
+          setActiveReviewId={setActiveReviewId} 
         />
       </div>
     )

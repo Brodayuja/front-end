@@ -251,16 +251,17 @@ export const updateUser = async (userId, updatedData) => {
 };
 
 // Edit Comment
-export const updateComment = async (commentId, updatedData) => {
+export const updateComment = async (id, updatedData) => {
   try {
-    const response = await fetch(`${BASE_URL}/comments/${commentId}`, {
+    const response = await fetch(`${BASE_URL}/comments/${id}`, {
       method: 'PUT',
       headers:  {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(updatedData)
+      body: JSON.stringify({content: updatedData})
     });
     const data = await response.json();
+    console.log(data)
     return data;
   } catch (error) {
     console.log(error)
