@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchReviews } from "../api-handlers";
 
-function MyReviews() {
+function MyReviews({books}) {
   const [reviews, setReviews] = useState([]);
   const storedId = localStorage.getItem("userId");
 
@@ -10,7 +10,7 @@ function MyReviews() {
       try {
         const data = await fetchReviews();
         setReviews(data);
-        console.log(data);
+        
       } catch (error) {
         console.log(error);
       }
@@ -21,17 +21,33 @@ function MyReviews() {
 
   return (
     <>
-      <h2>My Reviews</h2>
+ <h2>My Reviews</h2>
       <div className="flex flex-wrap">
         {reviews.map((review) => {
           if (review.user_id == storedId) {
+            // Find the book object based on the review's ISBN
+            const book = books.find((b) => b.nfBook_isbn === review.isbn || b.fictionBook_isbn === review.isbn || b.greaphicBook_isbn === review.isbn || b.bookClubBook_isbn === review.isbn || b.childrensBook_isbn === review.isbn );
+
             return (
-              <div key={review.id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4">
-                <div className="border rounded-lg p-4">
-                  <p className="text-lg font-bold mb-2">{review.content}</p>
-                  {/* Add additional review details or styling as needed */}
+                <div key={review.id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4">
+                  <div className="border rounded-lg p-4 flex">
+                       {/* book?.title if book isn't immediately accessed */}
+                    <a href={`/books/${book?.isbn}`} className="flex">
+                      {book && (
+                        <div className="w-1/4">
+                          <img src={book?.bookCover} alt="Book Cover" className="w-full" />
+                        </div>
+                      )}
+                      <div className="ml-4">
+                        {/* book?.title if book isn't immediately accessed */}
+                        <p className="font-bold mb-2">{book?.title}</p>
+                        <p className="mt-auto">{review.content}</p>
+                      </div>
+                    </a>
+                  </div>
                 </div>
-              </div>
+
+            
             );
           }
           return null;

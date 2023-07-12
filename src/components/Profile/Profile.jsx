@@ -6,7 +6,7 @@ import { fetchUserById } from "../api-handlers";
 import MyReviews from "./MyReviews";
 
 
-function Profile({ myUserId }) {
+function Profile({ myUserId, books }) {
   const [user, setUser] = useState(null);
 
 
@@ -71,7 +71,7 @@ function Profile({ myUserId }) {
 
               <br/>
 
-          {<MyReviews/>}
+          {<MyReviews books={books}/>}
 
 
             <h2>My Books Shelf Render Here</h2>

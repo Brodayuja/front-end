@@ -1,19 +1,11 @@
-import { deleteMyComment } from "../api-handlers";
 import { useEffect, useState } from "react";
 
-function ThreeDotsMenu({ comments }) {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+function ThreeDotsMenu({ comments, commentId, handleDeleteComment }) {
+
   const [isCommentDeleted, setIsCommentDeleted] = useState(false);
 
-  const handleDeleteComment = async () => {
-    try {
-      await deleteMyComment(comments.userid, comments[0].id);
-      setIsCommentDeleted(true);
-
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const storedUserId = localStorage.getItem("userId");
 
   useEffect(()=>{
     if (isCommentDeleted) {
@@ -21,31 +13,16 @@ function ThreeDotsMenu({ comments }) {
     }
   }, [comments])
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-
-  if (isCommentDeleted) {
-    return null;
-  }
+  console.log(comments)
 
   return (
     <>
-      <div className="dropdown">
-        <button className="dropdown-toggle" onClick={toggleDropdown}>
-          ...
-        </button>
-        {isDropdownOpen && (
-          <div className="dropdown-menu">
-            <button className="dropdown-item" onClick={handleDeleteComment}>
-              Delete Comment
-            </button>
-          </div>
-        )}
-      </div>
-    </>
+    
+    <button>Edit</button>
+
+    <button onClick={() => handleDeleteComment(comments.userid, commentId)}>Delete</button>
+
+  </>
   );
 }
-
-export default ThreeDotsMenu;
+  export default ThreeDotsMenu
