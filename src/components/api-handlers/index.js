@@ -98,8 +98,8 @@ export const fetchAllComments = async () => {
   }
 };
 
-// Delete Comment by userid
-export const deleteMyComment = async (myUserId, id) => {
+// Delete Comment by id
+export const deleteMyComment = async (userid, id) => {
   try {
     const response = await fetch(`${BASE_URL}/comments/${id}`, {
       method: "DELETE"
@@ -249,6 +249,23 @@ export const updateUser = async (userId, updatedData) => {
     console.log(error);
   }
 };
+
+// Edit Comment
+export const updateComment = async (commentId, updatedData) => {
+  try {
+    const response = await fetch(`${BASE_URL}/comments/${commentId}`, {
+      method: 'PUT',
+      headers:  {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedData)
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 
 
