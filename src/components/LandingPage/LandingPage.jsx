@@ -10,6 +10,9 @@ function LandingPage(props) {
   const setMyUserId = props.setMyUserId;
   const setIsLoggedIn = props.setIsLoggedIn;
   const setMyUsername = props.setMyUsername;
+  const averageScores = props.averageScores
+
+  console.log(averageScores)
 
   return (
     <>
@@ -43,7 +46,7 @@ function LandingPage(props) {
       </article>
 
       <div>
-        <RecentReviewsShelf books={books} />
+        <RecentReviewsShelf books={books} averageScores={averageScores}/>
       </div>
 
       <div>
