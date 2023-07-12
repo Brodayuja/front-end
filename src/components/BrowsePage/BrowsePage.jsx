@@ -6,7 +6,7 @@ import RecentReviewsShelf from "../Reviews/RecentReviewsShelf";
 import GraphicNovelsShelf from "../GraphicNovels/GraphicNovelsShelf";
 import ChildrensBooksShelf from "../ChildrensBooks/ChildrensBooksShelf";
 
-function Browse ({books}) {
+function Browse ({books, averageScores}) {
     
     return (
         <>
@@ -19,15 +19,15 @@ function Browse ({books}) {
         <div>
             <p>This is Browse</p>
 
-            <RecentReviewsShelf books={books} />
+            <RecentReviewsShelf books={books} averageScores={averageScores}/>
 
-            <FictionShelf />
+            <FictionShelf averageScores={averageScores}/>
 
-            <NFBooksShelf />
+            <NFBooksShelf averageScores={averageScores}/>
 
-            <GraphicNovelsShelf />
+            <GraphicNovelsShelf averageScores={averageScores}/>
 
-            <ChildrensBooksShelf />
+            <ChildrensBooksShelf averageScores={averageScores}/>
 
             
 

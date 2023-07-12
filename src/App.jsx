@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import { Routes, Route, useParams, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import LandingPage from "./components/LandingPage/LandingPage";
-import { fetchAllBooks } from "./components/api-handlers";
+import { fetchAllBooks, fetchReviews } from "./components/api-handlers";
 import SearchResults from "./components/SearchBar/SearchResults";
 import SingleBookDetail from "./components/SingleBook/SingleBook";
 import Login from "./components/Login/Login";
@@ -17,56 +17,88 @@ import ChildrensBooks from "./components/ChildrensBooks/ChildrensBooks";
 import EditProfile from "./components/Profile/EditProfile";
 import NavBar from "./components/NavBar/NavBar";
 
-
 function App() {
   const [books, setBooks] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [myUsername, setMyUsername] = useState("");
-  const [myUserId, setMyUserId] = useState(null)
+  const [myUserId, setMyUserId] = useState(null);
+  const [reviews, setReviews] = useState([]);
+  const [averageScores, setAverageScores] = useState({});
   const navigate = useNavigate();
-
+  const location = useLocation();
 
   useEffect(() => {
-    const getBooks = async () => {
+    const fetchAllData = async () => {
       try {
-        const result = await fetchAllBooks();
-        setBooks(result);
-        // console.log(result)
+        const fetchedReviews = await fetchReviews();
+        setReviews(fetchedReviews);
+        calculateAverageScores(fetchedReviews);
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching reviews:", error);
+      }
+
+      try {
+        const fetchedBooks = await fetchAllBooks();
+        setBooks(fetchedBooks);
+      } catch (error) {
+        console.error("Error fetching books:", error);
       }
     };
-    getBooks();
+
+    fetchAllData();
   }, []);
 
+  const calculateAverageScores = (reviews) => {
+    const averageScores = {};
+    const isbnKeys = [
+      "bookClubBook_isbn",
+      "fictionBook_isbn",
+      "graphicBook_isbn",
+      "nfBook_isbn",
+      "childrensBook_isbn",
+    ];
 
-  useEffect(()=> {
-    try {
-      const myToken = localStorage.getItem("token")
-      const token_id = localStorage.getItem("userId")
-      const username = localStorage.getItem("username")
-     
-      if (myToken && token_id){
-        setMyUserId(token_id)
-        setIsLoggedIn(true)
+    for (const review of reviews) {
+      for (const key of isbnKeys) {
+        const isbn = review[key];
+        if (isbn !== null) {
+          if (!averageScores[isbn]) {
+            averageScores[isbn] = {
+              totalScore: 0,
+              count: 0,
+            };
+          }
+          averageScores[isbn].totalScore += review.score;
+          averageScores[isbn].count += 1;
+        }
       }
-
-    } catch (error) {
-      console.log(error)
     }
-  },[])
 
-  useEffect(()=>{
-    if (isLoggedIn && location.pathname === "/"){
-      navigate("/browse")
+    // Calculate average scores
+    for (const isbn in averageScores) {
+      averageScores[isbn] = averageScores[isbn].totalScore / averageScores[isbn].count;
     }
-  },[isLoggedIn, location.pathname])
+
+    setAverageScores(averageScores);
+  };
+
+  console.log(averageScores)
 
   return (
     <>
       <Routes>
-        <Route path="/" element={<LandingPage books={books} setMyUserId={setMyUserId} setIsLoggedIn={setIsLoggedIn}
-              setMyUsername={setMyUsername} />}></Route>
+        <Route
+          path="/"
+          element={
+            <LandingPage
+              books={books}
+              setMyUserId={setMyUserId}
+              setIsLoggedIn={setIsLoggedIn}
+              setMyUsername={setMyUsername}
+              averageScores={averageScores}
+            />
+          }
+        />
         <Route
           path="/login"
           element={
@@ -76,7 +108,7 @@ function App() {
               setMyUserId={setMyUserId}
             />
           }
-        ></Route>
+        />
         <Route
           path="/register"
           element={
@@ -85,31 +117,47 @@ function App() {
               setMyUsername={setMyUsername}
             />
           }
-        ></Route>
-        <Route
-          path="/search-results"
-          element={<SearchResults books={books} />}
         />
+        <Route path="/search-results" element={<SearchResults books={books} />} />
         <Route
           path="/books/:isbn"
-          element={<SingleBookDetail books={books} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} myUserId={myUserId} setBooks={setBooks}/>}
+          element={
+            <SingleBookDetail
+              books={books}
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              myUserId={myUserId}
+              setBooks={setBooks}
+              reviews={reviews}
+            />
+          }
         />
-        <Route path="/browse" element={<Browse books={books}/>} />
+        <Route path="/browse" element={<Browse books={books} averageScores={averageScores}/>} />
         <Route path="/mybooks" />
-        <Route path="/profile" element={<Profile  myUserId={myUserId} books={books}/>} />
-        <Route path="/nonfiction" element={<NFBooks/>}/>
-        <Route path="/childbooks" element={<ChildrensBooks/>}/>
-        <Route path="/fiction" element={<FictionPage/>}/>
-        <Route path="/graphicnovels" element={<GraphicNovels/>}/>
-        <Route path="/add-books" element={<AddBook />}></Route>
-        <Route path="/profile-edit" element={<EditProfile myUserId={myUserId}/>}/>
-        <Route path="/navBar" element={<NavBar myUserId={myUserId} isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/>}/>
-
-
+        <Route
+          path="/profile"
+          element={<Profile myUserId={myUserId} books={books} reviews={reviews} />}
+        />
+        <Route path="/nonfiction" element={<NFBooks />} />
+        <Route path="/childbooks" element={<ChildrensBooks />} />
+        <Route path="/fiction" element={<FictionPage />} />
+        <Route path="/graphicnovels" element={<GraphicNovels />} />
+        <Route path="/add-books" element={<AddBook />} />
+        <Route path="/profile-edit" element={<EditProfile myUserId={myUserId} />} />
+        <Route
+          path="/navBar"
+          element={
+            <NavBar
+              myUserId={myUserId}
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              reviews={reviews}
+            />
+          }
+        />
       </Routes>
     </>
   );
 }
-
 
 export default App;
