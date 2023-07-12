@@ -1,28 +1,38 @@
 import { useEffect, useState } from "react";
-
-
-function ThreeDotsMenu({ comments, commentId, handleDeleteComment }) {
-
+function ThreeDotsMenu({ comments, commentId, handleDeleteComment, handleEditComment, showEditForm, setShowEditForm }) {
   const [isCommentDeleted, setIsCommentDeleted] = useState(false);
-
+  
   const storedUserId = localStorage.getItem("userId");
 
-  useEffect(()=>{
+  useEffect(() => {
     if (isCommentDeleted) {
-        setIsCommentDeleted(false)
+      setIsCommentDeleted(false);
     }
-  }, [comments])
+  }, [comments]);
+  console.log(comments);
+  // Find the comment matching the commentId
+  const comment = comments.find((c) => c.id === commentId);
 
-  console.log(comments)
+  // Handle Toggle Edit
+  const handleToggleEdit = () => {
+    setShowEditForm(!showEditForm)
+  }
 
   return (
     <>
-    
-    <button>Edit</button>
+     
+      {comment && comment.userid == storedUserId && (
+        <>
+         <button onClick={handleToggleEdit}>Edit</button>
 
-    <button onClick={() => handleDeleteComment(comments.userid, commentId)}>Delete</button>
-
-  </>
+        <button
+          onClick={() => handleDeleteComment(comment.userid, commentId)}
+        >Delete
+        </button>
+        
+        </>
+      )}
+    </>
   );
 }
-  export default ThreeDotsMenu
+export default ThreeDotsMenu;

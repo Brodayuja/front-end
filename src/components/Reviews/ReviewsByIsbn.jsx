@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchReviews, fetchUserById, fetchAllComments, postComment, deleteMyComment, updateComment } from "../api-handlers/index";
 import ThreeDotsMenu from "../ThreeDotsMenu/ThreeDotsMenu";
-
+import SingleComment from "./SingleComment";
 
 const GetAllReviewsByISBN = ({ myUserId }) => {
   const { isbn } = useParams();
@@ -129,6 +129,16 @@ const GetAllReviewsByISBN = ({ myUserId }) => {
   };
   
   // Handles Edit Button
+   const handleEditComment = async() => {
+    // event.preventDefault();
+    try {
+      const {content} = editComment;
+
+      await updateComment(comments.id, {content})
+    } catch (error) {
+      console.log(error)
+    }
+  }
  
   return (
     <>
@@ -141,22 +151,13 @@ const GetAllReviewsByISBN = ({ myUserId }) => {
 
 
             <div>
-              {activeReviewId === review.id && (
-                <>
-                  {comments.filter((comment) => comment.reviewid === review.id)
-                    .map((comment) => (
-                      <div key={comment.id} className="border rounded-md p-2 mt-2">
-                        <p>From: {comment.username}</p>
-                        <p>{comment.content}</p>
-                       
-                        <ThreeDotsMenu
-                          comments={comments}
-                          commentId={comment.id}
-                          handleDeleteComment={handleDeleteComment}
-                        />
-
-                      </div>
-                    ))}
+            {activeReviewId === review.id && (
+              <>
+                {comments.filter((comment) => comment.reviewid === review.id)
+                  .map((comment) => (
+                    <SingleComment key={comment.id} comment={comment}
+                    comments={comments} handleDeleteComment={handleDeleteComment} handleEditComment={handleEditComment}/>
+                  ))}
                 </>
               )}
             </div>
