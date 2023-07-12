@@ -8,8 +8,7 @@ const Login = (props) => {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const setMyNewUserId = props.setMyUserId;
-  const setMyUsername = props.setMyUsername
-
+  const setMyUsername = props.setMyUsername;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,30 +17,32 @@ const Login = (props) => {
       const result = await loginUser(username, password);
       setIsLoggedIn(true);
       setMyUsername(username);
-      console.log(result)
+      console.log(result);
 
-     localStorage.setItem("token", result.token);
-     localStorage.setItem("userId", result.id)
-     localStorage.setItem("username", username)
-     const myToken = result.token;
-      console.log(myToken)
-      
-        if(myToken){
-          const fetchUsers = await fetchAllUserData();
-          
-          fetchUsers.users.find((user)=>{
-            if(username === user.username){
-                setMyNewUserId(user.id);
-                
-            }
-            
-          })
-        }
+      localStorage.setItem("token", result.token);
+      localStorage.setItem("userId", result.id);
+      localStorage.setItem("username", username);
+      const myToken = result.token;
+      console.log(myToken);
+
+      if (myToken) {
+        const fetchUsers = await fetchAllUserData();
+
+        fetchUsers.users.find((user) => {
+          if (username === user.username) {
+            setMyNewUserId(user.id);
+          }
+        });
+      }
 
       navigate("/browse");
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = "http://localhost:3000/auth/google"; // Redirect to Google authentication
   };
 
   return (
@@ -70,6 +71,9 @@ const Login = (props) => {
         </label>
         <button type="submit">Login</button>
       </form>
+      <button type="button" onClick={handleGoogleLogin}>
+        Login with Google
+      </button>
       <Link to="/register">Don't have an account? Click Here!</Link>
     </div>
   );
