@@ -40,7 +40,6 @@ function CommentsMenu({ comments, setComments, activeReviewId, setActiveReviewId
     const postEditedComment = async () => {
       try {
         const postUpdatedComment = await updateComment(commentId, commentToEdit);
-        console.log(postUpdatedComment)
         if(postUpdatedComment){
           const filteredComments = comments.filter((newComment)=>{
             if(newComment.id !== commentId){
