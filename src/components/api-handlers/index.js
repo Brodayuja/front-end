@@ -281,14 +281,14 @@ export const updateComment = async (id, updatedData) => {
 }
 
 // Update Review
-export const updateReview = async (id, updatedData) => {
+export const updateReview = async (id, updatedData, score) => {
   try {
     const response = await fetch(`${BASE_URL}/reviews/${id}`, {
       method: 'PUT',
       headers:  {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({content: updatedData})
+      body: JSON.stringify({content: updatedData, score})
     });
     const data = await response.json();
     console.log(data)

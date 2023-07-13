@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import CommentsMenu from "../CommentsMenu/CommentsMenu";
+import CommentsMenu from "../Menus/CommentsMenu";
 
 function SingleComment({comment, comments, setComments, activeReviewId, setActiveReviewId}){
     const [showEditForm, setShowEditForm] = useState(false)

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchReviews, fetchUserById, fetchAllComments, postComment, deleteMyComment, deleteMyReview, updateReview } from "../api-handlers/index";
 import SingleComment from "./SingleComment";
+import ReviewsMenu from "../Menus/ReviewsMenu";
 
 const GetAllReviewsByISBN = () => {
   const { isbn } = useParams();
@@ -9,8 +10,6 @@ const GetAllReviewsByISBN = () => {
   const [comments, setComments] = useState([]);
   const [activeReviewId, setActiveReviewId] = useState(null);
   const [commentText, setCommentText] = useState({});
-  const [reviewContentToEdit, setReviewContentToEdit] = useState({})
-  const [reviewScoreToEdit, setReviewScoreToEdit] = useState({})
   const [showEditReviewForm, setShowEditReviewForm] = useState(false)
 
 
@@ -82,20 +81,6 @@ const GetAllReviewsByISBN = () => {
     }
   };
 
-  // Delete My Review
-  const handleDeleteReview = async (userId, reviewId) => {
-    try {
-      await deleteMyReview(userId, reviewId);
-      // setComments((prevReviews) =>
-      //   prevReviews.filter((review) => review.reviewid !== activeReviewId && review.id === reviewId)
-      // );
-      console.log("Review Deleted");
-      
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   // Updates commentText for the active reviewID
   const handleCommentText = (event, reviewId) => {
     const updatedCommentText = { ...commentText };
@@ -135,7 +120,6 @@ const handlePostComment = async (reviewId) => {
 const postEditedReview = async () => {
   try {
     const postUpdatedReview = await updateReview(reviewId, updatedData)
-    console.log(postUpdatedReview)
   } catch (error) {
     console.log(error)
   }
@@ -145,7 +129,6 @@ const postEditedReview = async () => {
     <>
       <div>
         {reviewsByIsbn.map((review) => {
-          console.log(review)
           return(
          
           <div key={review.id} className="border rounded-md p-4 mb-4">
@@ -153,12 +136,8 @@ const postEditedReview = async () => {
             <div className="mt-2">Score: {review.score}</div>
             <div className="mt-2">Review: {review.content}</div>
 
-            {/* <button onClick={}>Edit</button> */}
+            <ReviewsMenu reviewUserId={review.user_id} reviewId={review.id} review={review} reviewsByIsbn={reviewsByIsbn} setReviewsByIsbn={setReviewsByIsbn}/>
 
-          <button onClick={()=>{
-            handleDeleteReview(review.user_id, review.id)
-
-          }}>Delete</button>
             <div>
             {activeReviewId === review.id && (
               <>
