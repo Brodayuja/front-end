@@ -10,7 +10,7 @@ import UpdateFictionBook from "../FictionBooks/UpdateFictionBooks";
 import AverageReviewScore from "../AverageReviewScore/AverageReviewScore";
 
 
-function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId, setBooks}) {
+function SingleBookDetail({ books, isLoggedIn, setIsLoggedIn, myUsername, setBooks}) {
   const { isbn } = useParams();
   const [showAddReview, setShowAddReview] = useState(false);
   const [reviewsByIsbn, setReviewsByIsbn] = useState([]);
@@ -21,6 +21,10 @@ function SingleBookDetail({ books, isLoggedIn, myUsername, myUserId, setBooks}) 
     }
   });
 
+const myUserId = localStorage.getItem("userId")
+if (myUserId){
+  setIsLoggedIn(true)
+}
 
   useEffect(() => {
     try {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import ThreeDotsMenu from "../ThreeDotsMenu/ThreeDotsMenu";
+import CommentsMenu from "../CommentsMenu/CommentsMenu";
 
 function SingleComment({comment, comments, setComments, activeReviewId, setActiveReviewId}){
     const [showEditForm, setShowEditForm] = useState(false)
@@ -29,7 +29,7 @@ function SingleComment({comment, comments, setComments, activeReviewId, setActiv
           </div>
         )}
 
-        <ThreeDotsMenu
+        <CommentsMenu
           comments={comments}
           setComments={setComments}
           commentId={comment.id}

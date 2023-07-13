@@ -1,17 +1,21 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchReviews, fetchUserById, fetchAllComments, postComment, deleteMyComment } from "../api-handlers/index";
+import { fetchReviews, fetchUserById, fetchAllComments, postComment, deleteMyComment, deleteMyReview, updateReview } from "../api-handlers/index";
 import SingleComment from "./SingleComment";
 
-const GetAllReviewsByISBN = ({ myUserId }) => {
+const GetAllReviewsByISBN = () => {
   const { isbn } = useParams();
   const [reviewsByIsbn, setReviewsByIsbn] = useState([]);
   const [comments, setComments] = useState([]);
   const [activeReviewId, setActiveReviewId] = useState(null);
   const [commentText, setCommentText] = useState({});
+  const [reviewContentToEdit, setReviewContentToEdit] = useState({})
+  const [reviewScoreToEdit, setReviewScoreToEdit] = useState({})
+  const [showEditReviewForm, setShowEditReviewForm] = useState(false)
 
 
   const storedUsername = localStorage.getItem("username");
+  const myUserId = localStorage.getItem("userId")
 
 
   // Fetches the Reviews w/ usernames
@@ -78,6 +82,19 @@ const GetAllReviewsByISBN = ({ myUserId }) => {
     }
   };
 
+  // Delete My Review
+  const handleDeleteReview = async (userId, reviewId) => {
+    try {
+      await deleteMyReview(userId, reviewId);
+      // setComments((prevReviews) =>
+      //   prevReviews.filter((review) => review.reviewid !== activeReviewId && review.id === reviewId)
+      // );
+      console.log("Review Deleted");
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Updates commentText for the active reviewID
   const handleCommentText = (event, reviewId) => {
@@ -114,16 +131,34 @@ const handlePostComment = async (reviewId) => {
   }
 };
  
+// Posts Edited Review
+const postEditedReview = async () => {
+  try {
+    const postUpdatedReview = await updateReview(reviewId, updatedData)
+    console.log(postUpdatedReview)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
   return (
     <>
       <div>
-        {reviewsByIsbn.map((review) => (
+        {reviewsByIsbn.map((review) => {
+          console.log(review)
+          return(
+         
           <div key={review.id} className="border rounded-md p-4 mb-4">
             <p className="font-bold">Username: {review.username}</p>
             <div className="mt-2">Score: {review.score}</div>
             <div className="mt-2">Review: {review.content}</div>
 
+            {/* <button onClick={}>Edit</button> */}
 
+          <button onClick={()=>{
+            handleDeleteReview(review.user_id, review.id)
+
+          }}>Delete</button>
             <div>
             {activeReviewId === review.id && (
               <>
@@ -160,7 +195,7 @@ const handlePostComment = async (reviewId) => {
               {activeReviewId === review.id ? "Hide Comments" : "View All Comments"}
             </button>
           </div>
-        ))}
+        )})}
       </div>
     </>
   );
