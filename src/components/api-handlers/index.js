@@ -109,6 +109,18 @@ export const deleteMyComment = async (userid, id) => {
   }
 }
 
+// Delete Review by Id
+export const deleteMyReview = async (userid, id) => {
+  console.log(id)
+  try {
+    const response = await fetch(`${BASE_URL}/reviews/${id}`, {
+      method: "DELETE"
+    });
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 // User login
 export const loginUser = async (username, password) => {
   try {
@@ -268,7 +280,23 @@ export const updateComment = async (id, updatedData) => {
   }
 }
 
-
+// Update Review
+export const updateReview = async (id, updatedData) => {
+  try {
+    const response = await fetch(`${BASE_URL}/reviews/${id}`, {
+      method: 'PUT',
+      headers:  {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({content: updatedData})
+    });
+    const data = await response.json();
+    console.log(data)
+    return data;
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 
 // Get all User Data

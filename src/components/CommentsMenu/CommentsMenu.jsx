@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { updateComment } from "../api-handlers";
 import { deleteMyComment } from "../api-handlers";
 
-function ThreeDotsMenu({ comments, setComments, activeReviewId, setActiveReviewId, commentId, showEditForm, setShowEditForm, commentToEdit }) {
+function CommentsMenu({ comments, setComments, activeReviewId, setActiveReviewId, commentId, showEditForm, setShowEditForm, commentToEdit }) {
+  
   const [isCommentDeleted, setIsCommentDeleted] = useState(false);
   
   const storedUserId = localStorage.getItem("userId");
@@ -38,7 +39,16 @@ function ThreeDotsMenu({ comments, setComments, activeReviewId, setActiveReviewI
     // Posts Updated Comment
     const postEditedComment = async () => {
       try {
-        await updateComment(commentId, commentToEdit);
+        const postUpdatedComment = await updateComment(commentId, commentToEdit);
+        console.log(postUpdatedComment)
+        if(postUpdatedComment){
+          const filteredComments = comments.filter((newComment)=>{
+            if(newComment.id !== commentId){
+              return true;
+            }
+          })
+          setComments([postUpdatedComment, ...filteredComments])
+        }
         setShowEditForm(!showEditForm)
       } catch (error) {
         console.log(error);
@@ -72,4 +82,4 @@ function ThreeDotsMenu({ comments, setComments, activeReviewId, setActiveReviewI
     </>
   );
 }
-export default ThreeDotsMenu;
+export default CommentsMenu;
