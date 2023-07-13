@@ -22,9 +22,6 @@ function SingleBookDetail({ books, isLoggedIn, setIsLoggedIn, myUsername, setBoo
   });
 
 const myUserId = localStorage.getItem("userId")
-if (myUserId){
-  setIsLoggedIn(true)
-}
 
   useEffect(() => {
     try {

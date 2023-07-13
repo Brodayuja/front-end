@@ -27,6 +27,15 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  useEffect(()=>{
+    const myUserId = localStorage.getItem("userId")
+      if (myUserId){
+        setIsLoggedIn(true)
+      }else{
+        setIsLoggedIn(false)
+      }
+  },[])
+
   useEffect(() => {
     const fetchAllData = async () => {
       try {
