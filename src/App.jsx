@@ -27,6 +27,15 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+  
+    if (token && location.pathname === "/") {
+      navigate("/browse");
+    }
+  }, [navigate, location]);
+  
+
   useEffect(()=>{
     const myUserId = localStorage.getItem("userId")
       if (myUserId){
@@ -91,8 +100,6 @@ function App() {
     setAverageScores(averageScores);
   };
 
-  console.log(averageScores)
-
   return (
     <>
       <Routes>
@@ -124,6 +131,7 @@ function App() {
             <Registration
               setIsLoggedIn={setIsLoggedIn}
               setMyUsername={setMyUsername}
+              setMyUserId={setMyUserId}
             />
           }
         />
