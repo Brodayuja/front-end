@@ -14,7 +14,7 @@ const ReportReview = ({ reviewId }) => {
 
       await reportReview(reviewId, isInappropriate ? 1 : 0, isNotAccurate ? 1 : 0);
 
-      // Handle successful reporting, such as displaying a confirmation message
+      
       console.log('Review reported successfully');
 
       // Reset the form
