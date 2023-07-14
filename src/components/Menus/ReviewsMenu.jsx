@@ -6,6 +6,8 @@ function ReviewsMenu({review, reviewUserId, reviewId, reviewsByIsbn, setReviewsB
     const [reviewScoreToEdit, setReviewScoreToEdit] = useState({})
     const [showEditForm, setShowEditForm] = useState(false)
 
+    const storedUserId = localStorage.getItem("userId");
+
 // Delete My Review
   const handleDeleteReview = async (userId, reviewId) => {
     try {
@@ -52,43 +54,41 @@ const postEditedReview = async (event) => {
     }
   },[review])
 
-    return(
-        <div>
-            {showEditForm ? (
-                <div>
-                    <form onSubmit={postEditedReview}>
-                        <input
-                            type="number"
-                            min="1"
-                            max="5"
-                            value={reviewScoreToEdit}
-                            onChange={(event) => {
-                                setReviewScoreToEdit(event.target.value)}}
-                        />
 
+        return (
+            <>
+              {review.user_id == storedUserId && (
+                <>
+                  {showEditForm ? (
+                    <>
+                      <form onSubmit={postEditedReview}>
                         <input
-                            type="text"
-                            value={reviewContentToEdit}
-                            onChange={(event)=>
-                                setReviewContentToEdit(event.target.value)}
+                          type="number"
+                          min="1"
+                          max="5"
+                          value={reviewScoreToEdit}
+                          onChange={(event) => {
+                            setReviewScoreToEdit(event.target.value);
+                          }}
+                        />
+          
+                        <input
+                          type="text"
+                          value={reviewContentToEdit}
+                          onChange={(event) => setReviewContentToEdit(event.target.value)}
                         />
                         <button type="submit">Update</button>
-                    </form>
-                </div>
-            ) : (
-                <div>
-                    <button onClick={handleToggleEdit}>Edit</button>
-        
-                    <button onClick={()=>{
-                    handleDeleteReview(reviewUserId, reviewId)
-        
-                  }}>Delete</button>
-
-                </div>
-
-            )}
-        </div>
-    )
-}
-
+                      </form>
+                    </>
+                  ) : (
+                    <>
+                      <button onClick={handleToggleEdit}>Edit</button>
+                      <button onClick={() => handleDeleteReview(reviewUserId, reviewId)}>Delete</button>
+                    </>
+                  )}
+                </>
+              )}
+            </>
+          );
+        }
 export default ReviewsMenu;
