@@ -298,6 +298,28 @@ export const updateReview = async (id, updatedData, score) => {
   }
 }
 
+//Review Reporting
+export const reportReview = async (id, isInappropriate, isNotAccurate) => {
+  try {
+    const response = await fetch(`${BASE_URL}/reviews/${id}/report`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ isInappropriate, isNotAccurate }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      throw new Error('Failed to report review');
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 
 // Get all User Data
 export const fetchAllBooksTable = async () => {

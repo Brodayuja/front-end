@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { fetchReviews, fetchUserById, fetchAllComments, postComment, deleteMyComment, deleteMyReview, updateReview } from "../api-handlers/index";
 import SingleComment from "./SingleComment";
 import ReviewsMenu from "../Menus/ReviewsMenu";
+import ReportReview from "../ReportReview/ReportReview";
 
 const GetAllReviewsByISBN = () => {
   const { isbn } = useParams();
@@ -125,38 +126,45 @@ const postEditedReview = async () => {
   }
 }
 
-  return (
-    <>
-      <div>
-        {reviewsByIsbn.map((review) => {
-          return(
-         
-          <div key={review.id} className="border rounded-md p-4 mb-4">
+return (
+  <>
+    <div>
+      {reviewsByIsbn.map((review) => {
+        return (
+          <div key={review.id} className="border rounded-md p-4 mb-4 relative">
+            <div className="absolute top-0 right-0">
+              <ReportReview reviewId={review.id} />
+            </div>
             <p className="font-bold">Username: {review.username}</p>
             <div className="mt-2">Score: {review.score}</div>
             <div className="mt-2">Review: {review.content}</div>
 
-            <ReviewsMenu reviewUserId={review.user_id} reviewId={review.id} review={review} reviewsByIsbn={reviewsByIsbn} setReviewsByIsbn={setReviewsByIsbn}/>
+            <ReviewsMenu
+              reviewUserId={review.user_id}
+              reviewId={review.id}
+              review={review}
+              reviewsByIsbn={reviewsByIsbn}
+              setReviewsByIsbn={setReviewsByIsbn}
+            />
 
             <div>
-            {activeReviewId === review.id && (
-              <>
-                {comments.filter((comment) => comment.reviewid === review.id)
-                  .map((comment) => (
-
-                    <SingleComment key={comment.id} 
-                    comment={comment}
-                    comments={comments}
-                    setComments={setComments}
-                    activeReviewId={activeReviewId}
-                    setActiveReviewId={setActiveReviewId} 
-                    />
-                    
-                  ))}
+              {activeReviewId === review.id && (
+                <>
+                  {comments
+                    .filter((comment) => comment.reviewid === review.id)
+                    .map((comment) => (
+                      <SingleComment
+                        key={comment.id}
+                        comment={comment}
+                        comments={comments}
+                        setComments={setComments}
+                        activeReviewId={activeReviewId}
+                        setActiveReviewId={setActiveReviewId}
+                      />
+                    ))}
                 </>
               )}
             </div>
-
 
             <div>
               {/* Reply box */}
@@ -166,19 +174,20 @@ const postEditedReview = async () => {
                 onChange={(event) => handleCommentText(event, review.id)}
                 placeholder="Enter your comment"
               />
-              <button onClick={() => handlePostComment(review.id)}>Post Comment</button>
+              <button onClick={() => handlePostComment(review.id)}>
+                Post Comment
+              </button>
             </div>
-
 
             <button onClick={() => handleToggleComments(review.id)}>
               {activeReviewId === review.id ? "Hide Comments" : "View All Comments"}
             </button>
           </div>
-        )})}
-      </div>
-    </>
-  );
-};
+        );
+      })}
+    </div>
+  </>
+);}
 
 
 export default GetAllReviewsByISBN;
