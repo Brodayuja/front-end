@@ -17,33 +17,32 @@ function LandingPage(props) {
   return (
     <>
       <div>
-        <img className="Logo" src={pageTurnerLogo} />
+        <img className="w-screen" src={pageTurnerLogo} />
       </div>
 
-      <div>
-        <h1>Page Turners</h1>
-        {/* Background Header Img */}
+      <div className="flex">
+              <p className="w-1/3 ml-8 font-bold pr-6 pt-8">Deciding what to read next?
+                <br/>
+                You’re in the right
+                place. Tell us what titles or genres you’ve enjoyed in the past, and
+                we’ll give you surprisingly insightful recommendations.
+              </p>
+
+              <p className="w-1/3 font-bold pr-6 pt-8"> What are your friends reading?
+                <br/>
+                Chances are your
+                friends are discussing their favorite (and least favorite) books on
+                Page Turners.
+              </p>
+        
+
+        <div className="bg-columbiaBlue w-1/4 rounded-xl -translate-y-1/2">
+          <Login setIsLoggedIn={setIsLoggedIn}
+                setMyUsername={setMyUsername}
+                setMyUserId={setMyUserId}/>
+        </div>
       </div>
 
-      <div>
-        <Login setIsLoggedIn={setIsLoggedIn}
-              setMyUsername={setMyUsername}
-              setMyUserId={setMyUserId}/>
-      </div>
-
-      <article>
-        <p>
-          <b>Deciding what to read next?</b> <br></br> You’re in the right
-          place. Tell us what titles or genres you’ve enjoyed in the past, and
-          we’ll give you surprisingly insightful recommendations.{" "}
-        </p>
-
-        <p>
-          <b>What are your friends reading?</b> <br></br> Chances are your
-          friends are discussing their favorite (and least favorite) books on
-          Page Turners.{" "}
-        </p>
-      </article>
 
       <div>
         <RecentReviewsShelf books={books} averageScores={averageScores}/>

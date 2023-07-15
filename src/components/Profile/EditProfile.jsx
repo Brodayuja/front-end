@@ -56,7 +56,6 @@ function EditProfile({ myUserId }) {
   return (
     <div className="container mx-auto">
       <div className="flex justify-between items-center">
-        <img className="Logo" src={pageTurnerLogo} alt="Page Turner Logo" />
         <NavBar />
       </div>
 

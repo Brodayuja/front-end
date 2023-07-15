@@ -66,13 +66,13 @@ const AddReview = ({myUserId}) => {
                     graphicBookISBN: isbn_gn,
                     bookClubBookISBN: isbn_club,
                     childrensBookISBN: isbn_childrens,
-                    isInappropriate: false,
-                    isNotAccurate: false,
+                    isInappropriate: 0,
+                    isNotAccurate: 0,
                     comment: null
                 })
             });
             const data = await response.json();
-            // console.log(data)
+            console.log(data)
             } catch (error) {
                 console.log (error)
         }

@@ -50,7 +50,6 @@ function Profile({ myUserId, books }) {
   return (
     <div>
       <div className="flex justify-between">
-        <img className="Logo" src={pageTurnerLogo} alt="Page Turner Logo" />
         <NavBar />
       </div>
 
@@ -58,12 +57,12 @@ function Profile({ myUserId, books }) {
         {user && (
           <div>
             <div>
-              <h2>username: {user.username}</h2>
               <Link to="/profile-edit">edit profile</Link>
             </div>
             <br />
             <div>
               <p>Name: {user.name}</p>
+              <p>username: {user.username}</p>
               <p>Email: {user.email}</p>
               <p>Location: {user.location}</p>
             </div>
@@ -76,7 +75,6 @@ function Profile({ myUserId, books }) {
 
             {<MyReviews books={books} />}
 
-            <h2>My Books Shelf Render Here</h2>
           </div>
         )}
       </div>

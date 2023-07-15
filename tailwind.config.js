@@ -8,7 +8,8 @@ export default {
     "./src/components/SingleBook/SingleBook.jsx",
     "./src/components/NavBar/NavBar.jsx",
     "./src/components/Profile/Profile.jsx",
-    "./src/components/Profile/EditProfile.jsx"
+    "./src/components/Profile/EditProfile.jsx",
+    "./src/components/Login/Login.jsx"
 
 
   ],

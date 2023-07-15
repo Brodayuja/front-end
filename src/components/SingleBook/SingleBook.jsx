@@ -56,6 +56,7 @@ const myUserId = localStorage.getItem("userId")
 
 
   const userIds = reviewsByIsbn.map((review) => review.user_id);
+  const token = localStorage.getItem("token")
 
 
 
@@ -63,7 +64,6 @@ const myUserId = localStorage.getItem("userId")
   return (
     <>
       <div className="flex justify-between">
-        <img className="Logo" src={pageTurnerLogo} alt="Page Turner Logo" />
         <NavBar />
       </div>
 
@@ -94,7 +94,7 @@ const myUserId = localStorage.getItem("userId")
       <AverageReviewScore reviews={reviewsByIsbn} />
         </div>
         <div>
-          {isLoggedIn && (
+          {token && (
             <>
               {showAddReview ? (
                 <div>
