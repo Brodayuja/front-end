@@ -27,14 +27,14 @@ function App() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  useEffect(()=>{
-    const myUserId = localStorage.getItem("userId")
-      if (myUserId){
-        setIsLoggedIn(true)
-      }else{
-        setIsLoggedIn(false)
-      }
-  },[])
+  useEffect(() => {
+    const myUserId = localStorage.getItem("userId");
+    if (myUserId) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchAllData = async () => {
@@ -85,13 +85,14 @@ function App() {
 
     // Calculate average scores
     for (const isbn in averageScores) {
-      averageScores[isbn] = averageScores[isbn].totalScore / averageScores[isbn].count;
+      averageScores[isbn] =
+        averageScores[isbn].totalScore / averageScores[isbn].count;
     }
 
     setAverageScores(averageScores);
   };
 
-  console.log(averageScores)
+  console.log(averageScores);
 
   return (
     <>
@@ -127,7 +128,10 @@ function App() {
             />
           }
         />
-        <Route path="/search-results" element={<SearchResults books={books} />} />
+        <Route
+          path="/search-results"
+          element={<SearchResults books={books} />}
+        />
         <Route
           path="/books/:isbn"
           element={
@@ -141,18 +145,32 @@ function App() {
             />
           }
         />
-        <Route path="/browse" element={<Browse books={books} averageScores={averageScores}/>} />
+        <Route
+          path="/browse"
+          element={
+            <Browse
+              books={books}
+              setMyUserId={setMyUserId}
+              averageScores={averageScores}
+            />
+          }
+        />
         <Route path="/mybooks" />
         <Route
           path="/profile"
-          element={<Profile myUserId={myUserId} books={books} reviews={reviews} />}
+          element={
+            <Profile myUserId={myUserId} books={books} reviews={reviews} />
+          }
         />
         <Route path="/nonfiction" element={<NFBooks />} />
         <Route path="/childbooks" element={<ChildrensBooks />} />
         <Route path="/fiction" element={<FictionPage />} />
         <Route path="/graphicnovels" element={<GraphicNovels />} />
         <Route path="/add-books" element={<AddBook />} />
-        <Route path="/profile-edit" element={<EditProfile myUserId={myUserId} />} />
+        <Route
+          path="/profile-edit"
+          element={<EditProfile myUserId={myUserId} />}
+        />
         <Route
           path="/navBar"
           element={
