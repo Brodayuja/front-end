@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./App.css";
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import LandingPage from "./components/LandingPage/LandingPage";
 import { fetchAllBooks, fetchReviews } from "./components/api-handlers";

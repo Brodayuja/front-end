@@ -41,12 +41,11 @@ function NFBooks() {
     return (
       <>
         <div className="flex justify-between">
-          <img className="Logo" src={pageTurnerLogo} alt="Page Turner Logo" />
           <NavBar />
         </div>
   
         <div>
-          <h1>Fiction Books</h1>
+          <h1>Non-Fiction Books</h1>
           <div>
             <label htmlFor="sortDropdown">Sort By:</label>
             <select id="sortDropdown" value={sortBy} onChange={handleSort}>

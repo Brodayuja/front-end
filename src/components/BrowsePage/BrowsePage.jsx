@@ -1,4 +1,3 @@
-import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import FictionShelf from "../FictionBooks/FictionBooksShelf";
 import NFBooksShelf from "../NFBooks/NFBooksShelf";
 import NavBar from "../NavBar/NavBar";
@@ -25,13 +24,13 @@ function Browse({ books, averageScores, setMyUserId }) {
 
   return (
     <>
-      <div className="flex justify-between">
-        <img className="Logo" src={pageTurnerLogo} alt="Page Turner Logo" />
-        <NavBar />
-      </div>
+        <div>
+            <NavBar />
+        </div>
+
+
 
       <div>
-        <p>This is Browse</p>
 
         <RecentReviewsShelf books={books} averageScores={averageScores} />
 

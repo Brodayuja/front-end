@@ -1,3 +1,4 @@
+import pageTurnerLogo2 from "../images/pageTurnersLogo2.png";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
@@ -14,30 +15,36 @@ const NavBar = ({ books, setIsLoggedIn }) => {
   const myToken = localStorage.getItem("token");
 
   return (
-    <div className="flex justify-between">
-      <div>
-        <Link to="/browse" className="mx-8">
-          Home
-        </Link>
-        <Link to="/mybooks" className="mx-8">
-          My Books
-        </Link>
-      </div>
-      {myToken ? (
-        <div>
-          <Link to="/profile" className="mx-8">Profile</Link>
-          <Link to="/" className="mx-8" onClick={handleSignOut}>
-            Sign Out
+    <div className="bg-cover bg-no-repeat w-screen h-28" 
+      style={{ backgroundImage: `url(${pageTurnerLogo2})` }}>
+        
+      <div className="flex justify-end mr-10 h-28 items-baseline ">
+        <div className="mt-auto mb-2.5">
+          <Link to="/browse" className="mx-8 text-black font-bold">
+            Home
           </Link>
+
         </div>
-      ) : (
-        <Link to="/login" className="mx-8">
-          Log in
-        </Link>
-      )}
-      <div>
-        <SearchBar books={books} />
+        {myToken ? (
+
+          <div className=" mt-auto mb-2.5">
+            <Link to="/profile" className="mx-8 text-black font-bold">Profile</Link>
+            <Link to="/" className="mx-8 text-black font-bold" onClick={handleSignOut}>
+              Sign Out
+            </Link>
+          </div>
+        ) : (
+          <div className="mt-auto mb-2.5">
+            <Link to="/login" className="mx-8 text-black font-bold">
+              Log in
+            </Link>
+          </div>
+        )}
+        <div className="mt-auto">
+          <SearchBar books={books} />
+        </div>
       </div>
+
     </div>
   );
 };
