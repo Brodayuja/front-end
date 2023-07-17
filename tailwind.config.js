@@ -9,7 +9,8 @@ export default {
     "./src/components/NavBar/NavBar.jsx",
     "./src/components/Profile/Profile.jsx",
     "./src/components/Profile/EditProfile.jsx",
-    "./src/components/Login/Login.jsx"
+    "./src/components/Login/Login.jsx",
+    "./src/components/"
 
 
   ],

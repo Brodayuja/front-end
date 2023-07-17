@@ -29,7 +29,7 @@ function Browse({ books, averageScores, setMyUserId }) {
 
 
 
-      <div>
+      <div className="mx-8 py-8">
 
         <RecentReviewsShelf books={books} averageScores={averageScores} />
 

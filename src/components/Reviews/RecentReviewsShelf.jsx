@@ -1,14 +1,15 @@
+import shelf from "../images/shelf.png";
+
 function RecentReviewsShelf(props) {
   const books = props.books;
   const averageScores = props.averageScores;
 
   return (
-    <div>
-      <div className="flex justify-between">
-        <h2>New Releases</h2>
-      </div>
+    <>
+    <h2 class="underline underline-offset-1 font-bold">New Releases</h2>
 
-      <div className="flex flex-row justify-between">
+      <div className="flex bg-contain justify-around"
+      style={{ backgroundImage: `url(${shelf})`}}>
         {books.length ? (
           books
             .filter((element) => {
@@ -20,12 +21,12 @@ function RecentReviewsShelf(props) {
             .map((element) => {
               const averageScore = averageScores[element.isbn];
               return (
-                <div key={element.isbn} className="w-1/4 px-2 bg-columbiaBlue">
+                <div key={element.isbn} className="">
                   <a href={`/books/${element.isbn}`}>
                     <img src={element.bookCover} alt="Image of Book cover" />
                   </a>
                   {averageScore !== undefined && (
-                    <p>Rating: {averageScore.toFixed(2)}/5</p>
+                    <p className="font-bold">Rating: {averageScore.toFixed(2)}/5</p>
                   )}
                 </div>
               );
@@ -34,7 +35,7 @@ function RecentReviewsShelf(props) {
           <p>Loading . . .</p>
         )}
       </div>
-    </div>
+    </>
   );
 }
 
