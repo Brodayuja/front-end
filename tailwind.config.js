@@ -10,6 +10,11 @@ export default {
     "./src/components/Profile/Profile.jsx",
     "./src/components/Profile/EditProfile.jsx",
     "./src/components/Login/Login.jsx",
+    "./src/components/ChildrensBooks/ChildrensBooks.jsx",
+    "./src/components/FictionBooks/FictionBooks.jsx",
+    "./src/components/GraphicNovels/GraphicNovels.jsx",
+    "./src/components/NFBooks/NFBooks.jsx",
+    "./src/components/SearchBar/SearchResults.jsx",
     "./src/components/"
 
 
