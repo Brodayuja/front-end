@@ -61,9 +61,9 @@ const myUserId = localStorage.getItem("userId")
 
   return (
     <>
-      <div className="flex justify-between">
+
         <NavBar />
-      </div>
+
 
 
       <div>

@@ -48,37 +48,36 @@ function Profile({ myUserId, books }) {
   }, [myUserId, cookieId]);
 
   return (
-    <div>
-      <div className="flex justify-between">
-        <NavBar />
-      </div>
+    <>
+      <NavBar />
+      
 
-      <div>
-        {user && (
-          <div>
-            <div>
-              <Link to="/profile-edit">edit profile</Link>
-            </div>
-            <br />
-            <div>
-              <p>Name: {user.name}</p>
-              <p>username: {user.username}</p>
-              <p>Email: {user.email}</p>
-              <p>Location: {user.location}</p>
-            </div>
-            <br />
-            <div>
-              <p>About me: {user.aboutMe}</p>
-            </div>
-
-            <br />
-
-            {<MyReviews books={books} />}
-
+      <div className="flex justify-center">
+      {user && (
+        <div className="text-center">
+          <br />
+          <div className="flex flex-col items-center">
+            <p>Name: {user.name}</p>
+            <p>Username: {user.username}</p>
+            <p>Email: {user.email}</p>
+            <p>Location: {user.location}</p>
           </div>
-        )}
-      </div>
+          <div>
+            <Link to="/profile-edit">Edit Profile</Link>
+          </div>
+          <br />
+          <div>
+            <p>About me: {user.aboutMe}</p>
+          </div>
+
+          <br />
+
+          {<MyReviews books={books} />}
+
+        </div>
+      )}
     </div>
+    </>
   );
 }
 

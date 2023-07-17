@@ -41,9 +41,9 @@ function FictionPage() {
   
     return (
       <>
-        <div className="flex justify-between">
+
           <NavBar />
-        </div>
+
   
         <div>
           <h1>Fiction Books</h1>
@@ -56,15 +56,19 @@ function FictionPage() {
             </select>
             {sortBy && <p>Sorted by: {sortBy}</p>}
           </div>
-          {fictionBooks.map((book) => (
-            <div key={book.isbn}>
-              <a href={`/books/${book.isbn}`}>
-                <img src={book.bookCover} alt="Image of Book cover" />
-                <h3>{book.title}</h3>
-                <p>{book.author}</p>
-              </a>
-            </div>
-          ))}
+
+          <div>
+            {fictionBooks.map((book) => (
+              <div key={book.isbn}>
+                <a href={`/books/${book.isbn}`}>
+                  <img src={book.bookCover} alt="Image of Book cover" />
+                  <h3>{book.title}</h3>
+                  <p>{book.author}</p>
+                </a>
+              </div>
+            ))}
+
+          </div>
         </div>
       </>
     );
