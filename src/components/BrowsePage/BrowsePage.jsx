@@ -16,8 +16,7 @@ function Browse({ books, averageScores, setMyUserId }) {
       const cookieId = Cookies.getItem("id");
       localStorage.setItem("token", cookieToken);
       localStorage.setItem("username", cookieUsername);
-      localStorage.setItem("id", cookieId);
-      setMyUserId(cookieId);
+      localStorage.setItem("userId", cookieId);
     };
     handleGoogleSuccess();
   }

@@ -273,7 +273,7 @@ const AddGraphicNovel = () => {
             value={newPhysicalDescription}
             onChange={(event) => {
               setNewPhysicalDescription(event.target.value);
-              console.log(event.target.value)
+
             }}
           ></input> <br />
 

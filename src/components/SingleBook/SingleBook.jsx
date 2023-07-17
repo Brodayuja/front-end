@@ -1,12 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import NavBar from "../NavBar/NavBar";
 import GetAllReviewsByISBN from "../Reviews/ReviewsByIsbn";
 import AddReview from "../Reviews/AddReview";
 import { fetchReviews } from "../api-handlers";
-import UpdateFictionBook from "../FictionBooks/UpdateFictionBooks";
 import AverageReviewScore from "../AverageReviewScore/AverageReviewScore";
 
 
@@ -112,7 +110,7 @@ const myUserId = localStorage.getItem("userId")
               )}
             </>
           )}
-          <UpdateFictionBook books={books} bookDetail={bookDetail} setBooks={setBooks}/>
+          
           <GetAllReviewsByISBN myUserId={myUserId} myUsername={myUsername}/>
         </div>
       </div>

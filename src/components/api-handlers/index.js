@@ -111,7 +111,7 @@ export const deleteMyComment = async (userid, id) => {
 
 // Delete Review by Id
 export const deleteMyReview = async (userid, id) => {
-  console.log(id)
+
   try {
     const response = await fetch(`${BASE_URL}/reviews/${id}`, {
       method: "DELETE"
@@ -137,7 +137,7 @@ export const loginUser = async (username, password) => {
       }),
     });
     const result = await response.json();
-    console.log(result);
+
     return result;
   } catch (error) {
     console.log(error);
@@ -273,7 +273,7 @@ export const updateComment = async (id, updatedData) => {
       body: JSON.stringify({content: updatedData})
     });
     const data = await response.json();
-    console.log(data)
+
     return data;
   } catch (error) {
     console.log(error)
@@ -291,7 +291,7 @@ export const updateReview = async (id, updatedData, score) => {
       body: JSON.stringify({content: updatedData, score})
     });
     const data = await response.json();
-    console.log(data)
+
     return data;
   } catch (error) {
     console.log(error)

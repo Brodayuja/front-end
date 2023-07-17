@@ -36,7 +36,7 @@ const AddFictionBook = () => {
             });
             const data = await response.json();
             setFicBooks([...ficBooks, data])
-            console.log(data)
+
             } catch (error) {
                 console.log (error)
         }
