@@ -306,7 +306,7 @@ const AddChildrensBook = () => {
                   value="Ages 0-2"
                   onChange={(event)=> {
                     setNewAudience(event.target.value)
-                    console.log(category)
+
                   }
                   }>
                   </input> 
@@ -320,7 +320,7 @@ const AddChildrensBook = () => {
                   value="Ages 2-5"
                   onChange={(event)=> {
                     setNewAudience(event.target.value)
-                    console.log(event.target.value)
+
                   }
                   }>
                   </input> 
@@ -334,7 +334,7 @@ const AddChildrensBook = () => {
                   value="Ages 5-8"
                   onChange={(event)=> {
                     setNewAudience(event.target.value)
-                    console.log(category)
+
                   }
                   }>
                   </input> 
@@ -348,7 +348,7 @@ const AddChildrensBook = () => {
                   value="Ages 9-12"
                   onChange={(event)=> {
                     setNewAudience(event.target.value)
-                    console.log(category)
+
                   }
                   }>
                   </input> 
@@ -362,7 +362,7 @@ const AddChildrensBook = () => {
                   value="Ages 13-18+"
                   onChange={(event)=> {
                     setNewAudience(event.target.value)
-                    console.log(category)
+
                   }
                   }>
                   </input> 

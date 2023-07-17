@@ -26,7 +26,8 @@ function MyReviews({books}) {
         {reviews.map((review) => {
           if (review.user_id == storedId) {
             // Find the book object based on the review's ISBN
-            const book = books.find((b) => b.nfBook_isbn === review.isbn || b.fictionBook_isbn === review.isbn || b.greaphicBook_isbn === review.isbn || b.bookClubBook_isbn === review.isbn || b.childrensBook_isbn === review.isbn );
+            const book = books.find((b) => b.isbn === review.nfBook_isbn || b.isbn === review.fictionBook_isbn || b.isbn === review.greaphicBook_isbn || b.isbn === review.bookClubBook_isbn || b.isbn === review.childrensBook_isbn );
+
 
             return (
                 <div key={review.id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4">

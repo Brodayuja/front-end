@@ -16,7 +16,7 @@ const Register = (props) => {
 
     try {
       const result = await registerUser(username, password, email, name);
-      console.log(result);
+
 
       localStorage.setItem("token", result.token);
       localStorage.setItem("userId", result.id)

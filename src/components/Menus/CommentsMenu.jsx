@@ -29,7 +29,7 @@ function CommentsMenu({ comments, setComments, activeReviewId, setActiveReviewId
         setComments((prevComments) =>
           prevComments.filter((comment) => comment.reviewid !== activeReviewId && comment.id === commentId)
         );
-        console.log("Comment Deleted");
+
         setActiveReviewId(null);
       } catch (error) {
         console.log(error);

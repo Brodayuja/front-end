@@ -12,7 +12,6 @@ function LandingPage(props) {
   const setMyUsername = props.setMyUsername;
   const averageScores = props.averageScores
 
-  console.log(averageScores)
 
   return (
     <>

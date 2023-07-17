@@ -14,8 +14,6 @@ const ReportReview = ({ reviewId }) => {
 
       await reportReview(reviewId, isInappropriate ? 1 : 0, isNotAccurate ? 1 : 0);
 
-      
-      console.log('Review reported successfully');
 
       // Reset the form
       setIsInappropriate(false);

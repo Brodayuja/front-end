@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
-import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import { fetchUserById } from "../api-handlers";
 import MyReviews from "./MyReviews";
 
 function Profile({ myUserId, books }) {
   const [user, setUser] = useState(null);
   const cookieId = localStorage.getItem("id");
+
 
   useEffect(() => {
     const altFetchData = async () => {

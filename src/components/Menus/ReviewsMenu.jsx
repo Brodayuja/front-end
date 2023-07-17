@@ -14,7 +14,7 @@ function ReviewsMenu({review, reviewUserId, reviewId, reviewsByIsbn, setReviewsB
       await deleteMyReview(userId, reviewId);
       setReviewsByIsbn((prevReviews) =>
       prevReviews.filter((review) => review.id !== reviewId))
-      console.log("Review Deleted");
+
       
     } catch (error) {
       console.log(error);

@@ -38,6 +38,7 @@ function App() {
     const myUserId = localStorage.getItem("userId");
     if (myUserId) {
       setIsLoggedIn(true);
+      setMyUserId(myUserId);
     } else {
       setIsLoggedIn(false);
     }

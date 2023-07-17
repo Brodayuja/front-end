@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import { BASE_URL, fetchAllBooksTable, fetchReviews } from "../api-handlers/index"
 
 const AddReview = ({myUserId}) => {
-  
+
     const [newContent, setNewContent] = useState("")
     const [newScore, setNewScore] = useState(0)
     const [isbn_nf, setIsbn_nf] = useState(null)
@@ -49,7 +49,6 @@ const AddReview = ({myUserId}) => {
   
     const sendNewReview = async (event) => {
         // event.preventDefault()
-
         try {
             const response = await fetch(`${BASE_URL}/reviews`, {
                 method: "POST",
