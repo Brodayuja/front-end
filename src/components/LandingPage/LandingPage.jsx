@@ -15,24 +15,22 @@ function LandingPage(props) {
 
   return (
     <>
-      <div>
-        <img className="w-screen" src={pageTurnerLogo} />
-      </div>
+      <img className="w-screen" src={pageTurnerLogo} />
 
       <div className="flex">
-              <p className="w-1/3 ml-8 font-bold pr-6 pt-8">Deciding what to read next?
-                <br/>
-                You’re in the right
-                place. Tell us what titles or genres you’ve enjoyed in the past, and
-                we’ll give you surprisingly insightful recommendations.
-              </p>
+        <p className="w-1/3 ml-8 pr-6 pt-8">
+          <span className="font-bold">Deciding what to read next?</span>
+          <br />
+          You’re in the right place. Explore our book reviews to discover the perfect literey gem for your next adventure!
+        </p>
 
-              <p className="w-1/3 font-bold pr-6 pt-8"> What are your friends reading?
-                <br/>
-                Chances are your
-                friends are discussing their favorite (and least favorite) books on
-                Page Turners.
-              </p>
+        <p className="w-1/3 pr-6 pt-8">
+          <span className="font-bold">What is everyone reading and what are their thoughts?</span>
+          <br />
+          Chances are your friends are discussing their favorite (and least favorite) books on Page Turners.
+        </p>
+
+
         
 
         <div className="bg-columbiaBlue w-1/4 rounded-xl -translate-y-1/2">
@@ -43,19 +41,18 @@ function LandingPage(props) {
       </div>
 
 
-      <div>
+      <div className="-mt-40 mx-8">
         <RecentReviewsShelf books={books} averageScores={averageScores}/>
       </div>
 
-      <div>
+      <div className="flex justify-around items-baseline my-2">
         <SearchBar books={books} />
-      </div>
-
-      <div>
-            <Link to="/nonfiction">Non-Fiction</Link>
-            <Link to="/childbooks">Children's Books</Link>
-            <Link to="/fiction">Fiction</Link>
-            <Link to="/graphicnovels">Graphic Novels</Link>
+        <div>
+          <Link className="px-4 underline" to="/nonfiction">Non-Fiction</Link>
+          <Link className="px-4 underline" to="/childbooks">Children's Books</Link>
+          <Link className="px-4 underline" to="/fiction">Fiction</Link>
+          <Link className="px-4 underline" to="/graphicnovels">Graphic Novels</Link>
+        </div>
       </div>
     </>
   );

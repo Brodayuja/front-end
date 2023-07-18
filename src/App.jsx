@@ -102,7 +102,7 @@ function App() {
   };
 
   return (
-    <>
+    <div className="h-">
       <Routes>
         <Route
           path="/"
@@ -192,9 +192,11 @@ function App() {
         />
       </Routes>
 
-      <Footer/>
+      <div className="bg-columbiaBlue">
+        <Footer />
+      </div>
       
-    </>
+    </div>
   );
 }
 
