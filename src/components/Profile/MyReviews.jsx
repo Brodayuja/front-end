@@ -21,8 +21,8 @@ function MyReviews({books}) {
 
   return (
     <>
- <h2>My Reviews</h2>
-      <div className="flex flex-wrap">
+ <h2 className="font-bold underline">My Reviews</h2>
+      <div className="flex flex-col">
         {reviews.map((review) => {
           if (review.user_id == storedId) {
             // Find the book object based on the review's ISBN
@@ -30,24 +30,27 @@ function MyReviews({books}) {
 
 
             return (
-                <div key={review.id} className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 p-4">
-                  <div className="border rounded-lg p-4 flex">
+                <div key={review.id} className="flex">
+                  <div className="border p-4 flex">
+                       
                        {/* book?.title if book isn't immediately accessed */}
-                    <a href={`/books/${book?.isbn}`} className="flex">
-                      {book && (
-                        <div className="w-1/4">
-                          <img src={book?.bookCover} alt="Book Cover" className="w-full" />
-                        </div>
+                    {book && (
+                        <a href={`/books/${book?.isbn}`} className="flex w-full justify-center">
+                          <img src={book?.bookCover} alt="Book Cover"/>
+                        </a>
                       )}
-                      <div className="ml-4">
-                        {/* book?.title if book isn't immediately accessed */}
-                        <p className="font-bold mb-2">{book?.title}</p>
-                        <p className="mt-auto">{review.content}</p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
 
+                      <div className="mt-4 justify-center text-left">
+                        <a href={`/books/${book?.isbn}`} className="underline">
+
+                          {/* book?.title if book isn't immediately accessed */}
+                          <p className="font-bold mb-2">{book?.title}</p>
+                        </a>  
+                                            
+                          <p className="mt-auto text-left">{review.content}</p>
+                        </div>
+                      </div>
+                  </div>
             
             );
           }
