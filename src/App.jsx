@@ -193,6 +193,7 @@ function App() {
       </Routes>
 
       <Footer/>
+      
     </>
   );
 }

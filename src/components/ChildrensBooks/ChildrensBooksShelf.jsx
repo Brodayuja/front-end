@@ -34,7 +34,7 @@ function ChildrensBooksShelf({averageScores}) {
             {firstFiveBooks.map((book) => (
               <div key={book.isbn} className="px-2">
                 <a href={`/books/${book.isbn}`}>
-                  <img className="h-1" src={book.bookCover} alt="Image of Book cover" />
+                  <img src={book.bookCover} alt="Image of Book cover" />
                 </a>
                 {averageScores && averageScores[book.isbn] && (
                   <p className="font-bold">Rating: {averageScores[book.isbn].toFixed(2)}/5</p>
