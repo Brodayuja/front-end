@@ -7,8 +7,13 @@ import AddReview from "../Reviews/AddReview";
 import { fetchReviews } from "../api-handlers";
 import AverageReviewScore from "../AverageReviewScore/AverageReviewScore";
 
-
-function SingleBookDetail({ books, isLoggedIn, setIsLoggedIn, myUsername, setBooks}) {
+function SingleBookDetail({
+  books,
+  isLoggedIn,
+  setIsLoggedIn,
+  myUsername,
+  setBooks,
+}) {
   const { isbn } = useParams();
   const [showAddReview, setShowAddReview] = useState(false);
   const [reviewsByIsbn, setReviewsByIsbn] = useState([]);
@@ -19,7 +24,7 @@ function SingleBookDetail({ books, isLoggedIn, setIsLoggedIn, myUsername, setBoo
     }
   });
 
-const myUserId = localStorage.getItem("userId")
+  const myUserId = localStorage.getItem("userId");
 
   useEffect(() => {
     try {
@@ -42,29 +47,20 @@ const myUserId = localStorage.getItem("userId")
     }
   }, []);
 
-
   const handleAddReview = () => {
     setShowAddReview(true);
   };
-
 
   const handleCancelReview = () => {
     setShowAddReview(false);
   };
 
-
   const userIds = reviewsByIsbn.map((review) => review.user_id);
-  const token = localStorage.getItem("token")
-
-
-
+  const token = localStorage.getItem("token");
 
   return (
     <>
-
-        <NavBar />
-
-
+      <NavBar />
 
       <div>
         {books.length ? (
@@ -75,12 +71,17 @@ const myUserId = localStorage.getItem("userId")
               alt="Image of Book cover"
             />
             <div className="p-8">
-              <p className="underline text-start">Title: {bookDetail[0].title}</p>
+              <p className="underline text-start">
+                Title: {bookDetail[0].title}
+              </p>
               <p className="text-start">Author: {bookDetail[0].author}</p>
-              <p className="text-xs text-start">Summary: {bookDetail[0].summary}</p>
+              <p className="text-xs text-start">
+                Summary: {bookDetail[0].summary}
+              </p>
               <p>Genres: {bookDetail[0].genre}</p>
               <p>
-                Publisher: {bookDetail[0].publisher}, {bookDetail[0].yearPublished}
+                Publisher: {bookDetail[0].publisher},{" "}
+                {bookDetail[0].yearPublished}
               </p>
               <p>Pages: {bookDetail[0].physicalDescription}</p>
             </div>
@@ -89,14 +90,17 @@ const myUserId = localStorage.getItem("userId")
           <p>Loading . . .</p>
         )}
         <div>
-      <AverageReviewScore reviews={reviewsByIsbn} />
+          <AverageReviewScore reviews={reviewsByIsbn} />
         </div>
         <div>
           {token && (
             <>
               {showAddReview ? (
                 <div>
-                  <AddReview myUserId={myUserId} />
+                  <AddReview
+                    myUserId={myUserId}
+                    setShowAddReview={setShowAddReview}
+                  />
                   <button onClick={handleCancelReview}>Cancel</button>
                 </div>
               ) : (
@@ -110,18 +114,12 @@ const myUserId = localStorage.getItem("userId")
               )}
             </>
           )}
-          
-          <GetAllReviewsByISBN myUserId={myUserId} myUsername={myUsername}/>
+
+          <GetAllReviewsByISBN myUserId={myUserId} myUsername={myUsername} />
         </div>
       </div>
     </>
   );
 }
 
-
 export default SingleBookDetail;
-
-
-
-
-

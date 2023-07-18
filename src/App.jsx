@@ -160,6 +160,10 @@ function App() {
               books={books}
               averageScores={averageScores}
               setMyUserId={setMyUserId}
+              myUserId={myUserId}
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              reviews={reviews}
             />
           }
         />
@@ -179,7 +183,7 @@ function App() {
           path="/profile-edit"
           element={<EditProfile myUserId={myUserId} />}
         />
-        <Route
+        {/* <Route
           path="/navBar"
           element={
             <NavBar
@@ -189,13 +193,12 @@ function App() {
               reviews={reviews}
             />
           }
-        />
+        /> */}
       </Routes>
 
       <div className="bg-columbiaBlue">
         <Footer />
       </div>
-      
     </div>
   );
 }

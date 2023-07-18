@@ -5,35 +5,51 @@ import RecentReviewsShelf from "../Reviews/RecentReviewsShelf";
 import GraphicNovelsShelf from "../GraphicNovels/GraphicNovelsShelf";
 import ChildrensBooksShelf from "../ChildrensBooks/ChildrensBooksShelf";
 import Cookies from "js-cookies";
+import { useEffect } from "react";
 
-function Browse({ books, averageScores, setMyUserId }) {
+function Browse({
+  books,
+  averageScores,
+  setMyUserId,
+  myUserId,
+  isLoggedIn,
+  setIsLoggedIn,
+  reviews,
+}) {
   const myToken = localStorage.getItem("token");
 
-  if (!myToken) {
-    const handleGoogleSuccess = () => {
-      const cookieToken = Cookies.getItem("token");
-      const cookieUsername = Cookies.getItem("username");
-      const cookieId = Cookies.getItem("id");
-      localStorage.setItem("token", cookieToken);
-      localStorage.setItem("username", cookieUsername);
-      localStorage.setItem("userId", cookieId);
-    };
-    handleGoogleSuccess();
-  }
+  useEffect(() => {
+    if (!myToken) {
+      const handleGoogleSuccess = () => {
+        const cookieToken = Cookies.getItem("token");
+        const cookieUsername = Cookies.getItem("username");
+        const cookieId = Cookies.getItem("id");
+        localStorage.setItem("token", cookieToken);
+        localStorage.setItem("username", cookieUsername);
+        localStorage.setItem("userId", cookieId);
+      };
+      handleGoogleSuccess();
+    }
+  }, []);
 
   return (
     <>
-      <NavBar />
+      <NavBar
+        myUserId={myUserId}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        reviews={reviews}
+      />
 
       <div className="mx-8 py-8">
         <RecentReviewsShelf books={books} averageScores={averageScores} />
-          <br/>
+        <br />
         <FictionShelf averageScores={averageScores} />
-          <br/>
+        <br />
         <NFBooksShelf averageScores={averageScores} />
-        <br/>
+        <br />
         <GraphicNovelsShelf averageScores={averageScores} />
-        <br/>
+        <br />
         <ChildrensBooksShelf averageScores={averageScores} />
       </div>
     </>

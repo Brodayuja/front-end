@@ -9,6 +9,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import SettingsIcon from "@mui/icons-material/Settings";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 function ReviewsMenu({
   review,
@@ -74,16 +82,16 @@ function ReviewsMenu({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
-        <SettingsIcon />
-      </DropdownMenuTrigger>
-      {review.user_id == storedUserId && (
-        <>
-          {showEditForm ? (
-            <>
-              <DropdownMenuContent>
-                <form onSubmit={postEditedReview}>
-                  <DropdownMenuItem>
+      <Dialog>
+        <DropdownMenuTrigger>
+          <SettingsIcon />
+        </DropdownMenuTrigger>
+        {review.user_id == storedUserId && (
+          <>
+            {showEditForm ? (
+              <>
+                <DialogContent>
+                  <form onSubmit={postEditedReview}>
                     <input
                       type="number"
                       min="1"
@@ -93,9 +101,7 @@ function ReviewsMenu({
                         setReviewScoreToEdit(event.target.value);
                       }}
                     />
-                  </DropdownMenuItem>
 
-                  <DropdownMenuItem>
                     <input
                       type="text"
                       value={reviewContentToEdit}
@@ -103,31 +109,32 @@ function ReviewsMenu({
                         setReviewContentToEdit(event.target.value)
                       }
                     />
+
+                    <button type="submit">Update</button>
+                  </form>
+                </DialogContent>
+              </>
+            ) : (
+              <>
+                <DropdownMenuContent>
+                  <DropdownMenuItem>
+                    <DialogTrigger onClick={handleToggleEdit}>
+                      Edit
+                    </DialogTrigger>
                   </DropdownMenuItem>
                   <DropdownMenuItem>
-                    <button type="submit">Update</button>
+                    <button
+                      onClick={() => handleDeleteReview(reviewUserId, reviewId)}
+                    >
+                      Delete
+                    </button>
                   </DropdownMenuItem>
-                </form>
-              </DropdownMenuContent>
-            </>
-          ) : (
-            <>
-              <DropdownMenuContent>
-                <DropdownMenuItem>
-                  <button onClick={handleToggleEdit}>Edit</button>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <button
-                    onClick={() => handleDeleteReview(reviewUserId, reviewId)}
-                  >
-                    Delete
-                  </button>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </>
-          )}
-        </>
-      )}
+                </DropdownMenuContent>
+              </>
+            )}
+          </>
+        )}
+      </Dialog>
     </DropdownMenu>
   );
 }
