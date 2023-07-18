@@ -55,15 +55,17 @@ function GraphicNovels() {
           </select>
           {sortBy && <p>Sorted by: {sortBy}</p>}
         </div>
-        {graphicNovels.map((book) => (
-          <div key={book.isbn}>
-            <a href={`/books/${book.isbn}`}>
-              <img src={book.bookCover} alt="Image of Book cover" />
-              <h3>{book.title}</h3>
-              <p>{book.author}</p>
-            </a>
-          </div>
-        ))}
+        <div className="flex flex-wrap p-8">
+          {graphicNovels.map((book) => (
+            <div className="w-150 pr-20" key={book.isbn}>
+              <a href={`/books/${book.isbn}`}>
+                <img src={book.bookCover} alt="Image of Book cover" />
+                <h3 className="w-40 pr-8">{book.title}</h3>
+                <p className="w-40 pb-4">{book.author}</p>
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
