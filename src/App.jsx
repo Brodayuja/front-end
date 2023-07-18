@@ -15,6 +15,7 @@ import GraphicNovels from "./components/GraphicNovels/GraphicNovels";
 import ChildrensBooks from "./components/ChildrensBooks/ChildrensBooks";
 import EditProfile from "./components/Profile/EditProfile";
 import NavBar from "./components/NavBar/NavBar";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -190,6 +191,8 @@ function App() {
           }
         />
       </Routes>
+
+      <Footer/>
     </>
   );
 }

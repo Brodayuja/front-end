@@ -35,7 +35,7 @@ function MyReviews({books}) {
                        
                        {/* book?.title if book isn't immediately accessed */}
                     {book && (
-                        <a href={`/books/${book?.isbn}`} className="flex w-full justify-center">
+                        <a href={`/books/${book?.isbn}`} className="w-full justify-center">
                           <img src={book?.bookCover} alt="Book Cover"/>
                         </a>
                       )}

@@ -29,10 +29,10 @@ function FictionShelf({ averageScores }) {
         <Link class="underline underline-offset-1 font-bold" to="/fiction">View All</Link>
       </div>
 
-      <div className="flex bg-contain justify-around"
+      <div className="flex bg-contain justify-around py-4 px-2"
       style={{ backgroundImage: `url(${shelf})`}}>
         {firstFiveBooks.map((book) => (
-          <div key={book.isbn}>
+          <div key={book.isbn} className="px-2">
             <a href={`/books/${book.isbn}`}>
               <img src={book.bookCover} alt="Image of Book cover" />
             </a>
