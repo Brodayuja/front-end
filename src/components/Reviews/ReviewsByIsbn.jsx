@@ -128,16 +128,30 @@ const GetAllReviewsByISBN = () => {
   };
 
   return (
-    <>
-      <div>
-        {reviewsByIsbn.map((review) => {
-          return (
-            <div
-              key={review.id}
-              className="border rounded-md p-4 mb-4 relative"
-            >
-              <Paper variant="outlined">
-                <div className="flex flex-row absolute top-0 right-0">
+    <section className="py-24 2xl:py-44 bg-blueGray-100 rounded-t-10xl overflow-hidden">
+      {reviewsByIsbn.map((review) => (
+        <div key={review.id} className="container px-4 mx-auto">
+          <div className="mb-2 shadow-lg rounded-t-8xl rounded-b-5xl overflow-hidden">
+            <div className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-gray-400 bg-opacity-40">
+              <div className="flex flex-wrap items-center justify-between">
+                <img
+                  className="mr-6"
+                  src="uinel-assets/images/ecommerce-reviews/user.png"
+                  alt=""
+                />
+                <h4 className="w-full md:w-auto text-xl font-heading font-medium">
+                  {review.username}
+                </h4>
+                <div className="w-full md:w-px h-2 md:h-8 mx-8 bg-transparent md:bg-gray-200"></div>
+                <span className="mr-4 text-xl font-heading font-medium">
+                  Score: {review.score}
+                </span>
+                <div className="inline-flex w-full md:w-1/3 text-right justify-center">
+                  <p className="mb-8 text-sm text-gray-500 ">
+                    Added 2 months ago
+                  </p>
+                </div>
+                <div className="flex flex-row">
                   <div>
                     <ReviewsMenu
                       reviewUserId={review.user_id}
@@ -151,53 +165,62 @@ const GetAllReviewsByISBN = () => {
                     <ReportReview reviewId={review.id} />
                   </div>
                 </div>
-                <p className="font-bold">Username: {review.username}</p>
-                <div className="mt-2">Score: {review.score}</div>
-                <div className="mt-2">Review: {review.content}</div>
-              </Paper>
-
-              <div>
-                {activeReviewId === review.id && (
-                  <>
-                    {comments
-                      .filter((comment) => comment.reviewid === review.id)
-                      .map((comment) => (
-                        <SingleComment
-                          key={comment.id}
-                          comment={comment}
-                          comments={comments}
-                          setComments={setComments}
-                          activeReviewId={activeReviewId}
-                          setActiveReviewId={setActiveReviewId}
-                        />
-                      ))}
-                  </>
-                )}
               </div>
-
-              <div>
-                {/* Reply box */}
-                <input
-                  type="text"
-                  value={commentText[review.id] || ""}
-                  onChange={(event) => handleCommentText(event, review.id)}
-                  placeholder="Enter your comment"
-                />
-                <button onClick={() => handlePostComment(review.id)}>
-                  Post Comment
-                </button>
-              </div>
-
-              <button onClick={() => handleToggleComments(review.id)}>
-                {activeReviewId === review.id
-                  ? "Hide Comments"
-                  : "View All Comments"}
-              </button>
             </div>
-          );
-        })}
-      </div>
-    </>
+            <div className="px-4 overflow-hidden md:px-16 pt-8 pb-12 bg-gray-50">
+              <div className="flex flex-wrap">
+                <div className="w-full md:w-2/3 mb-6 md:mb-0">
+                  <p className="mb-8 max-w-2xl text-darkBlueGray-400 leading-loose">
+                    {review.content}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="">
+            {/* Reply box */}
+            <input
+              type="text"
+              value={commentText[review.id] || ""}
+              onChange={(event) => handleCommentText(event, review.id)}
+              placeholder="Enter your comment"
+            />
+            <button
+              className="bg-gray-400"
+              onClick={() => handlePostComment(review.id)}
+            >
+              Post Comment
+            </button>
+            <button
+              className="bg-gray-400"
+              onClick={() => handleToggleComments(review.id)}
+            >
+              {activeReviewId === review.id
+                ? "Hide Comments"
+                : "View All Comments"}
+            </button>
+          </div>
+          <div>
+            {activeReviewId === review.id && (
+              <>
+                {comments
+                  .filter((comment) => comment.reviewid === review.id)
+                  .map((comment) => (
+                    <SingleComment
+                      key={comment.id}
+                      comment={comment}
+                      comments={comments}
+                      setComments={setComments}
+                      activeReviewId={activeReviewId}
+                      setActiveReviewId={setActiveReviewId}
+                    />
+                  ))}
+              </>
+            )}
+          </div>
+        </div>
+      ))}
+    </section>
   );
 };
 
