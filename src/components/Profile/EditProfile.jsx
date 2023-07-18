@@ -74,7 +74,7 @@ function EditProfile({ myUserId }) {
                 />
               </div>
               <div className="mb-4">
-                <label className="text-left block mb-2 font-semibold">Avatar:</label>
+                <label className="text-left block mb-2 font-semibold">Avatar URL:</label>
                 <input
                   type="text"
                   value={user?.avatar || ""}
