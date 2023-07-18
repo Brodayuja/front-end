@@ -8,7 +8,7 @@ function RecentReviewsShelf(props) {
     <>
     <h2 class="underline underline-offset-1 font-bold">New Releases</h2>
 
-      <div className="flex bg-contain justify-around"
+      <div className="flex bg-contain justify-around py-4 px-2"
       style={{ backgroundImage: `url(${shelf})`}}>
         {books.length ? (
           books
@@ -21,7 +21,7 @@ function RecentReviewsShelf(props) {
             .map((element) => {
               const averageScore = averageScores[element.isbn];
               return (
-                <div key={element.isbn} className="">
+                <div key={element.isbn} className="px-1">
                   <a href={`/books/${element.isbn}`}>
                     <img src={element.bookCover} alt="Image of Book cover" />
                   </a>

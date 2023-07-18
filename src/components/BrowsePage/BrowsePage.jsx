@@ -23,22 +23,17 @@ function Browse({ books, averageScores, setMyUserId }) {
 
   return (
     <>
-        <div>
-            <NavBar />
-        </div>
-
-
+      <NavBar />
 
       <div className="mx-8 py-8">
-
         <RecentReviewsShelf books={books} averageScores={averageScores} />
-
+          <br/>
         <FictionShelf averageScores={averageScores} />
-
+          <br/>
         <NFBooksShelf averageScores={averageScores} />
-
+        <br/>
         <GraphicNovelsShelf averageScores={averageScores} />
-
+        <br/>
         <ChildrensBooksShelf averageScores={averageScores} />
       </div>
     </>
