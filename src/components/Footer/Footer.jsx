@@ -1,4 +1,4 @@
-function Footer(){
+function BottomPageBar(){
     return(
         <>
         <div class="flex bg-columbiaBlue justify-end">
@@ -9,4 +9,4 @@ function Footer(){
     )
 }
 
-export default Footer;
+export default BottomPageBar;
