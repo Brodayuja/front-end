@@ -8,6 +8,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const ReportReview = ({ reviewId }) => {
   const [isInappropriate, setIsInappropriate] = useState(false);
@@ -38,41 +46,39 @@ const ReportReview = ({ reviewId }) => {
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger>...</DropdownMenuTrigger>
+    <Dialog>
+      <DialogTrigger>...</DialogTrigger>
       <div>
         {error && <p>{error}</p>}
-        <DropdownMenuContent>
-          <DropdownMenuItem>
-            <label>
-              <input
-                type="checkbox"
-                checked={isInappropriate}
-                onChange={(e) => setIsInappropriate(e.target.checked)}
-              />
-              Inappropriate
-            </label>
-          </DropdownMenuItem>
+        <DialogContent>
+          <label>
+            <input
+              type="checkbox"
+              checked={isInappropriate}
+              onChange={(e) => setIsInappropriate(e.target.checked)}
+            />
+            Inappropriate
+          </label>
+
           <br />
-          <DropdownMenuItem>
-            <label>
-              <input
-                type="checkbox"
-                checked={isNotAccurate}
-                onChange={(e) => setIsNotAccurate(e.target.checked)}
-              />
-              Not Accurate
-            </label>
-          </DropdownMenuItem>
+
+          <label>
+            <input
+              type="checkbox"
+              checked={isNotAccurate}
+              onChange={(e) => setIsNotAccurate(e.target.checked)}
+            />
+            Not Accurate
+          </label>
+
           <br />
-          <DropdownMenuItem>
-            <button onClick={handleReport} disabled={isLoading}>
-              {isLoading ? "Reporting..." : "Report"}
-            </button>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
+
+          <button onClick={handleReport} disabled={isLoading}>
+            {isLoading ? "Reporting..." : "Report"}
+          </button>
+        </DialogContent>
       </div>
-    </DropdownMenu>
+    </Dialog>
   );
 };
 
