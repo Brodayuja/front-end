@@ -1,9 +1,18 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchReviews, fetchUserById, fetchAllComments, postComment, deleteMyComment, deleteMyReview, updateReview } from "../api-handlers/index";
+import {
+  fetchReviews,
+  fetchUserById,
+  fetchAllComments,
+  postComment,
+  deleteMyComment,
+  deleteMyReview,
+  updateReview,
+} from "../api-handlers/index";
 import SingleComment from "./SingleComment";
 import ReviewsMenu from "../Menus/ReviewsMenu";
 import ReportReview from "../ReportReview/ReportReview";
+import { Paper } from "@mui/material";
 
 const GetAllReviewsByISBN = () => {
   const { isbn } = useParams();
@@ -11,12 +20,10 @@ const GetAllReviewsByISBN = () => {
   const [comments, setComments] = useState([]);
   const [activeReviewId, setActiveReviewId] = useState(null);
   const [commentText, setCommentText] = useState({});
-  const [showEditReviewForm, setShowEditReviewForm] = useState(false)
-
+  const [showEditReviewForm, setShowEditReviewForm] = useState(false);
 
   const storedUsername = localStorage.getItem("username");
-  const myUserId = localStorage.getItem("userId")
-
+  const myUserId = localStorage.getItem("userId");
 
   // Fetches the Reviews w/ usernames
   useEffect(() => {
@@ -32,7 +39,6 @@ const GetAllReviewsByISBN = () => {
             review.childrensBook_isbn === isbn
         );
 
-
         const updatedReviews = await Promise.all(
           filteredReviews.map(async (review) => {
             const user = await fetchUserById(review.user_id);
@@ -40,17 +46,14 @@ const GetAllReviewsByISBN = () => {
           })
         );
 
-
         setReviewsByIsbn(updatedReviews);
       } catch (error) {
         console.log(error);
       }
     };
 
-
     fetchReviewsAndUsernames();
   }, []);
-
 
   // Fetches the comments based on toggle of ViewAll
   useEffect(() => {
@@ -66,12 +69,10 @@ const GetAllReviewsByISBN = () => {
       }
     };
 
-
     if (activeReviewId) {
       getComments();
     }
   }, [activeReviewId]);
-
 
   // Closes other Active ViewAlls
   const handleToggleComments = (reviewId) => {
@@ -89,108 +90,115 @@ const GetAllReviewsByISBN = () => {
     setCommentText(updatedCommentText);
   };
 
-// Handles the Post Comment Button
-const handlePostComment = async (reviewId) => {
-  if (!commentText[reviewId] || commentText[reviewId].trim() === '') {
-    return; // Return early if comment is empty
-  }
+  // Handles the Post Comment Button
+  const handlePostComment = async (reviewId) => {
+    if (!commentText[reviewId] || commentText[reviewId].trim() === "") {
+      return; // Return early if comment is empty
+    }
 
-  try {
-    const newComment = await postComment(
-      myUserId,
-      commentText[reviewId],
-      storedUsername,
-      reviewId
-    );
+    try {
+      const newComment = await postComment(
+        myUserId,
+        commentText[reviewId],
+        storedUsername,
+        reviewId
+      );
 
-    setComments((prevComments) => [...prevComments, newComment]);
+      setComments((prevComments) => [...prevComments, newComment]);
 
-    setCommentText((prevCommentText) => {
-      const updatedCommentText = { ...prevCommentText };
-      delete updatedCommentText[reviewId];
-      return updatedCommentText;
-    });
+      setCommentText((prevCommentText) => {
+        const updatedCommentText = { ...prevCommentText };
+        delete updatedCommentText[reviewId];
+        return updatedCommentText;
+      });
 
-    setActiveReviewId(reviewId);
-  } catch (error) {
-    console.log(error);
-  }
-};
- 
-// Posts Edited Review
-const postEditedReview = async () => {
-  try {
-    const postUpdatedReview = await updateReview(reviewId, updatedData)
-  } catch (error) {
-    console.log(error)
-  }
-}
+      setActiveReviewId(reviewId);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-return (
-  <>
-    <div>
-      {reviewsByIsbn.map((review) => {
-        return (
-          <div key={review.id} className="border rounded-md p-4 mb-4 relative">
-            <div className="absolute top-0 right-0">
-              <ReportReview reviewId={review.id} />
-            </div>
-            <p className="font-bold">Username: {review.username}</p>
-            <div className="mt-2">Score: {review.score}</div>
-            <div className="mt-2">Review: {review.content}</div>
+  // Posts Edited Review
+  const postEditedReview = async () => {
+    try {
+      const postUpdatedReview = await updateReview(reviewId, updatedData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-            <ReviewsMenu
-              reviewUserId={review.user_id}
-              reviewId={review.id}
-              review={review}
-              reviewsByIsbn={reviewsByIsbn}
-              setReviewsByIsbn={setReviewsByIsbn}
-            />
+  return (
+    <>
+      <div>
+        {reviewsByIsbn.map((review) => {
+          return (
+            <div
+              key={review.id}
+              className="border rounded-md p-4 mb-4 relative"
+            >
+              <Paper variant="outlined">
+                <div className="flex flex-row absolute top-0 right-0">
+                  <div>
+                    <ReviewsMenu
+                      reviewUserId={review.user_id}
+                      reviewId={review.id}
+                      review={review}
+                      reviewsByIsbn={reviewsByIsbn}
+                      setReviewsByIsbn={setReviewsByIsbn}
+                    />
+                  </div>
+                  <div>
+                    <ReportReview reviewId={review.id} />
+                  </div>
+                </div>
+                <p className="font-bold">Username: {review.username}</p>
+                <div className="mt-2">Score: {review.score}</div>
+                <div className="mt-2">Review: {review.content}</div>
+              </Paper>
 
-            <div>
-              {activeReviewId === review.id && (
-                <>
-                  {comments
-                    .filter((comment) => comment.reviewid === review.id)
-                    .map((comment) => (
-                      <SingleComment
-                        key={comment.id}
-                        comment={comment}
-                        comments={comments}
-                        setComments={setComments}
-                        activeReviewId={activeReviewId}
-                        setActiveReviewId={setActiveReviewId}
-                      />
-                    ))}
-                </>
-              )}
-            </div>
+              <div>
+                {activeReviewId === review.id && (
+                  <>
+                    {comments
+                      .filter((comment) => comment.reviewid === review.id)
+                      .map((comment) => (
+                        <SingleComment
+                          key={comment.id}
+                          comment={comment}
+                          comments={comments}
+                          setComments={setComments}
+                          activeReviewId={activeReviewId}
+                          setActiveReviewId={setActiveReviewId}
+                        />
+                      ))}
+                  </>
+                )}
+              </div>
 
-            <div>
-              {/* Reply box */}
-              <input
-                type="text"
-                value={commentText[review.id] || ""}
-                onChange={(event) => handleCommentText(event, review.id)}
-                placeholder="Enter your comment"
-              />
-              <button onClick={() => handlePostComment(review.id)}>
-                Post Comment
+              <div>
+                {/* Reply box */}
+                <input
+                  type="text"
+                  value={commentText[review.id] || ""}
+                  onChange={(event) => handleCommentText(event, review.id)}
+                  placeholder="Enter your comment"
+                />
+                <button onClick={() => handlePostComment(review.id)}>
+                  Post Comment
+                </button>
+              </div>
+
+              <button onClick={() => handleToggleComments(review.id)}>
+                {activeReviewId === review.id
+                  ? "Hide Comments"
+                  : "View All Comments"}
               </button>
             </div>
-
-            <button onClick={() => handleToggleComments(review.id)}>
-              {activeReviewId === review.id ? "Hide Comments" : "View All Comments"}
-            </button>
-          </div>
-        );
-      })}
-    </div>
-  </>
-);}
-
+          );
+        })}
+      </div>
+    </>
+  );
+};
 
 export default GetAllReviewsByISBN;
-
-
-

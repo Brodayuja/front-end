@@ -1,5 +1,13 @@
-import React, { useState } from 'react';
-import { reportReview } from '../api-handlers';
+import React, { useState } from "react";
+import { reportReview } from "../api-handlers";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const ReportReview = ({ reviewId }) => {
   const [isInappropriate, setIsInappropriate] = useState(false);
@@ -12,14 +20,17 @@ const ReportReview = ({ reviewId }) => {
       setIsLoading(true);
       setError(null);
 
-      await reportReview(reviewId, isInappropriate ? 1 : 0, isNotAccurate ? 1 : 0);
-
+      await reportReview(
+        reviewId,
+        isInappropriate ? 1 : 0,
+        isNotAccurate ? 1 : 0
+      );
 
       // Reset the form
       setIsInappropriate(false);
       setIsNotAccurate(false);
     } catch (error) {
-      setError('Failed to report the review');
+      setError("Failed to report the review");
       console.error(error);
     } finally {
       setIsLoading(false);
@@ -27,30 +38,41 @@ const ReportReview = ({ reviewId }) => {
   };
 
   return (
-    <div>
-      {error && <p>{error}</p>}
-      <label>
-        <input
-          type="checkbox"
-          checked={isInappropriate}
-          onChange={(e) => setIsInappropriate(e.target.checked)}
-        />
-        Inappropriate
-      </label>
-      <br />
-      <label>
-        <input
-          type="checkbox"
-          checked={isNotAccurate}
-          onChange={(e) => setIsNotAccurate(e.target.checked)}
-        />
-        Not Accurate
-      </label>
-      <br />
-      <button onClick={handleReport} disabled={isLoading}>
-        {isLoading ? 'Reporting...' : 'Report'}
-      </button>
-    </div>
+    <DropdownMenu>
+      <DropdownMenuTrigger>...</DropdownMenuTrigger>
+      <div>
+        {error && <p>{error}</p>}
+        <DropdownMenuContent>
+          <DropdownMenuItem>
+            <label>
+              <input
+                type="checkbox"
+                checked={isInappropriate}
+                onChange={(e) => setIsInappropriate(e.target.checked)}
+              />
+              Inappropriate
+            </label>
+          </DropdownMenuItem>
+          <br />
+          <DropdownMenuItem>
+            <label>
+              <input
+                type="checkbox"
+                checked={isNotAccurate}
+                onChange={(e) => setIsNotAccurate(e.target.checked)}
+              />
+              Not Accurate
+            </label>
+          </DropdownMenuItem>
+          <br />
+          <DropdownMenuItem>
+            <button onClick={handleReport} disabled={isLoading}>
+              {isLoading ? "Reporting..." : "Report"}
+            </button>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </div>
+    </DropdownMenu>
   );
 };
 
