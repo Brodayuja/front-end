@@ -1,8 +1,8 @@
 function BottomPageBar(){
     return(
         <>
-            <div class="flex bg-columbiaBlue justify-end">
-                <p class="mr-10">&nbsp;</p>
+            <div className="flex bg-columbiaBlue justify-end">
+                <p className="mr-10">&nbsp;</p>
             </div>
 
         </>

@@ -141,6 +141,8 @@ const GetAllReviewsByISBN = () => {
     }
   };
 
+  const token = localStorage.getItem("token");
+
   return (
     <section className="py-24 2xl:py-44 bg-blueGray-100 rounded-t-10xl overflow-hidden">
       {reviewsByIsbn.map((review) => (
@@ -190,29 +192,37 @@ const GetAllReviewsByISBN = () => {
               </div>
             </div>
           </div>
-          <div className="">
-            {/* Reply box */}
-            <input
-              type="text"
-              value={commentText[review.id] || ""}
-              onChange={(event) => handleCommentText(event, review.id)}
-              placeholder="Enter your comment"
-            />
-            <button
-              className="bg-gray-400"
-              onClick={() => handlePostComment(review.id)}
-            >
-              Post Comment
-            </button>
-            <button
-              className="bg-gray-400"
-              onClick={() => handleToggleComments(review.id)}
-            >
-              {activeReviewId === review.id
-                ? "Hide Comments"
-                : "View All Comments"}
-            </button>
+
+          
+          <div>
+            {token ? (
+              <>
+                <input
+                  type="text"
+                  value={commentText[review.id] || ""}
+                  onChange={(event) => handleCommentText(event, review.id)}
+                  placeholder="Enter your comment"
+                />
+                <button
+                  className="bg-gray-400"
+                  onClick={() => handlePostComment(review.id)}
+                >
+                  Post Comment
+                </button>
+                <button
+                  className="bg-gray-400"
+                  onClick={() => handleToggleComments(review.id)}
+                >
+                  {activeReviewId === review.id ? "Hide Comments" : "View All Comments"}
+                </button>
+              </>
+            ) : (
+              "Must Log in to comment on reviews"
+            )}
           </div>
+
+
+
           <div>
             {activeReviewId === review.id && (
               <>

@@ -6,7 +6,7 @@ function RecentReviewsShelf(props) {
 
   return (
     <>
-    <h2 class="underline underline-offset-1 font-bold">New Releases</h2>
+    <h2 className="underline underline-offset-1 font-bold">New Releases</h2>
 
       <div className="flex bg-contain justify-around py-4 px-2"
       style={{ backgroundImage: `url(${shelf})`}}>
