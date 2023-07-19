@@ -1,4 +1,5 @@
 import shelf from "../images/shelf.png";
+import { Link } from "react-router-dom";
 
 function RecentReviewsShelf(props) {
   const books = props.books;
@@ -22,9 +23,9 @@ function RecentReviewsShelf(props) {
               const averageScore = averageScores[element.isbn];
               return (
                 <div key={element.isbn} className="px-1">
-                  <a href={`/books/${element.isbn}`}>
+                  <Link to={`/books/${element.isbn}`}>
                     <img src={element.bookCover} alt="Image of Book cover" />
-                  </a>
+                  </Link>
                   {averageScore !== undefined && (
                     <p className="font-bold">Rating: {averageScore.toFixed(2)}/5</p>
                   )}

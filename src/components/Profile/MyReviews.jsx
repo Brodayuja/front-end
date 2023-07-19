@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchReviews } from "../api-handlers";
+import { Link } from "react-router-dom";
 
 function MyReviews({books}) {
   const [reviews, setReviews] = useState([]);
@@ -35,16 +36,16 @@ function MyReviews({books}) {
                 <div className="flex items-start">
                   {book && (
                     <div className="w-52 h-auto p-8 flex-shrink-0">
-                      <a href={`/books/${book?.isbn}`}>
+                      <Link to={`/books/${book?.isbn}`}>
                         <img src={book?.bookCover} alt="Book Cover" className="w-full h-full object-cover" />
-                      </a>
+                      </Link>
                     </div>
                   )}
                   <div className="flex flex-col">
                     <div className="text-left p-4">
-                      <a href={`/books/${book?.isbn}`} className="underline">
+                      <Link to={`/books/${book?.isbn}`} className="underline">
                         <p className="font-bold mb-2">{book?.title}</p>
-                      </a>  
+                      </Link>  
                       <p className="text-left">{review.content}</p>
                     </div>
                   </div>

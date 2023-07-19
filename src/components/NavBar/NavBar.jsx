@@ -11,47 +11,24 @@ const NavBar = (props) => {
   const handleSignOut = () => {
     localStorage.clear();
     props.setIsLoggedIn(false);
-    window.location.href = "http://localhost:3000/logout";
+    window.location.href = "https://bookrevews-back-end.onrender.com/logout";
     navigate("/")
   };
 
   const myToken = localStorage.getItem("token");
 
   return (
-    <div
-      className="bg-cover bg-no-repeat w-screen h-28"
-      style={{ backgroundImage: `url(${pageTurnerLogo2})` }}
-    >
-      <div className="flex justify-end mr-10 h-28 items-baseline ">
-        <div className="mt-auto mb-2.5">
-          <Link to="/browse" className="mx-8 text-black font-bold">
-            Home
-          </Link>
-        </div>
+<div className="flex flex-wrap bg-cover bg-no-repeat place-content-end h-28"
+      style={{ backgroundImage: `url(${pageTurnerLogo2})` }}>
+      <Link to="/browse" className=" text-black font-bold p-4 ">Home</Link>
         {myToken ? (
-          <div className=" mt-auto mb-2.5">
-            <Link to="/profile" className="mx-8 text-black font-bold">
-              Profile
-            </Link>
-            <Link
-              to="#"
-              className="mx-8 text-black font-bold"
-              onClick={handleSignOut}
-            >
-              Sign Out
-            </Link>
-          </div>
-        ) : (
-          <div className="mt-auto mb-2.5">
-            <Link to="/login" className="mx-8 text-black font-bold">
-              Log in
-            </Link>
-          </div>
-        )}
-        <div className="mt-auto">
-          <SearchBar books={books} />
-        </div>
-      </div>
+              <>
+              <Link to="/profile" className=" text-black font-bold p-4 ">Profile</Link>
+              <Link to="/" className=" text-black font-bold p-4 " onClick={handleSignOut}>Sign Out</Link></>
+              ) : (
+              <Link to="/login" className=" text-black font-bold p-4 ">Log in</Link>
+              )}
+        <div className="p-1 "><SearchBar books={books} /></div>
     </div>
   );
 };

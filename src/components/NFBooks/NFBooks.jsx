@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { BASE_URL } from "../api-handlers";
 import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import NavBar from "../NavBar/NavBar";
+import { Link } from "react-router-dom";
 
 function NFBooks({
   myUserId,
@@ -65,11 +66,11 @@ function NFBooks({
           <div className="flex flex-wrap p-8">
             {NFBooks.map((book) => (
               <div className="w-150 pr-20" key={book.isbn}>
-                <a href={`/books/${book.isbn}`}>
+                <Link to={`/books/${book.isbn}`}>
                   <img src={book.bookCover} alt="Image of Book cover" />
                   <h3 className="w-40 pr-8">{book.title}</h3>
                   <p className="w-40 pb-4">{book.author}</p>
-                </a>
+                </Link>
               </div>
             ))}
           </div>
