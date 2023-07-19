@@ -102,7 +102,7 @@ function App() {
   };
 
   return (
-    <div className="h-">
+    <div className="h-screen">
       <Routes>
         <Route
           path="/"
@@ -196,7 +196,7 @@ function App() {
         /> */}
       </Routes>
 
-      <div className="bg-columbiaBlue">
+      <div className="bg-columbiaBlue justify-end">
         <Footer />
       </div>
     </div>
