@@ -16,12 +16,13 @@ import ReportReview from "../ReportReview/ReportReview";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const GetAllReviewsByISBN = (props) => {
+  const userIds = props.userIds
+  const setUserIds = props.setUserIds
   const reviewsByIsbn = props.reviewsByIsbn
   const setReviewsByIsbn = props.setReviewsByIsbn
   const setShowAddReview = props.setShowAddReview
   const showAddReview = props.showAddReview
   const { isbn } = useParams();
-  // const [reviewsByIsbn, setReviewsByIsbn] = useState([]);
   const [comments, setComments] = useState([]);
   const [activeReviewId, setActiveReviewId] = useState(null);
   const [commentText, setCommentText] = useState({});
@@ -30,35 +31,6 @@ const GetAllReviewsByISBN = (props) => {
   const storedUsername = localStorage.getItem("username");
   const myUserId = localStorage.getItem("userId");
 
-  // Fetches the Reviews w/ usernames
-  // useEffect(() => {
-  //   const fetchReviewsAndUsernames = async () => {
-  //     try {
-  //       const fetchedReviews = await fetchReviews();
-  //       const filteredReviews = fetchedReviews.filter(
-  //         (review) =>
-  //           review.nfBook_isbn === isbn ||
-  //           review.fictionBook_isbn === isbn ||
-  //           review.graphicBook_isbn === isbn ||
-  //           review.bookClubBook_isbn === isbn ||
-  //           review.childrensBook_isbn === isbn
-  //       );
-
-  //       const updatedReviews = await Promise.all(
-  //         filteredReviews.map(async (review) => {
-  //           const user = await fetchUserById(review.user_id);
-  //           return { ...review, username: user.username };
-  //         })
-  //       );
-
-  //       // setReviewsByIsbn(updatedReviews);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-
-  //   fetchReviewsAndUsernames();
-  // }, []);
 
   // Fetches the comments based on toggle of ViewAll
   useEffect(() => {
@@ -182,6 +154,8 @@ const GetAllReviewsByISBN = (props) => {
                       reviewsByIsbn={reviewsByIsbn}
                       setReviewsByIsbn={setReviewsByIsbn}
                       showAddReview={showAddReview}
+                      userIds={userIds}
+                      setUserIds={setUserIds}
                     />
                   </div>
                   <div>

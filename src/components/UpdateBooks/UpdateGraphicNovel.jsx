@@ -47,10 +47,8 @@ const UpdateGraphicNovel = ({books, setBooks}) => {
             
             const data = await response.json();
             const booksWithNoChange = books.filter((e) => { 
-              console.log(e.isbn, typeof e.isbn)
               return (e.isbn !== isbn)
             })
-            console.log( data, booksWithNoChange)
             setBooks([...booksWithNoChange, data])
           } catch (error) {
             console.log (error)

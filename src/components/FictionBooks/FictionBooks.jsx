@@ -54,7 +54,7 @@ function FictionPage({
         reviews={reviews} />
 
   
-        <div>
+        <div className="mx-8">
           <h1>Fiction Books</h1>
           <div>
             <label htmlFor="sortDropdown">Sort By:</label>
@@ -66,7 +66,7 @@ function FictionPage({
             {sortBy && <p>Sorted by: {sortBy}</p>}
           </div>
 
-          <div className="flex flex-wrap p-8">
+          <div className="flex flex-wrap p-8 justify-center">
             {fictionBooks.map((book) => (
               <div className="w-150 pr-20" key={book.isbn}>
                 <Link to={`/books/${book.isbn}`}>

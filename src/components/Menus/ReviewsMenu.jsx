@@ -19,8 +19,8 @@ import {
 } from "@/components/ui/dialog";
 
 function ReviewsMenu(props) {
-  
-
+  const userIds = props.userIds
+  const setUserIds = props.setUserIds
   const review = props.review
   const reviewUserId = props.reviewUserId
   const reviewId = props.reviewId
@@ -28,7 +28,6 @@ function ReviewsMenu(props) {
   const setReviewsByIsbn = props.setReviewsByIsbn
   const setShowAddReview = props.setShowAddReview
   const showAddReview = props.showAddReview
-
   const [reviewContentToEdit, setReviewContentToEdit] = useState({});
   const [reviewScoreToEdit, setReviewScoreToEdit] = useState({});
   const [showEditForm, setShowEditForm] = useState(false);
@@ -37,13 +36,20 @@ function ReviewsMenu(props) {
 
   // Delete My Review
   const handleDeleteReview = async (userId, reviewId) => {
-    console.log("THIS IS DELETE!!!")
+
     try {
       await deleteMyReview(userId, reviewId);
       setReviewsByIsbn((prevReviews) =>
         prevReviews.filter((review) => review.id !== reviewId)
       );
-      setShowAddReview(!props.showAddReview);
+      
+      const userIdExists = userIds.includes(userId);
+        if (userIdExists) {
+      setUserIds((prevUserIds) => prevUserIds.filter((id) => id !== userId));
+      }
+
+      setShowAddReview(false);
+
     } catch (error) {
       console.log(error);
     }
@@ -79,15 +85,8 @@ function ReviewsMenu(props) {
   // Handle Toggle Edit
   const handleToggleEdit = () => {
     setShowEditForm(!showEditForm);
-    console.log(showEditForm);
-  };
 
-  // useEffect(() => {
-  //   if (review) {
-  //     setReviewScoreToEdit(review.score);
-  //     setReviewContentToEdit(review.content);
-  //   }
-  // }, []);
+  };
 
   return (
     <Dialog>
