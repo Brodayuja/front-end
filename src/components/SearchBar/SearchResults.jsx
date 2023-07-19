@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import NavBar from "../NavBar/NavBar";
 
@@ -42,12 +42,12 @@ const SearchResults = ({ books, myUserId,
           searchResults.map((book) => (
             <div className="w-150 pr-20" key={book.isbn}>
 
-            <a href={`/books/${book.isbn}`}>
+            <Link to={`/books/${book.isbn}`}>
               <img className="drop-shadow-xl" src={book.bookCover} alt="Image of Book cover" />
               <h3 className="w-40 pr-8">{book.title}</h3>
               <p className="w-40">{book.author}</p>
               <p className="w-40 pb-4">{book.isbn}</p>
-            </a>
+            </Link>
             </div>
           ))
         ) : (

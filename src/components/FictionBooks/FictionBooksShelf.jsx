@@ -33,9 +33,9 @@ function FictionShelf({ averageScores }) {
       style={{ backgroundImage: `url(${shelf})`}}>
         {firstFiveBooks.map((book) => (
           <div key={book.isbn} className="px-2">
-            <a href={`/books/${book.isbn}`}>
+            <Link to={`/books/${book.isbn}`}>
               <img src={book.bookCover} alt="Image of Book cover" />
-            </a>
+            </Link>
             {averageScores && averageScores[book.isbn] && (
               <p className="font-bold">Rating: {averageScores[book.isbn].toFixed(2)}/5</p>
             )}
