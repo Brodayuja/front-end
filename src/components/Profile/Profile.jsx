@@ -3,10 +3,13 @@ import { Link, useParams } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import { fetchUserById } from "../api-handlers";
 import MyReviews from "./MyReviews";
+import { DoorBack } from "@mui/icons-material";
 
 function Profile({ myUserId, books }) {
   const [user, setUser] = useState(null);
-  const cookieId = localStorage.getItem("id");
+  const cookieId = localStorage.getItem("userId");
+
+  const adminUrl = "http://localhost:5000";
 
   useEffect(() => {
     const altFetchData = async () => {
@@ -46,10 +49,6 @@ function Profile({ myUserId, books }) {
     fetchData();
   }, [myUserId, cookieId]);
 
-  const handleAdmin = () => {
-    window.location.href = "http://localhost:5000"; //nav to admin console
-  };
-
   return (
     <>
       <NavBar />
@@ -67,9 +66,7 @@ function Profile({ myUserId, books }) {
                 <Link className="px-8" to="/profile-edit">
                   Edit
                 </Link>
-                {user.is_admin ? (
-                  <Link to="http://localhost:5000">Admin</Link>
-                ) : null}
+                {user.is_admin ? <Link to={adminUrl}>Admin</Link> : null}
               </div>
             </div>
 
