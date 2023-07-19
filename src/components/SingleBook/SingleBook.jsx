@@ -18,6 +18,8 @@ function SingleBookDetail({
   const { isbn } = useParams();
   const [showAddReview, setShowAddReview] = useState(false);
   const [reviewsByIsbn, setReviewsByIsbn] = useState([]);
+  const [updatedReview, setUpdatedReview] = useState([]);
+
 
   const bookDetail = books.filter((singleBook) => {
     if (singleBook.isbn == Number(isbn)) {
@@ -112,6 +114,8 @@ function SingleBookDetail({
                     myUserId={myUserId}
                     setShowAddReview={setShowAddReview}
                     handleCancelReview={handleCancelReview}
+                    reviews={reviews}
+                    setUpdatedReview={setUpdatedReview}
                   />
                 </div>
               ) : (
