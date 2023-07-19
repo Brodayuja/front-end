@@ -14,7 +14,7 @@ function LandingPage(props) {
 
 
   return (
-    <>
+    <div className="h-screen">
       <img className="w-screen" src={pageTurnerLogo} />
 
       <div className="flex">
@@ -28,10 +28,7 @@ function LandingPage(props) {
           <span className="font-bold">What is everyone reading and what are their thoughts?</span>
           <br />
           Chances are your friends are discussing their favorite (and least favorite) books on Page Turners.
-        </p>
-
-
-        
+        </p>     
 
         <div className="bg-columbiaBlue w-1/4 rounded-xl -translate-y-1/2">
           <Login setIsLoggedIn={setIsLoggedIn}
@@ -41,7 +38,7 @@ function LandingPage(props) {
       </div>
 
 
-      <div className="-mt-40 mx-8">
+      <div className="-mt-36 mx-8">
         <RecentReviewsShelf books={books} averageScores={averageScores}/>
       </div>
 
@@ -54,7 +51,7 @@ function LandingPage(props) {
           <Link className="px-4 underline" to="/graphicnovels">Graphic Novels</Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
