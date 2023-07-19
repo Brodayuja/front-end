@@ -138,7 +138,11 @@ function App() {
         />
         <Route
           path="/search-results"
-          element={<SearchResults books={books} />}
+          element={<SearchResults books={books} isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+          myUserId={myUserId}
+          setBooks={setBooks}
+          reviews={reviews} />}
         />
         <Route
           path="/books/:isbn"
@@ -167,33 +171,43 @@ function App() {
             />
           }
         />
-        <Route path="/mybooks" />
         <Route
           path="/profile"
           element={
-            <Profile myUserId={myUserId} books={books} reviews={reviews} />
+            <Profile books={books} myUserId={myUserId}
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+            reviews={reviews} />
           }
         />
-        <Route path="/nonfiction" element={<NFBooks />} />
-        <Route path="/childbooks" element={<ChildrensBooks />} />
-        <Route path="/fiction" element={<FictionPage />} />
-        <Route path="/graphicnovels" element={<GraphicNovels />} />
+        <Route path="/nonfiction" element={<NFBooks myUserId={myUserId}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        reviews={reviews} />} />
+
+        <Route path="/childbooks" element={<ChildrensBooks myUserId={myUserId}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        reviews={reviews} />} />
+
+        <Route path="/fiction"  element={<FictionPage myUserId={myUserId}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        reviews={reviews} />} />
+
+        <Route path="/graphicnovels" element={<GraphicNovels myUserId={myUserId}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        reviews={reviews} />} />
+
         <Route path="/add-books" element={<AddBook />} />
         <Route
           path="/profile-edit"
-          element={<EditProfile myUserId={myUserId} />}
+          element={<EditProfile myUserId={myUserId} isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+          reviews={reviews} />}
         />
-        {/* <Route
-          path="/navBar"
-          element={
-            <NavBar
-              myUserId={myUserId}
-              isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
-              reviews={reviews}
-            />
-          }
-        /> */}
+        
       </Routes>
 
       <div className="bg-columbiaBlue justify-end">

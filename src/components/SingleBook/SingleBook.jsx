@@ -8,6 +8,7 @@ import { fetchReviews } from "../api-handlers";
 import AverageReviewScore from "../AverageReviewScore/AverageReviewScore";
 
 function SingleBookDetail({
+  reviews,
   books,
   isLoggedIn,
   setIsLoggedIn,
@@ -60,7 +61,11 @@ function SingleBookDetail({
 
   return (
     <>
-      <NavBar />
+      <NavBar
+        myUserId={myUserId}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        reviews={reviews} />
 
       <div className="mx-12 mt-6">
             {books.length ? (

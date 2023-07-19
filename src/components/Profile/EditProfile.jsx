@@ -4,7 +4,9 @@ import NavBar from "../NavBar/NavBar";
 import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import { fetchUserById, updateUser } from "../api-handlers";
 
-function EditProfile({ myUserId }) {
+function EditProfile({ myUserId, isLoggedIn,
+  setIsLoggedIn,
+  reviews }) {
   const [user, setUser] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
 
@@ -54,15 +56,17 @@ function EditProfile({ myUserId }) {
   };
 
   return (
-    <div className="container mx-auto">
-      <div className="flex justify-between items-center">
-        <NavBar />
-      </div>
+    <>
+      <NavBar
+        myUserId={myUserId}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        reviews={reviews} />
 
-      <div className="mt-8">
+      <div className="mt-8 mx-8">
         {user && (
           <div>
-            <h2 className="text-2xl font-bold mb-4">Edit Profile</h2>
+            <h2 className="text-2xl font-bold mb-4 text-center">Edit Profile</h2>
             <form onSubmit={handleSubmit} className="max-w-md mx-auto">
               <div className="mb-4">
                 <label className="text-left block mb-2 font-semibold">Username:</label>
@@ -164,7 +168,7 @@ function EditProfile({ myUserId }) {
           </div>
         )}
       </div>
-    </div>
+    </>
   );
 }
 

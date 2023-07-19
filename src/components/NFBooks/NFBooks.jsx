@@ -3,7 +3,11 @@ import { BASE_URL } from "../api-handlers";
 import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import NavBar from "../NavBar/NavBar";
 
-function NFBooks() {
+function NFBooks({
+  myUserId,
+  isLoggedIn,
+  setIsLoggedIn,
+  reviews}) {
     const [NFBooks, setNFBooks] = useState([]);
     const [sortBy, setSortBy] = useState(""); 
   
@@ -40,9 +44,12 @@ function NFBooks() {
   
     return (
       <>
-        <div className="flex justify-between">
-          <NavBar />
-        </div>
+      <NavBar
+        myUserId={myUserId}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        reviews={reviews} />
+
   
         <div>
           <h1>Non-Fiction Books</h1>

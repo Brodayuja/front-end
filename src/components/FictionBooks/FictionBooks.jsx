@@ -4,7 +4,11 @@ import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import NavBar from "../NavBar/NavBar";
 
 
-function FictionPage() {
+function FictionPage({
+  myUserId,
+  isLoggedIn,
+  setIsLoggedIn,
+  reviews}) {
     const [fictionBooks, setFictionBooks] = useState([]);
     const [sortBy, setSortBy] = useState(""); 
   
@@ -42,7 +46,11 @@ function FictionPage() {
     return (
       <>
 
-          <NavBar />
+      <NavBar
+        myUserId={myUserId}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        reviews={reviews} />
 
   
         <div>

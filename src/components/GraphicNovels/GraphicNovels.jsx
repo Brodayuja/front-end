@@ -3,7 +3,11 @@ import { BASE_URL } from "../api-handlers";
 import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import NavBar from "../NavBar/NavBar";
 
-function GraphicNovels() {
+function GraphicNovels({
+  myUserId,
+  isLoggedIn,
+  setIsLoggedIn,
+  reviews}) {
   const [graphicNovels, setGraphicNovels] = useState([]);
   const [sortBy, setSortBy] = useState(""); 
 
@@ -40,9 +44,11 @@ function GraphicNovels() {
 
   return (
     <>
-      <div className="flex justify-between">
-        <NavBar />
-      </div>
+      <NavBar
+        myUserId={myUserId}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        reviews={reviews} />
 
       <div>
         <h1>Graphic Novels / Manga</h1>

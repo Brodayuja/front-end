@@ -4,7 +4,10 @@ import pageTurnerLogo from "../images/pageTurnersLogo.png";
 import NavBar from "../NavBar/NavBar";
 
 
-const SearchResults = ({ books }) => {
+const SearchResults = ({ books, myUserId,
+  isLoggedIn,
+  setIsLoggedIn,
+  reviews }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -28,7 +31,11 @@ const SearchResults = ({ books }) => {
 
   return (
     <>
-      <NavBar/>
+      <NavBar
+        myUserId={myUserId}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        reviews={reviews} />
 
       <div className="flex flex-wrap p-8 justify-center"> 
         {searchResults.length ? (

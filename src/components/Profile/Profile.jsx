@@ -5,7 +5,12 @@ import { fetchUserById } from "../api-handlers";
 import MyReviews from "./MyReviews";
 import { DoorBack } from "@mui/icons-material";
 
-function Profile({ myUserId, books }) {
+function Profile({
+  books,
+  myUserId,
+  isLoggedIn,
+  setIsLoggedIn,
+  reviews}) {
   const [user, setUser] = useState(null);
   const cookieId = localStorage.getItem("userId");
 
@@ -51,7 +56,11 @@ function Profile({ myUserId, books }) {
 
   return (
     <>
-      <NavBar />
+      <NavBar
+        myUserId={myUserId}
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+        reviews={reviews} />
 
       <div className="flex mx-28">
         {user && (
