@@ -51,7 +51,7 @@ function GraphicNovels({
         setIsLoggedIn={setIsLoggedIn}
         reviews={reviews} />
 
-      <div>
+      <div className="mx-8">
         <h1>Graphic Novels / Manga</h1>
         <div>
           <label htmlFor="sortDropdown">Sort By:</label>
@@ -62,7 +62,7 @@ function GraphicNovels({
           </select>
           {sortBy && <p>Sorted by: {sortBy}</p>}
         </div>
-        <div className="flex flex-wrap p-8">
+        <div className="flex flex-wrap p-8 justify-center">
           {graphicNovels.map((book) => (
             <div className="w-150 pr-20" key={book.isbn}>
               <Link to={`/books/${book.isbn}`}>

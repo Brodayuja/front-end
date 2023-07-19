@@ -108,17 +108,17 @@ const AddReview = ({ myUserId, setShowAddReview, handleCancelReview, reviews, se
         }),
       });
       const data = await response.json();
-      console.log(data, "DATA!!!!")
+
       data.username = localStorage.getItem("username")
       setReviewsByIsbn([...reviewsByIsbn, data])
       setShowAddReview(!setShowAddReview)
-      console.log(userIds, "ADDREVIEW USERIDS")
+
       if(userIds || userIds?.length){
         setUserIds([...userIds, data.user_id])
-        console.log("This is the IF")
+
       } else {
         setUserIds([data.user_id])
-        console.log("This is the ELSE")
+
       }
     } catch (error) {
       console.log(error);

@@ -25,7 +25,6 @@ const UpdateFictionBook = () => {
                   value="Fiction Book"
                   onChange={(event)=> {
                     setCategory(event.target.value)
-                    console.log(category)
                   }
                 }>
                   </input> 
@@ -39,7 +38,6 @@ const UpdateFictionBook = () => {
                   value="Nonfiction Book"
                   onChange={(event)=> {
                     setCategory(event.target.value)
-                    console.log(event.target.value)
                   }
                 }>
                   </input> 
@@ -53,7 +51,7 @@ const UpdateFictionBook = () => {
                   value="Graphic Novel/Manga"
                   onChange={(event)=> {
                     setCategory(event.target.value)
-                    console.log(category)
+
                   }
                 }>
                   </input> 
@@ -67,7 +65,7 @@ const UpdateFictionBook = () => {
                   value="Book Club Pick"
                   onChange={(event)=> {
                     setCategory(event.target.value)
-                    console.log(category)
+
                   }
                 }>
                   </input> 
@@ -81,7 +79,7 @@ const UpdateFictionBook = () => {
                   value="Children's Book"
                   onChange={(event)=> {
                     setCategory(event.target.value)
-                    console.log(category)
+
                   }
                 }>
                   </input> 

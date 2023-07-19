@@ -34,7 +34,7 @@ function SingleBookDetail({
     try {
       const getFetchedReviews = async () => {
         const fetchedReviews = await fetchReviews();
-        console.log(fetchedReviews, "FETCH REVIEWS")
+
         const filteredReviews = fetchedReviews.filter((review) => {
           return (
             review.nfBook_isbn === isbn ||
@@ -45,7 +45,7 @@ function SingleBookDetail({
             );
           });
 
-          console.log(filteredReviews, "FILTERED REVIEWS")
+
 
           const updatedReviews = await Promise.all(
           filteredReviews.map(async (review) => {
@@ -53,20 +53,17 @@ function SingleBookDetail({
             return { ...review, username: user.username };
           })
         );
-        
-        console.log(updatedReviews, "Updated REVIEWS!!!")
+
         setReviewsByIsbn(updatedReviews);
-        console.log(reviewsByIsbn, "REVIEWS BY ISBN!!!!")
           
         const mappedReviews = updatedReviews.map((review) => review.user_id)
 
-        console.log(mappedReviews, "MAPPED REVIEWS")
         setUserIds(mappedReviews)
 
 
       };
       getFetchedReviews();
-      console.log("Made It to the end of the useEffect")
+
     } catch (error) {
       console.log(error);
     }
@@ -77,14 +74,12 @@ function SingleBookDetail({
   };
 
   const handleCancelReview = () => {
-    console.log("triggered Cancel Review")
     setShowAddReview(!showAddReview);
   };
 
   // const userIds = reviewsByIsbn.map((review) => review.user_id);
   const token = localStorage.getItem("token");
 
-  console.log(userIds, "userIds")
   return (
     <>
       <NavBar
@@ -159,7 +154,7 @@ function SingleBookDetail({
           )}
 
           {reviewsByIsbn.length ? (
-            <GetAllReviewsByISBN myUserId={myUserId} myUsername={myUsername} setShowAddReview={setShowAddReview} showAddReview={showAddReview} reviewsByIsbn={reviewsByIsbn} setReviewsByIsbn={setReviewsByIsbn}/>
+            <GetAllReviewsByISBN myUserId={myUserId} myUsername={myUsername} setShowAddReview={setShowAddReview} showAddReview={showAddReview} reviewsByIsbn={reviewsByIsbn} setReviewsByIsbn={setReviewsByIsbn} userIds={userIds} setUserIds={setUserIds}/>
           ) : (
             <p>No Reviews</p>
           )}
