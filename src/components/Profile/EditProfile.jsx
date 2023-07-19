@@ -104,7 +104,7 @@ function EditProfile({ myUserId, isLoggedIn,
                   className="border rounded px-3 py-2 w-full"
                 />
               </div>
-              {/* <div className="mb-4">
+              <div className="mb-4">
                 <label className="text-left block mb-2 font-semibold">Password:</label>
                 <input
                   type="password"
@@ -122,7 +122,7 @@ function EditProfile({ myUserId, isLoggedIn,
                   className="border rounded px-3 py-2 w-full"
                 />
               </div>
-              {passwordError && <p className="text-red-500">{passwordError}</p>} */}
+          
               <div className="mb-4">
                 <label className="text-left block mb-2 font-semibold">Location:</label>
                 <input
