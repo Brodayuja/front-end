@@ -8,7 +8,6 @@ function Profile({ myUserId, books }) {
   const [user, setUser] = useState(null);
   const cookieId = localStorage.getItem("id");
 
-
   useEffect(() => {
     const altFetchData = async () => {
       try {
@@ -47,40 +46,62 @@ function Profile({ myUserId, books }) {
     fetchData();
   }, [myUserId, cookieId]);
 
+  const handleAdmin = () => {
+    window.location.href = "http://localhost:5000"; //nav to admin console
+  };
+
   return (
     <>
       <NavBar />
 
       <div className="flex mx-28">
-      {user && (
-        <div className="text-center">
-          
-          <br />
+        {user && (
+          <div className="text-center">
+            <br />
 
-          <div className="flex border-b justify-between">
-            <p className="text-3xl">Username: {user.username}</p>
-            <div className="flex items-end"> {/* Apply flex-col to parent div */}
-              <Link className="pl-8" to="/profile-edit">Edit Profile</Link>
+            <div className="flex border-b justify-between">
+              <p className="text-3xl">Username: {user.username}</p>
+              <div className="flex items-end">
+                {" "}
+                {/* Apply flex-col to parent div */}
+                <Link className="px-8" to="/profile-edit">
+                  Edit
+                </Link>
+                {user.is_admin ? (
+                  <Link to="http://localhost:5000">Admin</Link>
+                ) : null}
+              </div>
             </div>
-          </div>
 
-          <div className="flex">
-            <img src={user.avatar} alt="Avatar" className="w-44 h-44 rounded-full mb-4 mt-7 mr-8" />
-            <div className="flex flex-col text-left pt-4">
-              <p><span className="font-bold">Name:</span> {user.name}</p>
-              <p><span className="font-bold">Email:</span> {user.email}</p>
-              <p><span className="font-bold">Location:</span> {user.location}</p>
-              <p className="font-bold">About me:</p>
-              <p className="bg-columbiaBlue border text-left">{user.aboutMe}</p>            
+            <div className="flex">
+              <img
+                src={user.avatar}
+                alt="Avatar"
+                className="w-44 h-44 rounded-full mb-4 mt-7 mr-8"
+              />
+              <div className="flex flex-col text-left pt-4">
+                <p>
+                  <span className="font-bold">Name:</span> {user.name}
+                </p>
+                <p>
+                  <span className="font-bold">Email:</span> {user.email}
+                </p>
+                <p>
+                  <span className="font-bold">Location:</span> {user.location}
+                </p>
+                <p className="font-bold">About me:</p>
+                <p className="bg-columbiaBlue border text-left">
+                  {user.aboutMe}
+                </p>
+              </div>
             </div>
-          </div>
 
-                <br/>
-                
-              {<MyReviews books={books} />}
-        </div>
-      )}
-    </div>
+            <br />
+
+            {<MyReviews books={books} />}
+          </div>
+        )}
+      </div>
     </>
   );
 }
