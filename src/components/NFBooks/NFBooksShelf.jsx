@@ -29,7 +29,7 @@ function NFBooksShelf({averageScores}) {
             <Link className="underline underline-offset-1 font-bold" to="/nonfiction">View All</Link>
           </div>
 
-          <div className="flex bg-contain justify-around py-4 px-2"
+          <div className="flex bg-contain justify-around py-4 px-2 shadow-xl"
           style={{ backgroundImage: `url(${shelf})`}}>
             {firstFiveBooks.map((book) => (
               <div key={book.isbn} className="px-2">

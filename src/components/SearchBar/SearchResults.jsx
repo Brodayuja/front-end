@@ -30,13 +30,13 @@ const SearchResults = ({ books }) => {
     <>
       <NavBar/>
 
-      <div className="flex flex-wrap p-8"> 
+      <div className="flex flex-wrap p-8 justify-center"> 
         {searchResults.length ? (
           searchResults.map((book) => (
             <div className="w-150 pr-20" key={book.isbn}>
 
             <a href={`/books/${book.isbn}`}>
-              <img src={book.bookCover} alt="Image of Book cover" />
+              <img className="drop-shadow-xl" src={book.bookCover} alt="Image of Book cover" />
               <h3 className="w-40 pr-8">{book.title}</h3>
               <p className="w-40">{book.author}</p>
               <p className="w-40 pb-4">{book.isbn}</p>
