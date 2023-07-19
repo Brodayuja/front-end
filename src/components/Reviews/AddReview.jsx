@@ -14,7 +14,7 @@ import {
 //   CardTitle,
 // } from "@/components/ui/card";
 
-const AddReview = ({ myUserId, setShowAddReview, handleCancelReview }) => {
+const AddReview = ({ myUserId, setShowAddReview, handleCancelReview, reviews }) => {
   const [newContent, setNewContent] = useState("");
   const [newScore, setNewScore] = useState(0);
   const [isbn_nf, setIsbn_nf] = useState(null);
@@ -83,7 +83,7 @@ const AddReview = ({ myUserId, setShowAddReview, handleCancelReview }) => {
   const currentToken = localStorage.getItem("token");
 
   const sendNewReview = async (event) => {
-    // event.preventDefault()
+    event.preventDefault()
     try {
       const response = await fetch(`${BASE_URL}/reviews`, {
         method: "POST",
@@ -106,7 +106,7 @@ const AddReview = ({ myUserId, setShowAddReview, handleCancelReview }) => {
         }),
       });
       const data = await response.json();
-      console.log(data);
+      setUpdatedReview([...reviews, data])
     } catch (error) {
       console.log(error);
     }
