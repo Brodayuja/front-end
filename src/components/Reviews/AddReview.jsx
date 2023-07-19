@@ -14,7 +14,8 @@ import {
 //   CardTitle,
 // } from "@/components/ui/card";
 
-const AddReview = ({ myUserId, setShowAddReview, handleCancelReview, reviews }) => {
+const AddReview = ({ myUserId, setShowAddReview, handleCancelReview, reviews, setUpdatedReview, reviewsByIsbn, setReviewsByIsbn, setUserIds, userIds }) => {
+
   const [newContent, setNewContent] = useState("");
   const [newScore, setNewScore] = useState(0);
   const [isbn_nf, setIsbn_nf] = useState(null);
@@ -85,6 +86,7 @@ const AddReview = ({ myUserId, setShowAddReview, handleCancelReview, reviews }) 
   const sendNewReview = async (event) => {
     event.preventDefault()
     try {
+      const username = localStorage.getItem("username")
       const response = await fetch(`${BASE_URL}/reviews`, {
         method: "POST",
         headers: {
@@ -106,15 +108,22 @@ const AddReview = ({ myUserId, setShowAddReview, handleCancelReview, reviews }) 
         }),
       });
       const data = await response.json();
-      setUpdatedReview([...reviews, data])
+      console.log(data, "DATA!!!!")
+      data.username = localStorage.getItem("username")
+      setReviewsByIsbn([...reviewsByIsbn, data])
+      setShowAddReview(!setShowAddReview)
+      console.log(userIds, "ADDREVIEW USERIDS")
+      if(userIds || userIds?.length){
+        setUserIds([...userIds, data.user_id])
+        console.log("This is the IF")
+      } else {
+        setUserIds([data.user_id])
+        console.log("This is the ELSE")
+      }
     } catch (error) {
       console.log(error);
     }
   };
-
-  // const handleCancelReview = () => {
-  //   setShowAddReview(false);
-  // };
 
   return (
     <div className="ml-3">

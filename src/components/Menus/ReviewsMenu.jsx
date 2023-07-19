@@ -18,13 +18,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-function ReviewsMenu({
-  review,
-  reviewUserId,
-  reviewId,
-  reviewsByIsbn,
-  setReviewsByIsbn,
-}) {
+function ReviewsMenu(props) {
+  
+
+  const review = props.review
+  const reviewUserId = props.reviewUserId
+  const reviewId = props.reviewId
+  const reviewsByIsbn = props.reviewsByIsbn
+  const setReviewsByIsbn = props.setReviewsByIsbn
+  const setShowAddReview = props.setShowAddReview
+  const showAddReview = props.showAddReview
+
   const [reviewContentToEdit, setReviewContentToEdit] = useState({});
   const [reviewScoreToEdit, setReviewScoreToEdit] = useState({});
   const [showEditForm, setShowEditForm] = useState(false);
@@ -33,11 +37,13 @@ function ReviewsMenu({
 
   // Delete My Review
   const handleDeleteReview = async (userId, reviewId) => {
+    console.log("THIS IS DELETE!!!")
     try {
       await deleteMyReview(userId, reviewId);
       setReviewsByIsbn((prevReviews) =>
         prevReviews.filter((review) => review.id !== reviewId)
       );
+      setShowAddReview(!props.showAddReview);
     } catch (error) {
       console.log(error);
     }
@@ -61,6 +67,8 @@ function ReviewsMenu({
         const userName = localStorage.getItem("username");
         postUpdatedReview.username = userName;
         setReviewsByIsbn([postUpdatedReview, ...filteredReviews]);
+        setReviewScoreToEdit(review.score);
+        setReviewContentToEdit(review.content)
       }
       setShowEditForm(!showEditForm);
     } catch (error) {
@@ -74,12 +82,12 @@ function ReviewsMenu({
     console.log(showEditForm);
   };
 
-  useEffect(() => {
-    if (review) {
-      setReviewScoreToEdit(review.score);
-      setReviewContentToEdit(review.content);
-    }
-  }, [review]);
+  // useEffect(() => {
+  //   if (review) {
+  //     setReviewScoreToEdit(review.score);
+  //     setReviewContentToEdit(review.content);
+  //   }
+  // }, []);
 
   return (
     <Dialog>
