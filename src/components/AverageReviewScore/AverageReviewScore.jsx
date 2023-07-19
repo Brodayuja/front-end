@@ -19,9 +19,9 @@ const AverageReviewScore = ({ reviews }) => {
   return (
     <div>
       {typeof averageScore === "number" ? (
-        <h2>Average Review Score: {averageScore.toFixed(2)}</h2>
+        <p className="font-bold">Rating: {averageScore.toFixed(2)} / 5.00</p>
       ) : (
-        <h2>{averageScore}</h2>
+        <p>{averageScore}</p>
       )}
     </div>
   );

@@ -62,23 +62,29 @@ function SingleBookDetail({
     <>
       <NavBar />
 
-      <div>
-        {books.length ? (
-          <div className="flex">
-            <img
-              className="object-contain"
-              src={bookDetail[0].bookCover}
-              alt="Image of Book cover"
-            />
-            <div className="p-8">
-              <p className="underline text-start">
-                Title: {bookDetail[0].title}
-              </p>
-              <p className="text-start">Author: {bookDetail[0].author}</p>
-              <p className="text-xs text-start">
+      <div className="mx-12 mt-6">
+            {books.length ? (
+              <div className="flex items-start">
+                <img
+                  className="w-52 h-auto object-contain flex-shrink-0 shadow-xl"
+                  src={bookDetail[0].bookCover}
+                  alt="Image of Book cover"
+                />
+                <div className="px-8">
+                  <h2 className="underline text-start font-bold pb-2">
+                    {bookDetail[0].title}
+                  </h2>
+
+              <p className="text-start pb-2">Author: {bookDetail[0].author}</p>
+
+              <AverageReviewScore reviews={reviewsByIsbn} />
+
+              <p className="text-sm text-start mb-2">
                 Summary: {bookDetail[0].summary}
               </p>
-              <p>Genres: {bookDetail[0].genre}</p>
+
+              <p><span className="font-bold">Genres:</span> {bookDetail[0].genre}</p>
+
               <p>
                 Publisher: {bookDetail[0].publisher},{" "}
                 {bookDetail[0].yearPublished}
@@ -89,28 +95,28 @@ function SingleBookDetail({
         ) : (
           <p>Loading . . .</p>
         )}
-        <div>
-          <AverageReviewScore reviews={reviewsByIsbn} />
-        </div>
+       
+          
+        
         <div>
           {token && (
             <>
               {showAddReview ? (
-                <div>
+                <div className="flex justify-center bg-columbiaBlue rounded-xl border p-2 w-2/3 mt-4">
                   <AddReview
                     myUserId={myUserId}
                     setShowAddReview={setShowAddReview}
+                    handleCancelReview={handleCancelReview}
                   />
-                  <button onClick={handleCancelReview}>Cancel</button>
                 </div>
               ) : (
-                <>
+                <div className="ml-6 mt-2 inline-block rounded-xl px-2">
                   {!userIds.includes(Number(myUserId)) ? (
                     <button onClick={handleAddReview}>Add Review</button>
                   ) : (
-                    <p>You have already reviewed this book.</p>
+                    <p className="ml-1 font-bold">Already reviewed</p>
                   )}
-                </>
+                </div>
               )}
             </>
           )}

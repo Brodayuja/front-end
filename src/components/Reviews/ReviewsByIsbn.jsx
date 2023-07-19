@@ -144,11 +144,11 @@ const GetAllReviewsByISBN = () => {
   const token = localStorage.getItem("token");
 
   return (
-    <section className="py-24 2xl:py-44 bg-blueGray-100 rounded-t-10xl overflow-hidden">
+    <section className="py-24 2xl:py-44 bg-blueGray-100 rounded-t-10xl overflow-hidden -mt-28">
       {reviewsByIsbn.map((review) => (
-        <div key={review.id} className="container px-4 mx-auto">
+        <div key={review.id} className="container px-4 mx-auto my-14">
           <div className="mb-2 shadow-lg rounded-t-8xl rounded-b-5xl overflow-hidden">
-            <div className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-gray-400 bg-opacity-40">
+            <div className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-columbiaBlue bg-opacity-40">
               <div className="flex flex-wrap items-center justify-between">
                 <Avatar>
                   <AvatarFallback>USER</AvatarFallback>
@@ -163,7 +163,7 @@ const GetAllReviewsByISBN = () => {
                 </span>
                 <div className="inline-flex w-full md:w-1/3 text-right justify-center">
                   <p className="mb-8 text-sm text-gray-500 ">
-                    Added 2 months ago
+                  {review.created_at.split("T")[0]} {review.created_at.split("T")[1].substring(0, 5)}
                   </p>
                 </div>
                 <div className="flex flex-row">
@@ -196,7 +196,7 @@ const GetAllReviewsByISBN = () => {
           
           <div>
             {token ? (
-              <>
+              <div className="space-x-4">
                 <input
                   type="text"
                   value={commentText[review.id] || ""}
@@ -204,18 +204,18 @@ const GetAllReviewsByISBN = () => {
                   placeholder="Enter your comment"
                 />
                 <button
-                  className="bg-gray-400"
+                  className="bg-columbiaBlue px-6"
                   onClick={() => handlePostComment(review.id)}
                 >
                   Post Comment
                 </button>
                 <button
-                  className="bg-gray-400"
+                  className="bg-columbiaBlue"
                   onClick={() => handleToggleComments(review.id)}
                 >
                   {activeReviewId === review.id ? "Hide Comments" : "View All Comments"}
                 </button>
-              </>
+              </div>
             ) : (
               "Must Log in to comment on reviews"
             )}

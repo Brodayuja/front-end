@@ -12,6 +12,7 @@ const NavBar = (props) => {
     localStorage.clear();
     props.setIsLoggedIn(false);
     window.location.href = "http://localhost:3000/logout";
+    navigate("/")
   };
 
   const myToken = localStorage.getItem("token");

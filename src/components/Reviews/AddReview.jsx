@@ -14,7 +14,7 @@ import {
 //   CardTitle,
 // } from "@/components/ui/card";
 
-const AddReview = ({ myUserId, setShowAddReview }) => {
+const AddReview = ({ myUserId, setShowAddReview, handleCancelReview }) => {
   const [newContent, setNewContent] = useState("");
   const [newScore, setNewScore] = useState(0);
   const [isbn_nf, setIsbn_nf] = useState(null);
@@ -119,20 +119,9 @@ const AddReview = ({ myUserId, setShowAddReview }) => {
   return (
     <div className="ml-3">
       <form onSubmit={sendNewReview}>
-        <label htmlFor="content">Write Your Book Review Here:</label>
-        <br />
-        <input
-          name="content"
-          type="textarea"
-          value={newContent}
-          onChange={(event) => {
-            setNewContent(event.target.value);
-          }}
-        ></input>{" "}
-        <br />
         <label htmlFor="score">What rating do you give this book?</label>
         <br />
-        <input
+        <input className="w-16"
           name="score"
           type="number"
           id="score"
@@ -144,12 +133,26 @@ const AddReview = ({ myUserId, setShowAddReview }) => {
           }}
         ></input>{" "}
         <br />
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          Submit!
-        </button>
+        <label htmlFor="content">Write Your Book Review Here:</label>
+        <br />
+        <textarea
+          name="content"
+          value={newContent}
+          onChange={(event) => {
+            setNewContent(event.target.value);
+          }}
+          className="h-20 w-64 p-2 border border-black"
+        />
+
+        <div className="p-2">
+          <button
+            type="submit"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-2"
+          >
+            Submit!
+          </button>
+          <button onClick={handleCancelReview}>Cancel</button>
+        </div>
       </form>
     </div>
   );
