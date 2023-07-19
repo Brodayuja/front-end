@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
 import GetAllReviewsByISBN from "../Reviews/ReviewsByIsbn";
 import AddReview from "../Reviews/AddReview";
-import { fetchReviews } from "../api-handlers";
+import { fetchReviews, fetchUserById } from "../api-handlers";
 import AverageReviewScore from "../AverageReviewScore/AverageReviewScore";
 
 function SingleBookDetail({
@@ -19,6 +19,7 @@ function SingleBookDetail({
   const [showAddReview, setShowAddReview] = useState(false);
   const [reviewsByIsbn, setReviewsByIsbn] = useState([]);
   const [updatedReview, setUpdatedReview] = useState([]);
+  const [userIds, setUserIds] = useState([])
 
 
   const bookDetail = books.filter((singleBook) => {
@@ -33,6 +34,7 @@ function SingleBookDetail({
     try {
       const getFetchedReviews = async () => {
         const fetchedReviews = await fetchReviews();
+        console.log(fetchedReviews, "FETCH REVIEWS")
         const filteredReviews = fetchedReviews.filter((review) => {
           return (
             review.nfBook_isbn === isbn ||
@@ -40,27 +42,49 @@ function SingleBookDetail({
             review.graphicBook_isbn === isbn ||
             review.bookClubBook_isbn === isbn ||
             review.childrensBook_isbn === isbn
-          );
-        });
-        setReviewsByIsbn(filteredReviews);
+            );
+          });
+
+          console.log(filteredReviews, "FILTERED REVIEWS")
+
+          const updatedReviews = await Promise.all(
+          filteredReviews.map(async (review) => {
+            const user = await fetchUserById(review.user_id);
+            return { ...review, username: user.username };
+          })
+        );
+        
+        console.log(updatedReviews, "Updated REVIEWS!!!")
+        setReviewsByIsbn(updatedReviews);
+        console.log(reviewsByIsbn, "REVIEWS BY ISBN!!!!")
+          
+        const mappedReviews = updatedReviews.map((review) => review.user_id)
+
+        console.log(mappedReviews, "MAPPED REVIEWS")
+        setUserIds(mappedReviews)
+
+
       };
       getFetchedReviews();
+      console.log("Made It to the end of the useEffect")
     } catch (error) {
       console.log(error);
     }
   }, []);
 
   const handleAddReview = () => {
-    setShowAddReview(true);
+    setShowAddReview(!showAddReview);
   };
 
   const handleCancelReview = () => {
-    setShowAddReview(false);
+    console.log("triggered Cancel Review")
+    setShowAddReview(!showAddReview);
   };
 
-  const userIds = reviewsByIsbn.map((review) => review.user_id);
+  // const userIds = reviewsByIsbn.map((review) => review.user_id);
   const token = localStorage.getItem("token");
 
+  console.log(userIds, "userIds")
   return (
     <>
       <NavBar
@@ -111,16 +135,20 @@ function SingleBookDetail({
               {showAddReview ? (
                 <div className="flex justify-center bg-columbiaBlue rounded-xl border p-2 w-2/3 mt-4">
                   <AddReview
+                    setUserIds={setUserIds}
+                    userIds={userIds}
                     myUserId={myUserId}
                     setShowAddReview={setShowAddReview}
                     handleCancelReview={handleCancelReview}
                     reviews={reviews}
                     setUpdatedReview={setUpdatedReview}
+                    reviewsByIsbn={reviewsByIsbn}
+                    setReviewsByIsbn={setReviewsByIsbn}
                   />
                 </div>
               ) : (
                 <div className="ml-6 mt-2 inline-block rounded-xl px-2">
-                  {!userIds.includes(Number(myUserId)) ? (
+                  {(!userIds.includes(Number(myUserId))) || (!userIds.length)? (
                     <button onClick={handleAddReview}>Add Review</button>
                   ) : (
                     <p className="ml-1 font-bold">Already reviewed</p>
@@ -130,7 +158,13 @@ function SingleBookDetail({
             </>
           )}
 
-          <GetAllReviewsByISBN myUserId={myUserId} myUsername={myUsername} />
+          {reviewsByIsbn.length ? (
+            <GetAllReviewsByISBN myUserId={myUserId} myUsername={myUsername} setShowAddReview={setShowAddReview} showAddReview={showAddReview} reviewsByIsbn={reviewsByIsbn} setReviewsByIsbn={setReviewsByIsbn}/>
+          ) : (
+            <p>No Reviews</p>
+          )}
+
+          
         </div>
       </div>
     </>

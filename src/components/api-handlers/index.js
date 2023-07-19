@@ -1,5 +1,7 @@
-export const BASE_URL = "https://bookrevews-back-end.onrender.com/api";
+// CHANGE SIGNOUT URL IN THE NAVBAR BEFORE DEPLOYING
 
+// export const BASE_URL = "https://bookrevews-back-end.onrender.com/api";
+export const BASE_URL = "http://localhost:3000/api"
 
 
 

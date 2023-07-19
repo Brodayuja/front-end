@@ -1,4 +1,4 @@
-import { fetchAllUserData, loginUser } from "../api-handlers";
+import { BASE_URL, fetchAllUserData, loginUser } from "../api-handlers";
 import { useNavigate, Link } from "react-router-dom";
 import React, { useState } from "react";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -41,7 +41,7 @@ const Login = (props) => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "https://bookrevews-back-end.onrender.com/auth/google"; // Redirect to Google authentication
+    window.location.href = `${BASE_URL}/auth/google`; // Redirect to Google authentication
   };
 
   return (

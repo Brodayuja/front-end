@@ -15,9 +15,13 @@ import ReviewsMenu from "../Menus/ReviewsMenu";
 import ReportReview from "../ReportReview/ReportReview";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const GetAllReviewsByISBN = () => {
+const GetAllReviewsByISBN = (props) => {
+  const reviewsByIsbn = props.reviewsByIsbn
+  const setReviewsByIsbn = props.setReviewsByIsbn
+  const setShowAddReview = props.setShowAddReview
+  const showAddReview = props.showAddReview
   const { isbn } = useParams();
-  const [reviewsByIsbn, setReviewsByIsbn] = useState([]);
+  // const [reviewsByIsbn, setReviewsByIsbn] = useState([]);
   const [comments, setComments] = useState([]);
   const [activeReviewId, setActiveReviewId] = useState(null);
   const [commentText, setCommentText] = useState({});
@@ -27,34 +31,34 @@ const GetAllReviewsByISBN = () => {
   const myUserId = localStorage.getItem("userId");
 
   // Fetches the Reviews w/ usernames
-  useEffect(() => {
-    const fetchReviewsAndUsernames = async () => {
-      try {
-        const fetchedReviews = await fetchReviews();
-        const filteredReviews = fetchedReviews.filter(
-          (review) =>
-            review.nfBook_isbn === isbn ||
-            review.fictionBook_isbn === isbn ||
-            review.graphicBook_isbn === isbn ||
-            review.bookClubBook_isbn === isbn ||
-            review.childrensBook_isbn === isbn
-        );
+  // useEffect(() => {
+  //   const fetchReviewsAndUsernames = async () => {
+  //     try {
+  //       const fetchedReviews = await fetchReviews();
+  //       const filteredReviews = fetchedReviews.filter(
+  //         (review) =>
+  //           review.nfBook_isbn === isbn ||
+  //           review.fictionBook_isbn === isbn ||
+  //           review.graphicBook_isbn === isbn ||
+  //           review.bookClubBook_isbn === isbn ||
+  //           review.childrensBook_isbn === isbn
+  //       );
 
-        const updatedReviews = await Promise.all(
-          filteredReviews.map(async (review) => {
-            const user = await fetchUserById(review.user_id);
-            return { ...review, username: user.username };
-          })
-        );
+  //       const updatedReviews = await Promise.all(
+  //         filteredReviews.map(async (review) => {
+  //           const user = await fetchUserById(review.user_id);
+  //           return { ...review, username: user.username };
+  //         })
+  //       );
 
-        setReviewsByIsbn(updatedReviews);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  //       // setReviewsByIsbn(updatedReviews);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-    fetchReviewsAndUsernames();
-  }, []);
+  //   fetchReviewsAndUsernames();
+  // }, []);
 
   // Fetches the comments based on toggle of ViewAll
   useEffect(() => {
@@ -145,7 +149,9 @@ const GetAllReviewsByISBN = () => {
 
   return (
     <section className="py-24 2xl:py-44 bg-blueGray-100 rounded-t-10xl overflow-hidden -mt-28">
-      {reviewsByIsbn.map((review) => (
+      {reviewsByIsbn.map((review) => {
+       
+      return (
         <div key={review.id} className="container px-4 mx-auto my-14">
           <div className="mb-2 shadow-lg rounded-t-8xl rounded-b-5xl overflow-hidden">
             <div className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-columbiaBlue bg-opacity-40">
@@ -169,11 +175,13 @@ const GetAllReviewsByISBN = () => {
                 <div className="flex flex-row">
                   <div>
                     <ReviewsMenu
+                      setShowAddReview={setShowAddReview}
                       reviewUserId={review.user_id}
                       reviewId={review.id}
                       review={review}
                       reviewsByIsbn={reviewsByIsbn}
                       setReviewsByIsbn={setReviewsByIsbn}
+                      showAddReview={showAddReview}
                     />
                   </div>
                   <div>
@@ -242,7 +250,7 @@ const GetAllReviewsByISBN = () => {
             )}
           </div>
         </div>
-      ))}
+      )})}
     </section>
   );
 };

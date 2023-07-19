@@ -2,6 +2,7 @@ import pageTurnerLogo2 from "../images/pageTurnersLogo2.png";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
+import { BASE_URL } from "../api-handlers";
 
 const NavBar = (props) => {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ const NavBar = (props) => {
   const handleSignOut = () => {
     localStorage.clear();
     props.setIsLoggedIn(false);
-    window.location.href = "https://bookrevews-back-end.onrender.com/logout";
+    window.location.href = "http://localhost:3000/logout";
     navigate("/")
   };
 
