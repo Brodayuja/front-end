@@ -8,11 +8,12 @@ import {
   deleteMyComment,
   deleteMyReview,
   updateReview,
+  fetchAllUserData,
 } from "../api-handlers/index";
 import SingleComment from "./SingleComment";
 import ReviewsMenu from "../Menus/ReviewsMenu";
 import ReportReview from "../ReportReview/ReportReview";
-import { Paper } from "@mui/material";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const GetAllReviewsByISBN = () => {
   const { isbn } = useParams();
@@ -74,6 +75,19 @@ const GetAllReviewsByISBN = () => {
     }
   }, [activeReviewId]);
 
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const userData = await fetchAllUserData();
+
+        return userData;
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    getUserData();
+  }, []);
+
   // Closes other Active ViewAlls
   const handleToggleComments = (reviewId) => {
     if (activeReviewId === reviewId) {
@@ -134,11 +148,10 @@ const GetAllReviewsByISBN = () => {
           <div className="mb-2 shadow-lg rounded-t-8xl rounded-b-5xl overflow-hidden">
             <div className="pt-3 pb-3 md:pb-1 px-4 md:px-16 bg-gray-400 bg-opacity-40">
               <div className="flex flex-wrap items-center justify-between">
-                <img
-                  className="mr-6"
-                  src="uinel-assets/images/ecommerce-reviews/user.png"
-                  alt=""
-                />
+                <Avatar>
+                  <AvatarFallback>USER</AvatarFallback>
+                </Avatar>
+
                 <h4 className="w-full md:w-auto text-xl font-heading font-medium">
                   {review.username}
                 </h4>

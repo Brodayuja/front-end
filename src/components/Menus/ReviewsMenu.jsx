@@ -71,6 +71,7 @@ function ReviewsMenu({
   // Handle Toggle Edit
   const handleToggleEdit = () => {
     setShowEditForm(!showEditForm);
+    console.log(showEditForm);
   };
 
   useEffect(() => {
@@ -81,61 +82,54 @@ function ReviewsMenu({
   }, [review]);
 
   return (
-    <DropdownMenu>
-      <Dialog>
+    <Dialog>
+      <DropdownMenu>
         <DropdownMenuTrigger>
           <SettingsIcon />
         </DropdownMenuTrigger>
         {review.user_id == storedUserId && (
           <>
             {showEditForm ? (
-              <>
-                <DialogContent>
-                  <form onSubmit={postEditedReview}>
-                    <input
-                      type="number"
-                      min="1"
-                      max="5"
-                      value={reviewScoreToEdit}
-                      onChange={(event) => {
-                        setReviewScoreToEdit(event.target.value);
-                      }}
-                    />
+              <DialogContent>
+                <form onSubmit={postEditedReview}>
+                  <input
+                    type="number"
+                    min="1"
+                    max="5"
+                    value={reviewScoreToEdit}
+                    onChange={(event) => {
+                      setReviewScoreToEdit(event.target.value);
+                    }}
+                  />
 
-                    <input
-                      type="text"
-                      value={reviewContentToEdit}
-                      onChange={(event) =>
-                        setReviewContentToEdit(event.target.value)
-                      }
-                    />
+                  <input
+                    type="text"
+                    value={reviewContentToEdit}
+                    onChange={(event) =>
+                      setReviewContentToEdit(event.target.value)
+                    }
+                  />
 
-                    <button type="submit">Update</button>
-                  </form>
-                </DialogContent>
-              </>
+                  <button type="submit">Update</button>
+                </form>
+              </DialogContent>
             ) : (
-              <>
-                <DropdownMenuContent>
-                  <DropdownMenuItem>
-                    <DialogTrigger onClick={handleToggleEdit}>
-                      Edit
-                    </DialogTrigger>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>
-                    <button
-                      onClick={() => handleDeleteReview(reviewUserId, reviewId)}
-                    >
-                      Delete
-                    </button>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </>
+              <DropdownMenuContent>
+                <DialogTrigger asChild>
+                  <button onClick={handleToggleEdit}>Edit</button>
+                </DialogTrigger>
+
+                <button
+                  onClick={() => handleDeleteReview(reviewUserId, reviewId)}
+                >
+                  Delete
+                </button>
+              </DropdownMenuContent>
             )}
           </>
         )}
-      </Dialog>
-    </DropdownMenu>
+      </DropdownMenu>
+    </Dialog>
   );
 }
 export default ReviewsMenu;

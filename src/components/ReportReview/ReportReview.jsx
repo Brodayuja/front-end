@@ -50,14 +50,14 @@ const ReportReview = ({ reviewId }) => {
       <DialogTrigger>...</DialogTrigger>
       <div>
         {error && <p>{error}</p>}
-        <DialogContent>
+        <DialogContent className="flex justify-center bg-gray-50">
           <label>
             <input
               type="checkbox"
               checked={isInappropriate}
               onChange={(e) => setIsInappropriate(e.target.checked)}
             />
-            Inappropriate
+            <p>Inappropriate</p>
           </label>
 
           <br />
@@ -68,7 +68,7 @@ const ReportReview = ({ reviewId }) => {
               checked={isNotAccurate}
               onChange={(e) => setIsNotAccurate(e.target.checked)}
             />
-            Not Accurate
+            <p>Not Accurate</p>
           </label>
 
           <br />
