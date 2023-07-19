@@ -25,8 +25,8 @@ function NFBooksShelf({averageScores}) {
     return (
         <div>
           <div className="flex justify-between">
-            <h2 class="underline underline-offset-1 font-bold">Non-Fiction</h2>
-            <Link class="underline underline-offset-1 font-bold" to="/nonfiction">View All</Link>
+            <h2 className="underline underline-offset-1 font-bold">Non-Fiction</h2>
+            <Link className="underline underline-offset-1 font-bold" to="/nonfiction">View All</Link>
           </div>
 
           <div className="flex bg-contain justify-around py-4 px-2"
