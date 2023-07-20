@@ -162,6 +162,7 @@ export const registerUser = async (username, password, email, name) => {
           password: password,
           email: email,
           name: name,
+          is_admin: false,
         },
       }),
     });
