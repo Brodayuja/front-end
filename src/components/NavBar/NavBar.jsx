@@ -13,7 +13,8 @@ const NavBar = (props) => {
     localStorage.clear();
     props.setIsLoggedIn(false);
     // HEY KIDS CHANGE THIS BEFORE DEPLOYING!!!
-    window.location.href = "http://localhost:3000/logout";
+    window.location.href = "https://bookrevews-back-end.onrender.com/logout"                        
+    //"http://localhost:3000/logout";
     navigate("/")
   };
 

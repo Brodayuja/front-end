@@ -14,7 +14,7 @@ function Profile({
   const [user, setUser] = useState(null);
   const cookieId = localStorage.getItem("userId");
 
-  const adminUrl = "http://localhost:5000";
+  const adminUrl = "https://resplendent-starburst-609792.netlify.app/";
 
   useEffect(() => {
     const altFetchData = async () => {
