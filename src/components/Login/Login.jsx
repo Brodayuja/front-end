@@ -41,7 +41,8 @@ const Login = (props) => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "https://bookrevews-back-end.onrender.com/auth/google"; // Redirect to Google authentication
+    window.location.href =
+      "https://main.d2t4p7pc5iy3t6.amplifyapp.com/auth/google"; // Redirect to Google authentication
   };
 
   return (
